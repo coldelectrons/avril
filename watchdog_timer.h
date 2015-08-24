@@ -17,14 +17,14 @@
 //
 // Real time clock.
 
-#ifndef AVRLIB_WATCHDOG_TIMER_H_
-#define AVRLIB_WATCHDOG_TIMER_H_
+#ifndef AVRIL_WATCHDOG_TIMER_H_
+#define AVRIL_WATCHDOG_TIMER_H_
 
 #include <avr/wdt.h>
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 // Note: this requires the bootloader to clear the Watchdog timer flags just
 // after start-up.
@@ -39,6 +39,6 @@ inline void ResetWatchdog() {
   WDTCSR = 0;
 }
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_WATCHDOG_TIMER_H_
+#endif  // AVRIL_WATCHDOG_TIMER_H_

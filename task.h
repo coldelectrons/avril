@@ -18,10 +18,10 @@
 // Implementation of multitasking by coroutines, and naive deterministic
 // scheduler.
 
-#ifndef AVRLIB_TASK_H_
-#define AVRLIB_TASK_H_
+#ifndef AVRIL_TASK_H_
+#define AVRIL_TASK_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
 #define TASK_BEGIN static uint16_t state = 0; \
     switch(state) { \
@@ -125,6 +125,6 @@ uint8_t NaiveScheduler<num_slots>::slots_[num_slots];
 template<uint8_t num_slots>
 uint8_t NaiveScheduler<num_slots>::current_slot_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_TASK_H_
+#endif  // AVRIL_TASK_H_

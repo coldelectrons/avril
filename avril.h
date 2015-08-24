@@ -18,15 +18,15 @@
 // Important: All buffer sizes are expected to be less than 256! (fit in 8
 // bits), and must be powers of 2.
 
-#ifndef AVRLIB_AVRLIB_H_
-#define AVRLIB_AVRLIB_H_
+#ifndef AVRIL_AVRLIB_H_
+#define AVRIL_AVRLIB_H_
 
 #include <avr/io.h>
 
-#include "avrlib/base.h"
-#include "avrlib/size_to_type.h"
+#include "avril/base.h"
+#include "avril/size_to_type.h"
 
-namespace avrlib {
+namespace avril {
 
 enum DataOrder {
   MSB_FIRST = 0,
@@ -188,6 +188,6 @@ class scoped_resource {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_AVRLIB_H_
+#endif   // AVRIL_AVRIL_H_

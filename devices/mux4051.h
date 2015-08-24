@@ -20,14 +20,14 @@
 //
 // Based on parallel_io.cc code by Olivier Gillet (ol.gillet@gmail.com)
 
-#ifndef AVRLIB_DEVICES_MUX4051_H_
-#define AVRLIB_DEVICES_MUX4051_H_
+#ifndef AVRIL_DEVICES_MUX4051_H_
+#define AVRIL_DEVICES_MUX4051_H_
 
 #include <avr/io.h>
 
-#include "avrlib/gpio.h"
+#include "avril/gpio.h"
 
-namespace avrlib {
+namespace avril {
 
 enum Mux4051PortMode {
   MUX4051_NIBBLE_HIGH,
@@ -84,6 +84,6 @@ struct Mux4051Port {
 
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_MUX4051_H_
+#endif   // AVRIL_DEVICES_MUX4051_H_

@@ -17,14 +17,14 @@
 //
 // Real time clock.
 
-#ifndef AVRLIB_TIME_H_
-#define AVRLIB_TIME_H_
+#ifndef AVRIL_TIME_H_
+#define AVRIL_TIME_H_
 
 #include <avr/delay.h>
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 uint32_t milliseconds();
 uint32_t Delay(uint32_t delay);
@@ -81,6 +81,6 @@ inline void TickSystemClock() {
   }
 }
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_TIME_H_
+#endif  // AVRIL_TIME_H_

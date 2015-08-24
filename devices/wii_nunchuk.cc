@@ -17,9 +17,9 @@
 //
 // Driver for Wii Nunchuk.
 
-#include "avrlib/devices/wii_nunchuk.h"
+#include "avril/devices/wii_nunchuk.h"
 
-namespace avrlib {
+namespace avril {
 
 /* static */
 uint8_t WiiNunchuk::data_[6];
@@ -27,4 +27,4 @@ uint8_t WiiNunchuk::data_[6];
 /* static */
 I2cMaster<8, 4, 400000> WiiNunchuk::bus_;
 
-}  // namespace avrlib
+}  // namespace avril

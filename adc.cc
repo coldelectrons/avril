@@ -17,9 +17,9 @@
 //
 // Interface to the onboard ADC converter, and analog multiplexer.
 
-#include "avrlib/adc.h"
+#include "avril/adc.h"
 
-namespace avrlib {
+namespace avril {
 
 /* static */
 uint8_t Adc::admux_value_ = ADC_DEFAULT << 6;
@@ -33,4 +33,4 @@ uint8_t AdcInputScanner::num_inputs_;
 /* static */
 int16_t AdcInputScanner::state_[8];
 
-}  // namespace avrlib
+}  // namespace avril

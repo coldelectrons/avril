@@ -17,15 +17,15 @@
 //
 // Event queue.
 
-#ifndef AVRLIB_UI_EVENT_QUEUE_H_
-#define AVRLIB_UI_EVENT_QUEUE_H_
+#ifndef AVRIL_UI_EVENT_QUEUE_H_
+#define AVRIL_UI_EVENT_QUEUE_H_
 
-#include "avrlib/base.h"
-#include "avrlib/op.h"
-#include "avrlib/ring_buffer.h"
-#include "avrlib/time.h"
+#include "avril/base.h"
+#include "avril/op.h"
+#include "avril/ring_buffer.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 enum ControlType {
   CONTROL_POT = 0,
@@ -104,6 +104,6 @@ RingBuffer<EventQueue<size> > EventQueue<size>::events_;
 template<uint8_t size>
 uint32_t EventQueue<size>::last_event_time_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_UI_EVENT_QUEUE_H_
+#endif  // AVRIL_UI_EVENT_QUEUE_H_

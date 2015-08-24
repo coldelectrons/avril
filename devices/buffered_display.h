@@ -23,17 +23,17 @@
 // process and differences are sent to the LCD display. This also manages a
 // software blinking cursor.
 
-#ifndef AVRLIB_DEVICES_BUFFERED_DISPLAY_H_
-#define AVRLIB_DEVICES_BUFFERED_DISPLAY_H_
+#ifndef AVRIL_DEVICES_BUFFERED_DISPLAY_H_
+#define AVRIL_DEVICES_BUFFERED_DISPLAY_H_
 
 #include <string.h>
 
-#include "avrlib/base.h"
-#include "avrlib/log2.h"
-#include "avrlib/op.h"
-#include "avrlib/time.h"
+#include "avril/base.h"
+#include "avril/log2.h"
+#include "avril/op.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 static const uint8_t kLcdNoCursor = 0xff;
 static const uint8_t kLcdCursor = 0xff;
@@ -244,6 +244,6 @@ uint8_t BufferedDisplay<Lcd>::cursor_character_ = kLcdCursor;
 template<typename Lcd>
 uint8_t BufferedDisplay<Lcd>::status_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_BUFFERED_DISPLAY_H_
+#endif   // AVRIL_DEVICES_BUFFERED_DISPLAY_H_

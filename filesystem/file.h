@@ -17,16 +17,16 @@
 //
 // FatFS wrappers.
 
-#ifndef AVRLIB_FILESYSTEM_FILE_H_
-#define AVRLIB_FILESYSTEM_FILE_H_
+#ifndef AVRIL_FILESYSTEM_FILE_H_
+#define AVRIL_FILESYSTEM_FILE_H_
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
+#include "avril/avrlib.h"
 
-#include "avrlib/filesystem/filesystem.h"
+#include "avril/filesystem/filesystem.h"
 
-namespace avrlib {
+namespace avril {
 
 enum FileAttributes {
   FS_READ = FA_READ,
@@ -107,6 +107,6 @@ class File {
   DISALLOW_COPY_AND_ASSIGN(File);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_FILESYSTEM_FILE_H_
+#endif   // AVRIL_FILESYSTEM_FILE_H_

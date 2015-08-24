@@ -17,16 +17,16 @@
 //
 // FatFS wrappers.
 
-#ifndef AVRLIB_FILESYSTEM_DIRECTORY_H_
-#define AVRLIB_FILESYSTEM_DIRECTORY_H_
+#ifndef AVRIL_FILESYSTEM_DIRECTORY_H_
+#define AVRIL_FILESYSTEM_DIRECTORY_H_
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
+#include "avril/avrlib.h"
 
-#include "avrlib/filesystem/filesystem.h"
+#include "avril/filesystem/filesystem.h"
 
-namespace avrlib {
+namespace avril {
 
 class Directory {
  public:
@@ -50,6 +50,6 @@ class Directory {
   DISALLOW_COPY_AND_ASSIGN(Directory);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_FILESYSTEM_DIRECTORY_H_
+#endif   // AVRIL_FILESYSTEM_DIRECTORY_H_

@@ -17,11 +17,11 @@
 //
 // Random number generator.
 
-#include "avrlib/random.h"
+#include "avril/random.h"
 
-namespace avrlib {
+namespace avril {
 
 /* static */
 uint16_t Random::rng_state_ = 0x21;
 
-}  // namespace avrlib
+}  // namespace avril

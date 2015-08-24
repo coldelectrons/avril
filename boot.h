@@ -17,15 +17,15 @@
 //
 // Basic ATmega initialization.
 
-#ifndef AVRLIB_BOOT_H_
-#define AVRLIB_BOOT_H_
+#ifndef AVRIL_BOOT_H_
+#define AVRIL_BOOT_H_
 
-#include "avrlib/adc.h"
-#include "avrlib/avrlib.h"
-#include "avrlib/time.h"
-#include "avrlib/timer.h"
+#include "avril/adc.h"
+#include "avril/avrlib.h"
+#include "avril/time.h"
+#include "avril/timer.h"
 
-namespace avrlib {
+namespace avril {
 
 inline void Boot(bool init_timers) {
   sei();
@@ -59,4 +59,4 @@ inline void Boot(bool init_timers) {
 
 }  // avr
 
-#endif  // AVRLIB_BOOT_H_
+#endif  // AVRIL_BOOT_H_

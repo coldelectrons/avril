@@ -27,15 +27,15 @@
 // - More error checking of arguments / call sequences.
 // - Concurrent read/write/enumeration of several files/directories.
 
-#ifndef AVRLIB_FILESYSTEM_FAT_FILE_READER_H_
-#define AVRLIB_FILESYSTEM_FAT_FILE_READER_H_
+#ifndef AVRIL_FILESYSTEM_FAT_FILE_READER_H_
+#define AVRIL_FILESYSTEM_FAT_FILE_READER_H_
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
-#include "avrlib/time.h"
+#include "avril/avrlib.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 struct Partition {
   uint8_t state;
@@ -510,6 +510,6 @@ struct DummyMediaInterface {
 };
 
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_FILESYSTEM_FAT_FILE_READER_H_
+#endif   // AVRIL_FILESYSTEM_FAT_FILE_READER_H_

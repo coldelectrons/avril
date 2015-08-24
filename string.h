@@ -17,13 +17,13 @@
 //
 // Utility functions for string processing.
 
-#ifndef AVRLIB_STRING_H_
-#define AVRLIB_STRING_H_
+#ifndef AVRIL_STRING_H_
+#define AVRIL_STRING_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 #include <string.h>
 
-namespace avrlib {
+namespace avril {
 
 size_t strnlen(const char* string, size_t maxlen);
 
@@ -113,6 +113,6 @@ void UnsafeItoa(T i, uint8_t width, char* destination) {
   }
 }
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_STRING_H_
+#endif  // AVRIL_STRING_H_

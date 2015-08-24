@@ -17,17 +17,17 @@
 //
 // FatFS wrappers.
 
-#ifndef AVRLIB_FILESYSTEM_FILE_SYSTEM_H_
-#define AVRLIB_FILESYSTEM_FILE_SYSTEM_H_
+#ifndef AVRIL_FILESYSTEM_FILE_SYSTEM_H_
+#define AVRIL_FILESYSTEM_FILE_SYSTEM_H_
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
+#include "avril/avrlib.h"
 
-#include "avrlib/third_party/ff/ff.h"
-#include "avrlib/third_party/ff/mmc.h"
+#include "avril/third_party/ff/ff.h"
+#include "avril/third_party/ff/mmc.h"
 
-namespace avrlib {
+namespace avril {
 
 enum FilesystemStatus {
   FS_OK = 0,
@@ -156,6 +156,6 @@ class Filesystem {
   DISALLOW_COPY_AND_ASSIGN(Filesystem);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_FILESYSTEM_FILE_SYSTEM_H_
+#endif   // AVRIL_FILESYSTEM_FILE_SYSTEM_H_

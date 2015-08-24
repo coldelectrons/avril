@@ -17,12 +17,12 @@
 //
 // Fast 16-bit pseudo random number generator.
 
-#ifndef AVRLIB_RANDOM_H_
-#define AVRLIB_RANDOM_H_
+#ifndef AVRIL_RANDOM_H_
+#define AVRIL_RANDOM_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 class Random {
  public:
@@ -58,6 +58,6 @@ class Random {
   DISALLOW_COPY_AND_ASSIGN(Random);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_RANDOM_H_
+#endif  // AVRIL_RANDOM_H_

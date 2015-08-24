@@ -17,15 +17,15 @@
 //
 // Driver for a MCP492x DAC (SPI single/dual 12-bits DAC).
 
-#ifndef AVRLIB_DEVICES_MCP492X_H_
-#define AVRLIB_DEVICES_MCP492X_H_
+#ifndef AVRIL_DEVICES_MCP492X_H_
+#define AVRIL_DEVICES_MCP492X_H_
 
-#include "avrlib/spi.h"
-#include "avrlib/op.h"
+#include "avril/spi.h"
+#include "avril/op.h"
 
-using namespace avrlib;
+using namespace avril;
 
-namespace avrlib {
+namespace avril {
 
 static const uint8_t kDacSpeed = 2;
 
@@ -70,6 +70,6 @@ class Dac {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_MCP492X_H_
+#endif   // AVRIL_DEVICES_MCP492X_H_

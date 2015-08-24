@@ -18,10 +18,10 @@
 // Template class for converting an integer template argument to the
 // corresponding size type.
 
-#ifndef AVRLIB_SIZE_TO_TYPE_H_
-#define AVRLIB_SIZE_TO_TYPE_H_
+#ifndef AVRIL_SIZE_TO_TYPE_H_
+#define AVRIL_SIZE_TO_TYPE_H_
 
-namespace avrlib {
+namespace avril {
 
 template<uint8_t size>
 struct DataTypeForSize {
@@ -37,6 +37,6 @@ template<> struct DataTypeForSize<6> { typedef uint8_t Type; };
 template<> struct DataTypeForSize<7> { typedef uint8_t Type; };
 template<> struct DataTypeForSize<8> { typedef uint8_t Type; };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_SIZE_TO_TYPE_H_
+#endif   // AVRIL_SIZE_TO_TYPE_H_

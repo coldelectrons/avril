@@ -18,16 +18,16 @@
 // A set of basic operands, especially useful for fixed-point arithmetic, with
 // fast ASM implementations.
 
-#ifndef AVRLIB_OP_H_
-#define AVRLIB_OP_H_
+#ifndef AVRIL_OP_H_
+#define AVRIL_OP_H_
 
 #define USE_OPTIMIZED_OP
 
 #include <avr/pgmspace.h>
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 static inline int16_t Clip(int16_t value, int16_t min, int16_t max) {
   return value < min ? min : (value > max ? max : value);
@@ -742,6 +742,6 @@ static inline uint8_t InterpolateSample(
 
 #endif  // USE_OPTIMIZED_OP
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_OP_H_
+#endif  // AVRIL_OP_H_

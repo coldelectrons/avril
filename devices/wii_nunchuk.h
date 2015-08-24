@@ -17,12 +17,12 @@
 //
 // Driver for Wii Nunchuk.
 
-#ifndef AVRLIB_DEVICES_WII_NUNCHUK_H_
-#define AVRLIB_DEVICES_WII_NUNCHUK_H_
+#ifndef AVRIL_DEVICES_WII_NUNCHUK_H_
+#define AVRIL_DEVICES_WII_NUNCHUK_H_
 
-#include "avrlib/i2c/i2c.h"
+#include "avril/i2c/i2c.h"
 
-namespace avrlib {
+namespace avril {
 
 const uint8_t kNunchukAddress = 0x52;
 const uint8_t kNunchukPacketSize = 6;
@@ -110,6 +110,6 @@ class WiiNunchuk {
   DISALLOW_COPY_AND_ASSIGN(WiiNunchuk);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_WII_NUNCHUK_H_
+#endif   // AVRIL_DEVICES_WII_NUNCHUK_H_

@@ -18,11 +18,11 @@
 // Real time clock. Based on the code in the arduino core library
 // by David A. Mellis.
 
-#include "avrlib/time.h"
+#include "avril/time.h"
 
-#include "avrlib/timer.h"
+#include "avril/timer.h"
 
-namespace avrlib {
+namespace avril {
 
 volatile LongWord timer0_milliseconds = { 0 };
 uint8_t timer0_fractional = 0;
@@ -47,4 +47,4 @@ void InitClock() {
   Timer<0>::Start();
 }
 
-}  // namespace avrlib
+}  // namespace avril

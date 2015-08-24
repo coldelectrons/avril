@@ -43,14 +43,14 @@
 // TODO(pichenettes): Buffered writes not supported for now (should look up
 // the right interrupt handler).
 
-#ifndef AVRLIB_SERIAL_H_
-#define AVRLIB_SERIAL_H_
+#ifndef AVRIL_SERIAL_H_
+#define AVRIL_SERIAL_H_
 
-#include "avrlib/avrlib.h"
-#include "avrlib/gpio.h"
-#include "avrlib/ring_buffer.h"
+#include "avril/avrlib.h"
+#include "avril/gpio.h"
+#include "avril/ring_buffer.h"
 
-namespace avrlib {
+namespace avril {
 
 const uint8_t kSerialOutputBufferSize = 32;
 const uint8_t kSerialInputBufferSize = 32;
@@ -351,7 +351,7 @@ typedef SerialPort<
 
 #endif  // #ifdef HAS_USART3
 
-}  // namespace avrlib
+}  // namespace avril
 
 
-#endif  // AVRLIB_SERIAL_H_
+#endif  // AVRIL_SERIAL_H_

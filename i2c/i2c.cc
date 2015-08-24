@@ -17,16 +17,16 @@
 //
 // Interrupt handler for I2C.
 
-#include "avrlib/i2c/i2c.h"
+#include "avril/i2c/i2c.h"
 
 #include <avr/interrupt.h>
 
-#include "avrlib/gpio.h"
+#include "avril/gpio.h"
 
-using namespace avrlib;
+using namespace avril;
 
 /* static, extern */
-void (*avrlib::i2c_handler_)() = 0;
+void (*avril::i2c_handler_)() = 0;
 
 ISR(TWI_vect) {
   if (i2c_handler_) {

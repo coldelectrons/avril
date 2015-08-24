@@ -18,10 +18,10 @@
 // Template class for converting a power of 2 to its logarithm in base 2.
 // Using log might simply not work for template arguments.
 
-#ifndef AVRLIB_LOG2_H_
-#define AVRLIB_LOG2_H_
+#ifndef AVRIL_LOG2_H_
+#define AVRIL_LOG2_H_
 
-namespace avrlib {
+namespace avril {
 
 template<uint8_t x>
 struct Log2 {
@@ -39,6 +39,6 @@ template<> struct Log2<32> { enum { value = 5 }; };
 template<> struct Log2<64> { enum { value = 6 }; };
 template<> struct Log2<128> { enum { value = 7 }; };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_LOG2_H_
+#endif   // AVRIL_LOG2_H_

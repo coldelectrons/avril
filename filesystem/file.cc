@@ -17,9 +17,9 @@
 //
 // FatFS wrappers.
 
-#include "avrlib/filesystem/file.h"
+#include "avril/filesystem/file.h"
 
-namespace avrlib {
+namespace avril {
 
 File::File() 
   : opened_(0) {
@@ -117,4 +117,4 @@ FilesystemStatus File::Write(
   return static_cast<FilesystemStatus>(f_write(&f_, data, size, written));
 }
 
-}  // namespace avrlib
+}  // namespace avril

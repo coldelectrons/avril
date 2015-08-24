@@ -17,18 +17,18 @@
 //
 // Driver for a HD44780 LCD display.
 
-#ifndef AVRLIB_DEVICES_HD44780_LCD_H_
-#define AVRLIB_DEVICES_HD44780_LCD_H_
+#ifndef AVRIL_DEVICES_HD44780_LCD_H_
+#define AVRIL_DEVICES_HD44780_LCD_H_
 
-#include "avrlib/base.h"
-#include "avrlib/log2.h"
-#include "avrlib/software_serial.h"
-#include "avrlib/time.h"
-#include "avrlib/resources_manager.h"
+#include "avril/base.h"
+#include "avril/log2.h"
+#include "avril/software_serial.h"
+#include "avril/time.h"
+#include "avril/resources_manager.h"
 
-using avrlib::SimpleResourcesManager;
+using avril::SimpleResourcesManager;
 
-namespace avrlib {
+namespace avril {
 
 enum LCD_FLAGS {
   LCD_COMMAND = 0x00,
@@ -240,6 +240,6 @@ template<typename RsPin, typename EnablePin, typename ParallelPort,
 volatile uint8_t Hd44780Lcd<RsPin, EnablePin, ParallelPort, width,
                             height>::status_counter_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_HD44780_LCD_H_
+#endif   // AVRIL_DEVICES_HD44780_LCD_H_

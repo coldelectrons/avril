@@ -19,15 +19,15 @@
 //
 // Driver for an array of clickable rotary encoders.
 
-#ifndef AVRLIB_DEVICES_ROTARY_ENCODER_ARRAY_H_
-#define AVRLIB_DEVICES_ROTARY_ENCODER_ARRAY_H_
+#ifndef AVRIL_DEVICES_ROTARY_ENCODER_ARRAY_H_
+#define AVRIL_DEVICES_ROTARY_ENCODER_ARRAY_H_
 
 #include <string.h>
 
-#include "avrlib/gpio.h"
-#include "avrlib/time.h"
+#include "avril/gpio.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 template<
     typename Load,
@@ -135,6 +135,6 @@ template<
     typename C, uint8_t size>
   uint8_t RotaryEncoderArray<Load, Clock, A, B, C, size>::stateC_[size];
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_DEVICES_ROTARY_ENCODER_ARRAY_H_
+#endif  // AVRIL_DEVICES_ROTARY_ENCODER_ARRAY_H_

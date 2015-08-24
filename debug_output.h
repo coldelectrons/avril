@@ -46,14 +46,14 @@
 //     DbgOutput::Tick(); // called at 31250 kHz
 //   }
 
-#ifndef AVRLIB_DEBUG_OUTPUT_H_
-#define AVRLIB_DEBUG_OUTPUT_H_
+#ifndef AVRIL_DEBUG_OUTPUT_H_
+#define AVRIL_DEBUG_OUTPUT_H_
 
 #include <stdio.h>
 #include <avr/io.h>
-#include "avrlib/serial.h"
+#include "avril/serial.h"
 
-namespace avrlib {
+namespace avril {
 
 template<typename SerialT, bool ensureCRLF = false>
 class DebugOutput {
@@ -96,6 +96,6 @@ template<typename SerialT, bool ensureCRLF>
   FILE DebugOutput<SerialT, ensureCRLF>::dbg_stdout_ = 
     { 0, 0, _FDEV_SETUP_WRITE, 0, 0, DebugOutput<SerialT, ensureCRLF>::dbg_putchar, NULL, 0 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEBUG_OUTPUT_H_
+#endif   // AVRIL_DEBUG_OUTPUT_H_

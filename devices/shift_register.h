@@ -17,14 +17,14 @@
 //
 // Driver for a 8-bits shift register.
 
-#ifndef AVRLIB_DEVICES_SHIFT_REGISTER_H_
-#define AVRLIB_DEVICES_SHIFT_REGISTER_H_
+#ifndef AVRIL_DEVICES_SHIFT_REGISTER_H_
+#define AVRIL_DEVICES_SHIFT_REGISTER_H_
 
-#include "avrlib/gpio.h"
-#include "avrlib/size_to_type.h"
-#include "avrlib/time.h"
+#include "avril/gpio.h"
+#include "avril/size_to_type.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 template<typename Latch, typename Clock, typename Data>
 struct BaseShiftRegisterOutput {
@@ -164,6 +164,6 @@ struct ShiftRegisterInput<Load, Clock, Data, size, MSB_FIRST>
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_DEVICES_SHIFT_REGISTER_H_
+#endif  // AVRIL_DEVICES_SHIFT_REGISTER_H_
