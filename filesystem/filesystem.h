@@ -22,12 +22,12 @@
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
+#include "avril/avrlib.h"
 
-#include "avrlib/third_party/ff/ff.h"
-#include "avrlib/third_party/ff/mmc.h"
+#include "avril/third_party/ff/ff.h"
+#include "avril/third_party/ff/mmc.h"
 
-namespace avrlib {
+namespace avril {
 
 enum FilesystemStatus {
   FS_OK = 0,

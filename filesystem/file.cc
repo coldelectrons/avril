@@ -17,9 +17,9 @@
 //
 // FatFS wrappers.
 
-#include "avrlib/filesystem/file.h"
+#include "avril/filesystem/file.h"
 
-namespace avrlib {
+namespace avril {
 
 File::File() 
   : opened_(0) {

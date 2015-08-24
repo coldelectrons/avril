@@ -28,12 +28,12 @@
 
 #include <string.h>
 
-#include "avrlib/base.h"
-#include "avrlib/log2.h"
-#include "avrlib/op.h"
-#include "avrlib/time.h"
+#include "avril/base.h"
+#include "avril/log2.h"
+#include "avril/op.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 static const uint8_t kLcdNoCursor = 0xff;
 static const uint8_t kLcdCursor = 0xff;

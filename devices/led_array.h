@@ -23,10 +23,10 @@
 
 #include <string.h>
 
-#include "avrlib/devices/shift_register.h"
-#include "avrlib/op.h"
+#include "avril/devices/shift_register.h"
+#include "avril/op.h"
 
-namespace avrlib {
+namespace avril {
 
 template<typename Latch, typename Clock, typename Data, uint8_t num_regs = 1, DataOrder order = LSB_FIRST>
 class LedArray {

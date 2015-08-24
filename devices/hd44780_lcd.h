@@ -20,15 +20,15 @@
 #ifndef AVRLIB_DEVICES_HD44780_LCD_H_
 #define AVRLIB_DEVICES_HD44780_LCD_H_
 
-#include "avrlib/base.h"
-#include "avrlib/log2.h"
-#include "avrlib/software_serial.h"
-#include "avrlib/time.h"
-#include "avrlib/resources_manager.h"
+#include "avril/base.h"
+#include "avril/log2.h"
+#include "avril/software_serial.h"
+#include "avril/time.h"
+#include "avril/resources_manager.h"
 
-using avrlib::SimpleResourcesManager;
+using avril::SimpleResourcesManager;
 
-namespace avrlib {
+namespace avril {
 
 enum LCD_FLAGS {
   LCD_COMMAND = 0x00,

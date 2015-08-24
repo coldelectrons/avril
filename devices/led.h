@@ -23,9 +23,9 @@
 
 #include <avr/io.h>
 
-#include "avrlib/gpio.h"
+#include "avril/gpio.h"
 
-namespace avrlib {
+namespace avril {
 
 enum LedMode {
   LED_SINK_CURRENT,

@@ -26,10 +26,10 @@
 #ifndef AVRLIB_DEVICES_SD_CARD_H_
 #define AVRLIB_DEVICES_SD_CARD_H_
 
-#include "avrlib/avrlib.h"
-#include "avrlib/time.h"
+#include "avril/avrlib.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 enum SdCommands {
   SD_CMD_GO_IDLE_STATE = 0,

@@ -25,10 +25,10 @@
 #ifndef AVRLIB_DEVICES_EXTERNAL_EEPROM_H_
 #define AVRLIB_DEVICES_EXTERNAL_EEPROM_H_
 
-#include "avrlib/i2c/i2c.h"
-#include "avrlib/time.h"
+#include "avril/i2c/i2c.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 template<uint16_t eeprom_size = 8192 /* bytes */,
          typename Bus = I2cMaster<8, 64>,

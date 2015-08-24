@@ -23,10 +23,10 @@
 #ifndef AVRLIB_DEVICES_POT_SCANNER_H_
 #define AVRLIB_DEVICES_POT_SCANNER_H_
 
-#include "avrlib/adc.h"
-#include "avrlib/log2.h"
+#include "avril/adc.h"
+#include "avril/log2.h"
 
-namespace avrlib {
+namespace avril {
 
 template<
     uint8_t num_inputs,

@@ -20,12 +20,12 @@
 #ifndef AVRLIB_UI_EVENT_QUEUE_H_
 #define AVRLIB_UI_EVENT_QUEUE_H_
 
-#include "avrlib/base.h"
-#include "avrlib/op.h"
-#include "avrlib/ring_buffer.h"
-#include "avrlib/time.h"
+#include "avril/base.h"
+#include "avril/op.h"
+#include "avril/ring_buffer.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 enum ControlType {
   CONTROL_POT = 0,

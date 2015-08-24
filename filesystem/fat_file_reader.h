@@ -32,10 +32,10 @@
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
-#include "avrlib/time.h"
+#include "avril/avrlib.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 struct Partition {
   uint8_t state;

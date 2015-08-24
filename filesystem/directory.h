@@ -22,11 +22,11 @@
 
 #include <string.h>
 
-#include "avrlib/avrlib.h"
+#include "avril/avrlib.h"
 
-#include "avrlib/filesystem/filesystem.h"
+#include "avril/filesystem/filesystem.h"
 
-namespace avrlib {
+namespace avril {
 
 class Directory {
  public:

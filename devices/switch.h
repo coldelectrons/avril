@@ -24,10 +24,10 @@
 
 #include <string.h>
 
-#include "avrlib/devices/shift_register.h"
-#include "avrlib/size_to_type.h"
+#include "avril/devices/shift_register.h"
+#include "avril/size_to_type.h"
 
-namespace avrlib {
+namespace avril {
   
 template<typename Input, bool enable_pull_up = true>
 class DebouncedSwitch {

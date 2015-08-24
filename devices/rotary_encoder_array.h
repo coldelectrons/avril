@@ -24,10 +24,10 @@
 
 #include <string.h>
 
-#include "avrlib/gpio.h"
-#include "avrlib/time.h"
+#include "avril/gpio.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 template<
     typename Load,

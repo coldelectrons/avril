@@ -25,9 +25,9 @@
 
 #include <avr/io.h>
 
-#include "avrlib/gpio.h"
+#include "avril/gpio.h"
 
-namespace avrlib {
+namespace avril {
 
 enum Mux4051PortMode {
   MUX4051_NIBBLE_HIGH,

@@ -17,9 +17,9 @@
 //
 // FatFS wrappers.
 
-#include "avrlib/filesystem/directory.h"
+#include "avril/filesystem/directory.h"
 
-namespace avrlib {
+namespace avril {
 
 FilesystemStatus Directory::Open(
     const char* directory_name,

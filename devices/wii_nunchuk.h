@@ -20,9 +20,9 @@
 #ifndef AVRLIB_DEVICES_WII_NUNCHUK_H_
 #define AVRLIB_DEVICES_WII_NUNCHUK_H_
 
-#include "avrlib/i2c/i2c.h"
+#include "avril/i2c/i2c.h"
 
-namespace avrlib {
+namespace avril {
 
 const uint8_t kNunchukAddress = 0x52;
 const uint8_t kNunchukPacketSize = 6;

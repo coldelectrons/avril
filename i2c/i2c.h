@@ -25,11 +25,11 @@
 
 #include <util/twi.h>
 
-#include "avrlib/gpio.h"
-#include "avrlib/avrlib.h"
-#include "avrlib/ring_buffer.h"
+#include "avril/gpio.h"
+#include "avril/avrlib.h"
+#include "avril/ring_buffer.h"
 
-namespace avrlib {
+namespace avril {
 
 IORegister(TWCR);
 IORegister(TWSR);
