@@ -17,10 +17,10 @@
 //
 // FatFS wrappers.
 
-#include "avrlib/filesystem/filesystem.h"
-#include "avrlib/time.h"
+#include "avril/filesystem/filesystem.h"
+#include "avril/time.h"
 
-namespace avrlib {
+namespace avril {
 
 /* static */
 FATFS Filesystem::fs_;
@@ -112,4 +112,4 @@ FilesystemStatus Filesystem::Utime(
   return static_cast<FilesystemStatus>(f_utime(file_name, &f));
 }
 
-}  // namespace avrlib
+}  // namespace avril

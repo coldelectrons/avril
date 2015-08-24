@@ -17,8 +17,8 @@
 //
 // Driver for Wii Nunchuk.
 
-#ifndef AVRLIB_DEVICES_WII_NUNCHUK_H_
-#define AVRLIB_DEVICES_WII_NUNCHUK_H_
+#ifndef AVRIL_DEVICES_WII_NUNCHUK_H_
+#define AVRIL_DEVICES_WII_NUNCHUK_H_
 
 #include "avril/i2c/i2c.h"
 
@@ -110,6 +110,6 @@ class WiiNunchuk {
   DISALLOW_COPY_AND_ASSIGN(WiiNunchuk);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_WII_NUNCHUK_H_
+#endif   // AVRIL_DEVICES_WII_NUNCHUK_H_

@@ -19,8 +19,8 @@
 // - A single switch.
 // - An array of switches.
 
-#ifndef AVRLIB_DEVICES_SWITCHES_H_
-#define AVRLIB_DEVICES_SWITCHES_H_
+#ifndef AVRIL_DEVICES_SWITCHES_H_
+#define AVRIL_DEVICES_SWITCHES_H_
 
 #include <string.h>
 
@@ -122,6 +122,6 @@ class DebouncedSwitches {
 template<typename Load, typename Clock, typename Data, uint8_t num_inputs, DataOrder order>
 uint8_t DebouncedSwitches<Load, Clock, Data, num_inputs, order>::state_[num_inputs];
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_SWITCHES_H_
+#endif   // AVRIL_DEVICES_SWITCHES_H_

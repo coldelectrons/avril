@@ -17,8 +17,8 @@
 //
 // Driver for an external rotary encoder.
 
-#ifndef AVRLIB_DEVICES_ROTARY_ENCODER_H_
-#define AVRLIB_DEVICES_ROTARY_ENCODER_H_
+#ifndef AVRIL_DEVICES_ROTARY_ENCODER_H_
+#define AVRIL_DEVICES_ROTARY_ENCODER_H_
 
 #include "avril/devices/switch.h"
 #include "avril/gpio.h"
@@ -110,6 +110,6 @@ template<typename Encoder> uint8_t RotaryEncoderTracker<Encoder>::clicked_;
 /* static */
 template<typename Encoder> int8_t RotaryEncoderTracker<Encoder>::increment_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_DEVICES_SHIFT_REGISTER_H_
+#endif  // AVRIL_DEVICES_SHIFT_REGISTER_H_

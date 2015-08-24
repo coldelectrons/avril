@@ -18,8 +18,8 @@
 // Single pin LED device, sink or source current. Also a flashing LED device: 
 // being set to on LED stays lit for specified about of tick cycles.
 
-#ifndef AVRLIB_DEVICES_LED_H_
-#define AVRLIB_DEVICES_LED_H_
+#ifndef AVRIL_DEVICES_LED_H_
+#define AVRIL_DEVICES_LED_H_
 
 #include <avr/io.h>
 
@@ -107,6 +107,6 @@ template<typename LedT,
          uint8_t on_count>
   volatile uint8_t FlashLed<LedT, on_count>::on_count_ = 0;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_LED_H_
+#endif   // AVRIL_DEVICES_LED_H_

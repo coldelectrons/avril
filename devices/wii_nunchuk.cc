@@ -27,4 +27,4 @@ uint8_t WiiNunchuk::data_[6];
 /* static */
 I2cMaster<8, 4, 400000> WiiNunchuk::bus_;
 
-}  // namespace avrlib
+}  // namespace avril

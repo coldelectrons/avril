@@ -48,4 +48,4 @@ FilesystemStatus Directory::Rewind() {
 }
 
 
-}  // namespace avrlib
+}  // namespace avril

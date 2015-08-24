@@ -20,8 +20,8 @@
 // Note that this file is not in the hal directory directly because I don't want
 // the interrupt handler code for TWI to be linked with every project.
 
-#ifndef AVRLIB_I2C_I2C_H_
-#define AVRLIB_I2C_I2C_H_
+#ifndef AVRIL_I2C_I2C_H_
+#define AVRIL_I2C_I2C_H_
 
 #include <util/twi.h>
 
@@ -302,6 +302,6 @@ template<uint8_t input_buffer_size, uint8_t output_buffer_size,
          uint32_t frequency>
 uint8_t I2cMaster<input_buffer_size, output_buffer_size, frequency>::requested_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_I2C_I2C_H_
+#endif   // AVRIL_I2C_I2C_H_

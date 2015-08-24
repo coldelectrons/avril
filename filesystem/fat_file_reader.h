@@ -27,8 +27,8 @@
 // - More error checking of arguments / call sequences.
 // - Concurrent read/write/enumeration of several files/directories.
 
-#ifndef AVRLIB_FILESYSTEM_FAT_FILE_READER_H_
-#define AVRLIB_FILESYSTEM_FAT_FILE_READER_H_
+#ifndef AVRIL_FILESYSTEM_FAT_FILE_READER_H_
+#define AVRIL_FILESYSTEM_FAT_FILE_READER_H_
 
 #include <string.h>
 
@@ -510,6 +510,6 @@ struct DummyMediaInterface {
 };
 
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_FILESYSTEM_FAT_FILE_READER_H_
+#endif   // AVRIL_FILESYSTEM_FAT_FILE_READER_H_

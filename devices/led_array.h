@@ -18,8 +18,8 @@
 //
 // Driver for an array of LEDs behind shift registers.
 
-#ifndef AVRLIB_DEVICES_LED_ARRAY_H_
-#define AVRLIB_DEVICES_LED_ARRAY_H_
+#ifndef AVRIL_DEVICES_LED_ARRAY_H_
+#define AVRIL_DEVICES_LED_ARRAY_H_
 
 #include <string.h>
 
@@ -129,6 +129,6 @@ uint8_t LedArray<Latch, Clock, Data, num_regs, order>::pixels_[size];
 template<typename Latch, typename Clock, typename Data, uint8_t num_regs, DataOrder order>
 uint8_t LedArray<Latch, Clock, Data, num_regs, order>::refresh_cycle_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_LED_ARRAY_H_
+#endif   // AVRIL_DEVICES_LED_ARRAY_H_

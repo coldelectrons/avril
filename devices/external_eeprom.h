@@ -22,8 +22,8 @@
 // bus, R/W to addresses 0x0000 - 0x4000 will be addressed to chip 1, 
 // R/W to addresses 0x4000 - 0x8000 will be addressed to chip 2, etc.
 
-#ifndef AVRLIB_DEVICES_EXTERNAL_EEPROM_H_
-#define AVRLIB_DEVICES_EXTERNAL_EEPROM_H_
+#ifndef AVRIL_DEVICES_EXTERNAL_EEPROM_H_
+#define AVRIL_DEVICES_EXTERNAL_EEPROM_H_
 
 #include "avril/i2c/i2c.h"
 #include "avril/time.h"
@@ -202,6 +202,6 @@ template<uint16_t eeprom_size, typename Bus, uint8_t base_address,
 uint8_t ExternalEeprom<eeprom_size, Bus, base_address,
                        auto_banking, block_size>::bank_ = 0;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_EXTERNAL_EEPROM_H_
+#endif   // AVRIL_DEVICES_EXTERNAL_EEPROM_H_

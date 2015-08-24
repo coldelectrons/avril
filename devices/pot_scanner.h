@@ -20,8 +20,8 @@
 // - PotScanner uses averaging.
 // - HysteresisPotScanner uses a deadband around the latest stable reading.
 
-#ifndef AVRLIB_DEVICES_POT_SCANNER_H_
-#define AVRLIB_DEVICES_POT_SCANNER_H_
+#ifndef AVRIL_DEVICES_POT_SCANNER_H_
+#define AVRIL_DEVICES_POT_SCANNER_H_
 
 #include "avril/adc.h"
 #include "avril/log2.h"
@@ -182,6 +182,6 @@ template<uint8_t num_inputs, uint8_t b, uint8_t c, uint8_t d>
 uint16_t HysteresisPotScanner<num_inputs, b, c, d>::thresholds_[num_inputs];
 
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_DEVICES_POT_SCANNER_H_
+#endif  // AVRIL_DEVICES_POT_SCANNER_H_

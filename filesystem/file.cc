@@ -117,4 +117,4 @@ FilesystemStatus File::Write(
   return static_cast<FilesystemStatus>(f_write(&f_, data, size, written));
 }
 
-}  // namespace avrlib
+}  // namespace avril

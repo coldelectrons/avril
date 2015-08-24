@@ -45,8 +45,8 @@
 //
 // By toggling Q7 rapidly, the two colors can be displayed simultaneously.
 
-#ifndef AVRLIB_DEVICES_BICOLOR_LED_ARRAY_H_
-#define AVRLIB_DEVICES_BICOLOR_LED_ARRAY_H_
+#ifndef AVRIL_DEVICES_BICOLOR_LED_ARRAY_H_
+#define AVRIL_DEVICES_BICOLOR_LED_ARRAY_H_
 
 #include <string.h>
 
@@ -158,7 +158,7 @@ uint8_t BicolorLedArray<Latch, Clock, Data, num_regs>::buffered_pixels_[size];
 template<typename Latch, typename Clock, typename Data, uint8_t num_regs>
 uint8_t BicolorLedArray<Latch, Clock, Data, num_regs>::refresh_cycle_;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_DEVICES_BICOLOR_LED_ARRAY_H_
+#endif   // AVRIL_DEVICES_BICOLOR_LED_ARRAY_H_
 

@@ -17,8 +17,8 @@
 //
 // FatFS wrappers.
 
-#ifndef AVRLIB_FILESYSTEM_DIRECTORY_H_
-#define AVRLIB_FILESYSTEM_DIRECTORY_H_
+#ifndef AVRIL_FILESYSTEM_DIRECTORY_H_
+#define AVRIL_FILESYSTEM_DIRECTORY_H_
 
 #include <string.h>
 
@@ -50,6 +50,6 @@ class Directory {
   DISALLOW_COPY_AND_ASSIGN(Directory);
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_FILESYSTEM_DIRECTORY_H_
+#endif   // AVRIL_FILESYSTEM_DIRECTORY_H_
