@@ -20,10 +20,10 @@
 #ifndef AVRLIB_STRING_H_
 #define AVRLIB_STRING_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 #include <string.h>
 
-namespace avrlib {
+namespace avril {
 
 size_t strnlen(const char* string, size_t maxlen);
 

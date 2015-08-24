@@ -21,7 +21,7 @@
 #ifndef AVRLIB_SIZE_TO_TYPE_H_
 #define AVRLIB_SIZE_TO_TYPE_H_
 
-namespace avrlib {
+namespace avril {
 
 template<uint8_t size>
 struct DataTypeForSize {

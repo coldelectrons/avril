@@ -32,10 +32,10 @@
 
 #include <avr/io.h>
 
-#include "avrlib/avrlib.h"
-#include "avrlib/timer.h"
+#include "avril/avrlib.h"
+#include "avril/timer.h"
 
-namespace avrlib {
+namespace avril {
 
 enum PinMode {
   DIGITAL_INPUT = 0,

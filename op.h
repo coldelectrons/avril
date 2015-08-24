@@ -25,9 +25,9 @@
 
 #include <avr/pgmspace.h>
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 static inline int16_t Clip(int16_t value, int16_t min, int16_t max) {
   return value < min ? min : (value > max ? max : value);

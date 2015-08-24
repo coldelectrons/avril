@@ -22,7 +22,7 @@
 
 #include <avr/io.h>
 
-#include "avrlib/avrlib.h"
+#include "avril/avrlib.h"
 
 namespace avrlib {
 

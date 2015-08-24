@@ -22,9 +22,9 @@
 
 #include <avr/wdt.h>
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 // Note: this requires the bootloader to clear the Watchdog timer flags just
 // after start-up.

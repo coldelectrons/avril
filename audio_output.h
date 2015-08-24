@@ -21,11 +21,11 @@
 #ifndef AVRLIB_AUDIO_OUTPUT_H_
 #define AVRLIB_AUDIO_OUTPUT_H_
 
-#include "avrlib/base.h"
-#include "avrlib/avrlib.h"
-#include "avrlib/ring_buffer.h"
+#include "avril/base.h"
+#include "avril/avrlib.h"
+#include "avril/ring_buffer.h"
 
-namespace avrlib {
+namespace avril {
 
 enum UnderrunPolicy {
   EMIT_CLICK = 0,

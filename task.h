@@ -21,7 +21,7 @@
 #ifndef AVRLIB_TASK_H_
 #define AVRLIB_TASK_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
 #define TASK_BEGIN static uint16_t state = 0; \
     switch(state) { \

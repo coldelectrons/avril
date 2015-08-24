@@ -21,10 +21,10 @@
 #ifndef AVRLIB_RING_BUFFER_H_
 #define AVRLIB_RING_BUFFER_H_
 
-#include "avrlib/base.h"
-#include "avrlib/avrlib.h"
+#include "avril/base.h"
+#include "avril/avrlib.h"
 
-namespace avrlib {
+namespace avril {
 
 // Circular buffer, used for example for Serial input, Software serial output,
 // Audio rendering... A buffer is created for each Owner - for example,

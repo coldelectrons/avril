@@ -21,7 +21,7 @@
 #ifndef AVRLIB_LOG2_H_
 #define AVRLIB_LOG2_H_
 
-namespace avrlib {
+namespace avril {
 
 template<uint8_t x>
 struct Log2 {

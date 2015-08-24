@@ -22,9 +22,9 @@
 
 #include <avr/io.h>
 
-#include "avrlib/gpio.h"
+#include "avril/gpio.h"
 
-namespace avrlib {
+namespace avril {
 
 enum ParallelPortMode {
   PARALLEL_BYTE,

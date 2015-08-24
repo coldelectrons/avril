@@ -20,9 +20,9 @@
 #ifndef AVRLIB_RANDOM_H_
 #define AVRLIB_RANDOM_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 class Random {
  public:

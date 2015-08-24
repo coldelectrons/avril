@@ -22,12 +22,12 @@
 #ifndef AVRLIB_OUTPUT_STREAM_H_
 #define AVRLIB_OUTPUT_STREAM_H_
 
-#include "avrlib/string.h"
+#include "avril/string.h"
 
-using avrlib::Itoa;
-using avrlib::TypeInfo;
+using avril::Itoa;
+using avril::TypeInfo;
 
-namespace avrlib {
+namespace avril {
 
 enum EndOfLine {
   endl = 0

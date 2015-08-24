@@ -35,11 +35,11 @@
 #ifndef AVRLIB_SOFTWARE_SERIAL_H_
 #define AVRLIB_SOFTWARE_SERIAL_H_
 
-#include "avrlib/avrlib.h"
-#include "avrlib/gpio.h"
-#include "avrlib/ring_buffer.h"
+#include "avril/avrlib.h"
+#include "avril/gpio.h"
+#include "avril/ring_buffer.h"
 
-namespace avrlib {
+namespace avril {
 
 enum SoftwareSerialState {
   START_BIT = 0,

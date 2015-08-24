@@ -23,11 +23,11 @@
 #ifndef AVRLIB_SPI_H_
 #define AVRLIB_SPI_H_
 
-#include "avrlib/avrlib.h"
-#include "avrlib/gpio.h"
-#include "avrlib/serial.h"
+#include "avril/avrlib.h"
+#include "avril/gpio.h"
+#include "avril/serial.h"
 
-namespace avrlib {
+namespace avril {
 
 IORegister(SPSR);
 typedef BitInRegister<SPSRRegister, SPI2X> DoubleSpeed;

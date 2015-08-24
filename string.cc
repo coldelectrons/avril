@@ -17,11 +17,11 @@
 //
 // Utility functions for string processing.
 
-#include "avrlib/string.h"
+#include "avril/string.h"
 
 #include <stdio.h>
 
-namespace avrlib {
+namespace avril {
 
 size_t strnlen(const char* string, size_t maxlen) {
   const char* end = (char*)memchr(string, '\0', maxlen);

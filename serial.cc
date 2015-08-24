@@ -17,13 +17,13 @@
 //
 // Fast serial (for the onboard UART), using compile time optimizations.
 
-#include "avrlib/serial.h"
+#include "avril/serial.h"
 
 #include <avr/interrupt.h>
 
-#include "avrlib/gpio.h"
+#include "avril/gpio.h"
 
-using namespace avrlib;
+using namespace avril;
 
 #ifndef DISABLE_DEFAULT_UART_RX_ISR
 

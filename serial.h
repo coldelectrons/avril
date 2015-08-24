@@ -46,11 +46,11 @@
 #ifndef AVRLIB_SERIAL_H_
 #define AVRLIB_SERIAL_H_
 
-#include "avrlib/avrlib.h"
-#include "avrlib/gpio.h"
-#include "avrlib/ring_buffer.h"
+#include "avril/avrlib.h"
+#include "avril/gpio.h"
+#include "avril/ring_buffer.h"
 
-namespace avrlib {
+namespace avril {
 
 const uint8_t kSerialOutputBufferSize = 32;
 const uint8_t kSerialInputBufferSize = 32;

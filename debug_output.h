@@ -51,9 +51,9 @@
 
 #include <stdio.h>
 #include <avr/io.h>
-#include "avrlib/serial.h"
+#include "avril/serial.h"
 
-namespace avrlib {
+namespace avril {
 
 template<typename SerialT, bool ensureCRLF = false>
 class DebugOutput {

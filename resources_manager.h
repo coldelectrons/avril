@@ -23,12 +23,12 @@
 #ifndef AVRLIB_RESOURCES_MANAGER_H_
 #define AVRLIB_RESOURCES_MANAGER_H_
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
 #include <string.h>
 #include <avr/pgmspace.h>
 
-namespace avrlib {
+namespace avril {
 
 template<
   const prog_char* const* strings,

@@ -22,9 +22,9 @@
 
 #include <avr/delay.h>
 
-#include "avrlib/base.h"
+#include "avril/base.h"
 
-namespace avrlib {
+namespace avril {
 
 uint32_t milliseconds();
 uint32_t Delay(uint32_t delay);

@@ -23,10 +23,10 @@
 
 #include <avr/io.h>
 
-#include "avrlib/base.h"
-#include "avrlib/size_to_type.h"
+#include "avril/base.h"
+#include "avril/size_to_type.h"
 
-namespace avrlib {
+namespace avril {
 
 enum DataOrder {
   MSB_FIRST = 0,
