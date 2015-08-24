@@ -32,8 +32,8 @@
 // SoftwareSerialOutput is a Vanilla blocking implementation, taken from the
 // Arduino libs ; Copyright (c) 2006 David A. Mellis.
 
-#ifndef AVRLIB_SOFTWARE_SERIAL_H_
-#define AVRLIB_SOFTWARE_SERIAL_H_
+#ifndef AVRIL_SOFTWARE_SERIAL_H_
+#define AVRIL_SOFTWARE_SERIAL_H_
 
 #include "avril/avrlib.h"
 #include "avril/gpio.h"
@@ -183,6 +183,6 @@ struct SoftwareSerialOutput {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_SOFTWARE_SERIAL_H_
+#endif  // AVRIL_SOFTWARE_SERIAL_H_

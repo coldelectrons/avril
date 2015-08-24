@@ -18,8 +18,8 @@
 // Important: All buffer sizes are expected to be less than 256! (fit in 8
 // bits), and must be powers of 2.
 
-#ifndef AVRLIB_AVRLIB_H_
-#define AVRLIB_AVRLIB_H_
+#ifndef AVRIL_AVRLIB_H_
+#define AVRIL_AVRLIB_H_
 
 #include <avr/io.h>
 
@@ -188,6 +188,6 @@ class scoped_resource {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_AVRLIB_H_
+#endif   // AVRIL_AVRIL_H_

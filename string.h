@@ -17,8 +17,8 @@
 //
 // Utility functions for string processing.
 
-#ifndef AVRLIB_STRING_H_
-#define AVRLIB_STRING_H_
+#ifndef AVRIL_STRING_H_
+#define AVRIL_STRING_H_
 
 #include "avril/base.h"
 #include <string.h>
@@ -113,6 +113,6 @@ void UnsafeItoa(T i, uint8_t width, char* destination) {
   }
 }
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_STRING_H_
+#endif  // AVRIL_STRING_H_

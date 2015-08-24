@@ -33,4 +33,4 @@ uint8_t AdcInputScanner::num_inputs_;
 /* static */
 int16_t AdcInputScanner::state_[8];
 
-}  // namespace avrlib
+}  // namespace avril

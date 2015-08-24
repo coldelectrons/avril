@@ -54,4 +54,4 @@ void AlignLeft(char* source, uint8_t width) {
   }
 }
 
-}  // namespace avrlib
+}  // namespace avril

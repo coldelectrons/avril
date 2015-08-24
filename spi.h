@@ -20,8 +20,8 @@
 // a user-definable pin for slave selection. Pin 10 should be kept as an output
 // pin, since the SPI master/slave mode is based upon the value of this pin.
 
-#ifndef AVRLIB_SPI_H_
-#define AVRLIB_SPI_H_
+#ifndef AVRIL_SPI_H_
+#define AVRIL_SPI_H_
 
 #include "avril/avrlib.h"
 #include "avril/gpio.h"
@@ -304,6 +304,6 @@ class UartSpiMaster {
 
 #define SPI_RECEIVE ISR(SPI_STC_vect)
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif AVRLIB_SPI_H_
+#endif AVRIL_SPI_H_

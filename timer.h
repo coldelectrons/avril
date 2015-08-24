@@ -17,8 +17,8 @@
 //
 // Definitions of timer and related PWM registers.
 
-#ifndef AVRLIB_TIMER_H_
-#define AVRLIB_TIMER_H_
+#ifndef AVRIL_TIMER_H_
+#define AVRIL_TIMER_H_
 
 // interrupt.h is not strictly needed here, but .cc files including the timer
 // classes are likely to also define interrupt handlers (and we have macros for
@@ -235,6 +235,6 @@ typedef PwmChannel<Timer<2>, COM2B1, OCR2BRegister> PwmChannel2B;
 #define TIMER_3_TICK ISR(TIMER3_OVF_vect)
 #endif  // HAS_TIMER3
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_TIMER_H_
+#endif   // AVRIL_TIMER_H_

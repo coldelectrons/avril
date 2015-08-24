@@ -27,8 +27,8 @@
 // NumberedGpio<4>::set_value(1)
 // NumberedGpio<4>::set_value(0)
 
-#ifndef AVRLIB_GPIO_H_
-#define AVRLIB_GPIO_H_
+#ifndef AVRIL_GPIO_H_
+#define AVRIL_GPIO_H_
 
 #include <avr/io.h>
 
@@ -490,6 +490,6 @@ struct PwmOutput {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_GPIO_H_
+#endif   // AVRIL_GPIO_H_

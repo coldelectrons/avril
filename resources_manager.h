@@ -20,8 +20,8 @@
 // read/write function, an alias for a stripped down version without string
 // table lookup is provided (SimpleResourcesManager).
 
-#ifndef AVRLIB_RESOURCES_MANAGER_H_
-#define AVRLIB_RESOURCES_MANAGER_H_
+#ifndef AVRIL_RESOURCES_MANAGER_H_
+#define AVRIL_RESOURCES_MANAGER_H_
 
 #include "avril/base.h"
 
@@ -101,6 +101,6 @@ class ResourcesManager {
 
 typedef ResourcesManager<> SimpleResourcesManager;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_RESOURCES_MANAGER_H_
+#endif  // AVRIL_RESOURCES_MANAGER_H_

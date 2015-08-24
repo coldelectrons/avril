@@ -19,8 +19,8 @@
 // (in fact, just a Write method), and provide string and integer formatting
 // using the << stream operator.
 
-#ifndef AVRLIB_OUTPUT_STREAM_H_
-#define AVRLIB_OUTPUT_STREAM_H_
+#ifndef AVRIL_OUTPUT_STREAM_H_
+#define AVRIL_OUTPUT_STREAM_H_
 
 #include "avril/string.h"
 
@@ -72,6 +72,6 @@ struct OutputStream {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_OUTPUT_STREAM_H_
+#endif   // AVRIL_OUTPUT_STREAM_H_

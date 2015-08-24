@@ -18,8 +18,8 @@
 // Audio output. Supports PWM (through a PwmOutput object) and DAC (through a
 // Dac object, for example the one defined in mcp492x.h).
 
-#ifndef AVRLIB_AUDIO_OUTPUT_H_
-#define AVRLIB_AUDIO_OUTPUT_H_
+#ifndef AVRIL_AUDIO_OUTPUT_H_
+#define AVRIL_AUDIO_OUTPUT_H_
 
 #include "avril/base.h"
 #include "avril/avrlib.h"
@@ -97,6 +97,6 @@ template<typename OutputPort, uint8_t buffer_size_, uint8_t block_size,
 uint8_t AudioOutput<OutputPort, buffer_size_, block_size,
                     underrun_policy>::num_glitches_ = 0;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_AUDIO_OUTPUT_H_
+#endif  // AVRIL_AUDIO_OUTPUT_H_

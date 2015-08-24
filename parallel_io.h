@@ -17,8 +17,8 @@
 //
 // Templates for using full ports or half-ports for parallel output
 
-#ifndef AVRLIB_PARALLEL_H_
-#define AVRLIB_PARALLEL_H_
+#ifndef AVRIL_PARALLEL_H_
+#define AVRIL_PARALLEL_H_
 
 #include <avr/io.h>
 
@@ -148,6 +148,6 @@ struct ParallelPort {
   }
 };
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_PARALLEL_H_
+#endif   // AVRIL_PARALLEL_H_

@@ -17,8 +17,8 @@
 //
 // Base header.
 
-#ifndef AVRLIB_BASE_H_
-#define AVRLIB_BASE_H_
+#ifndef AVRIL_BASE_H_
+#define AVRIL_BASE_H_
 
 #include <inttypes.h>
 
@@ -64,4 +64,4 @@ inline void StaticAssertImplementation() {
  
 #define STATIC_ASSERT(expression) StaticAssertImplementation<(expression)>()
 
-#endif  // AVRLIB_BASE_H_
+#endif  // AVRIL_BASE_H_

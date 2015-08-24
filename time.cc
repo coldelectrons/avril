@@ -47,4 +47,4 @@ void InitClock() {
   Timer<0>::Start();
 }
 
-}  // namespace avrlib
+}  // namespace avril

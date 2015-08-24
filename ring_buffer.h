@@ -18,8 +18,8 @@
 // Important: All buffer sizes are expected to be less than 256! (fit in 8
 // bits), and must be powers of 2.
 
-#ifndef AVRLIB_RING_BUFFER_H_
-#define AVRLIB_RING_BUFFER_H_
+#ifndef AVRIL_RING_BUFFER_H_
+#define AVRIL_RING_BUFFER_H_
 
 #include "avril/base.h"
 #include "avril/avrlib.h"
@@ -105,6 +105,6 @@ template<typename T> volatile uint8_t RingBuffer<T>::read_ptr_ = 0;
 template<typename T> volatile uint8_t RingBuffer<T>::write_ptr_ = 0;
 template<typename T> typename T::Value RingBuffer<T>::buffer_[];
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif   // AVRLIB_RING_BUFFER_H_
+#endif   // AVRIL_RING_BUFFER_H_

@@ -17,8 +17,8 @@
 //
 // Interface to the onboard ADC converter, and analog multiplexer.
 
-#ifndef AVRLIB_ADC_H_
-#define AVRLIB_ADC_H_
+#ifndef AVRIL_ADC_H_
+#define AVRIL_ADC_H_
 
 #include <avr/io.h>
 
@@ -194,6 +194,6 @@ class MuxedAnalogInput {
 template<int id>
 uint8_t MuxedAnalogInput<id>::current_pin_ = 0;
 
-}  // namespace avrlib
+}  // namespace avril
 
-#endif  // AVRLIB_ADC_H_
+#endif  // AVRIL_ADC_H_
