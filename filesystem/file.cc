@@ -17,7 +17,7 @@
 //
 // FatFS wrappers.
 
-#include "avril/filesystem/file.h"
+#include "file.h"
 
 namespace avril {
 

@@ -23,9 +23,9 @@
 #ifndef AVRIL_SPI_H_
 #define AVRIL_SPI_H_
 
-#include "avril/avrlib.h"
-#include "avril/gpio.h"
-#include "avril/serial.h"
+#include "avrlib.h"
+#include "gpio.h"
+#include "serial.h"
 
 namespace avril {
 

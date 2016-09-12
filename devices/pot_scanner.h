@@ -23,8 +23,8 @@
 #ifndef AVRIL_DEVICES_POT_SCANNER_H_
 #define AVRIL_DEVICES_POT_SCANNER_H_
 
-#include "avril/adc.h"
-#include "avril/log2.h"
+#include "../adc.h"
+#include "../log2.h"
 
 namespace avril {
 

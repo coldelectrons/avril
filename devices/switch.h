@@ -24,8 +24,8 @@
 
 #include <string.h>
 
-#include "avril/devices/shift_register.h"
-#include "avril/size_to_type.h"
+#include "shift_register.h"
+#include "../size_to_type.h"
 
 namespace avril {
   

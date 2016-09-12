@@ -22,9 +22,9 @@
 
 #include <string.h>
 
-#include "avril/avrlib.h"
+#include "../avrlib.h"
 
-#include "avril/filesystem/filesystem.h"
+#include "filesystem.h"
 
 namespace avril {
 

@@ -20,8 +20,8 @@
 #ifndef AVRIL_DEVICES_MCP492X_H_
 #define AVRIL_DEVICES_MCP492X_H_
 
-#include "avril/spi.h"
-#include "avril/op.h"
+#include "../spi.h"
+#include "../op.h"
 
 using namespace avril;
 

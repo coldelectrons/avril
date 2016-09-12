@@ -32,8 +32,8 @@
 
 #include <string.h>
 
-#include "avril/avrlib.h"
-#include "avril/time.h"
+#include "../avrlib.h"
+#include "../time.h"
 
 namespace avril {
 

@@ -17,7 +17,7 @@
 //
 // Utility functions for string processing.
 
-#include "avril/string.h"
+#include "string.h"
 
 #include <stdio.h>
 

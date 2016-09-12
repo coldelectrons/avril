@@ -22,10 +22,10 @@
 
 #include <string.h>
 
-#include "avril/avrlib.h"
+#include "../avrlib.h"
 
-#include "avril/third_party/ff/ff.h"
-#include "avril/third_party/ff/mmc.h"
+#include "../third_party/ff/ff.h"
+#include "../third_party/ff/mmc.h"
 
 namespace avril {
 

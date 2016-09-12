@@ -17,11 +17,11 @@
 //
 // Interrupt handler for I2C.
 
-#include "avril/i2c/i2c.h"
+#include "i2c.h"
 
 #include <avr/interrupt.h>
 
-#include "avril/gpio.h"
+#include "../gpio.h"
 
 using namespace avril;
 

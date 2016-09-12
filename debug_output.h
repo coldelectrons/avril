@@ -51,7 +51,7 @@
 
 #include <stdio.h>
 #include <avr/io.h>
-#include "avril/serial.h"
+#include "serial.h"
 
 namespace avril {
 

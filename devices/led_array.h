@@ -23,8 +23,8 @@
 
 #include <string.h>
 
-#include "avril/devices/shift_register.h"
-#include "avril/op.h"
+#include "shift_register.h"
+#include "../op.h"
 
 namespace avril {
 

@@ -23,8 +23,8 @@
 
 #include <avr/io.h>
 
-#include "avril/base.h"
-#include "avril/size_to_type.h"
+#include "base.h"
+#include "size_to_type.h"
 
 namespace avril {
 

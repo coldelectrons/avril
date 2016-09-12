@@ -20,10 +20,10 @@
 #ifndef AVRIL_UI_EVENT_QUEUE_H_
 #define AVRIL_UI_EVENT_QUEUE_H_
 
-#include "avril/base.h"
-#include "avril/op.h"
-#include "avril/ring_buffer.h"
-#include "avril/time.h"
+#include "../base.h"
+#include "../op.h"
+#include "../ring_buffer.h"
+#include "../time.h"
 
 namespace avril {
 

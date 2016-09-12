@@ -26,8 +26,8 @@
 #ifndef AVRIL_DEVICES_SD_CARD_H_
 #define AVRIL_DEVICES_SD_CARD_H_
 
-#include "avril/avrlib.h"
-#include "avril/time.h"
+#include "../avrlib.h"
+#include "../time.h"
 
 namespace avril {
 

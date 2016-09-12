@@ -17,8 +17,8 @@
 //
 // FatFS wrappers.
 
-#include "avril/filesystem/filesystem.h"
-#include "avril/time.h"
+#include "filesystem.h"
+#include "../time.h"
 
 namespace avril {
 

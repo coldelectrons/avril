@@ -20,7 +20,7 @@
 #ifndef AVRIL_STRING_H_
 #define AVRIL_STRING_H_
 
-#include "avril/base.h"
+#include "base.h"
 #include <string.h>
 
 namespace avril {

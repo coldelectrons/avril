@@ -17,7 +17,7 @@
 //
 // Interface to the onboard ADC converter, and analog multiplexer.
 
-#include "avril/adc.h"
+#include "adc.h"
 
 namespace avril {
 

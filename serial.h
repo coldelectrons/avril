@@ -46,9 +46,9 @@
 #ifndef AVRIL_SERIAL_H_
 #define AVRIL_SERIAL_H_
 
-#include "avril/avrlib.h"
-#include "avril/gpio.h"
-#include "avril/ring_buffer.h"
+#include "avrlib.h"
+#include "gpio.h"
+#include "ring_buffer.h"
 
 namespace avril {
 

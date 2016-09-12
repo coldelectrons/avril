@@ -25,8 +25,8 @@
 #ifndef AVRIL_DEVICES_EXTERNAL_EEPROM_H_
 #define AVRIL_DEVICES_EXTERNAL_EEPROM_H_
 
-#include "avril/i2c/i2c.h"
-#include "avril/time.h"
+#include "../i2c/i2c.h"
+#include "../time.h"
 
 namespace avril {
 

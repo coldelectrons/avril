@@ -18,9 +18,9 @@
 // Real time clock. Based on the code in the arduino core library
 // by David A. Mellis.
 
-#include "avril/time.h"
+#include "time.h"
 
-#include "avril/timer.h"
+#include "timer.h"
 
 namespace avril {
 

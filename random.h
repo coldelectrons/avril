@@ -20,7 +20,7 @@
 #ifndef AVRIL_RANDOM_H_
 #define AVRIL_RANDOM_H_
 
-#include "avril/base.h"
+#include "base.h"
 
 namespace avril {
 

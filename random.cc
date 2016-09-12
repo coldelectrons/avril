@@ -17,7 +17,7 @@
 //
 // Random number generator.
 
-#include "avril/random.h"
+#include "random.h"
 
 namespace avril {
 

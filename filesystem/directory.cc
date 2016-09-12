@@ -17,7 +17,7 @@
 //
 // FatFS wrappers.
 
-#include "avril/filesystem/directory.h"
+#include "directory.h"
 
 namespace avril {
 

@@ -20,10 +20,10 @@
 #ifndef AVRIL_BOOT_H_
 #define AVRIL_BOOT_H_
 
-#include "avril/adc.h"
-#include "avril/avrlib.h"
-#include "avril/time.h"
-#include "avril/timer.h"
+#include "adc.h"
+#include "avrlib.h"
+#include "time.h"
+#include "timer.h"
 
 namespace avril {
 

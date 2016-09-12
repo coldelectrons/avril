@@ -17,7 +17,7 @@
 //
 // Driver for Wii Nunchuk.
 
-#include "avril/devices/wii_nunchuk.h"
+#include "wii_nunchuk.h"
 
 namespace avril {
 

@@ -22,7 +22,7 @@
 
 #include <avr/wdt.h>
 
-#include "avril/base.h"
+#include "base.h"
 
 namespace avril {
 

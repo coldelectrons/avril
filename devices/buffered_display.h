@@ -28,10 +28,10 @@
 
 #include <string.h>
 
-#include "avril/base.h"
-#include "avril/log2.h"
-#include "avril/op.h"
-#include "avril/time.h"
+#include "../base.h"
+#include "../log2.h"
+#include "../op.h"
+#include "../time.h"
 
 namespace avril {
 

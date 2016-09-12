@@ -20,11 +20,11 @@
 #ifndef AVRIL_DEVICES_HD44780_LCD_H_
 #define AVRIL_DEVICES_HD44780_LCD_H_
 
-#include "avril/base.h"
-#include "avril/log2.h"
-#include "avril/software_serial.h"
-#include "avril/time.h"
-#include "avril/resources_manager.h"
+#include "../base.h"
+#include "../log2.h"
+#include "../software_serial.h"
+#include "../time.h"
+#include "../resources_manager.h"
 
 using avril::SimpleResourcesManager;
 

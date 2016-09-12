@@ -20,9 +20,9 @@
 #ifndef AVRIL_DEVICES_SHIFT_REGISTER_H_
 #define AVRIL_DEVICES_SHIFT_REGISTER_H_
 
-#include "avril/gpio.h"
-#include "avril/size_to_type.h"
-#include "avril/time.h"
+#include "../gpio.h"
+#include "../size_to_type.h"
+#include "../time.h"
 
 namespace avril {
 

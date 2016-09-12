@@ -20,9 +20,9 @@
 #ifndef AVRIL_DEVICES_ROTARY_ENCODER_H_
 #define AVRIL_DEVICES_ROTARY_ENCODER_H_
 
-#include "avril/devices/switch.h"
-#include "avril/gpio.h"
-#include "avril/time.h"
+#include "switch.h"
+#include "../gpio.h"
+#include "../time.h"
 
 namespace avril {
 

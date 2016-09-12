@@ -22,7 +22,7 @@
 
 #include <avr/io.h>
 
-#include "avril/gpio.h"
+#include "gpio.h"
 
 namespace avril {
 

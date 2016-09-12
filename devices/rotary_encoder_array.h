@@ -24,8 +24,8 @@
 
 #include <string.h>
 
-#include "avril/gpio.h"
-#include "avril/time.h"
+#include "../gpio.h"
+#include "../time.h"
 
 namespace avril {
 

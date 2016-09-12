@@ -17,11 +17,11 @@
 //
 // Fast serial (for the onboard UART), using compile time optimizations.
 
-#include "avril/serial.h"
+#include "serial.h"
 
 #include <avr/interrupt.h>
 
-#include "avril/gpio.h"
+#include "gpio.h"
 
 using namespace avril;
 

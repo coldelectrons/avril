@@ -21,7 +21,7 @@
 #ifndef AVRIL_TASK_H_
 #define AVRIL_TASK_H_
 
-#include "avril/base.h"
+#include "base.h"
 
 #define TASK_BEGIN static uint16_t state = 0; \
     switch(state) { \
