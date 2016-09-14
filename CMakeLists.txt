@@ -19,17 +19,17 @@ add_definitions(-mcall-prologues)
 add_definitions(-fno-exceptions)
 
 add_avr_library(avril
-    ./devices/wii_nunchuk.cc
-    ./i2c/i2c.cc
-    ./serial.cc
-    ./adc.cc
-    ./time.cc
-    ./string.cc
-    ./filesystem/directory.cc
-    ./filesystem/file.cc
-    ./filesystem/filesystem.cc
-    ./random.cc
-    ./ff/rtc.c
-    ./ff/ff.c
-    ./ff/mmc.c
+    devices/wii_nunchuk.cc
+    i2c/i2c.cc
+    serial.cc
+    adc.cc
+    time.cc
+    string.cc
+    filesystem/directory.cc
+    filesystem/file.cc
+    filesystem/filesystem.cc
+    random.cc
+    ff/rtc.c
+    ff/ff.c
+    ff/mmc.c
 )
