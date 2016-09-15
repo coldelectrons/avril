@@ -17,7 +17,7 @@
 //
 // Utility functions for string processing.
 
-#include "string.h"
+#include "stringutil.h"
 
 #include <stdio.h>
 

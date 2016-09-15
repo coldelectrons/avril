@@ -17,11 +17,12 @@
 //
 // Utility functions for string processing.
 
-#ifndef AVRIL_STRING_H_
-#define AVRIL_STRING_H_
+#ifndef AVRIL_STRINGUTIL_H_
+#define AVRIL_STRINGUTIL_H_
 
 #include "base.h"
 #include <string.h>
+#include <stddef.h>
 
 namespace avril {
 

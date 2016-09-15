@@ -18,6 +18,20 @@ add_definitions(-DSERIAL_RX_0)
 add_definitions(-mcall-prologues)
 add_definitions(-fno-exceptions)
 
+#find_library(AVRLIBC_LIBRARY
+    #libc
+    #PATHS
+        #/usr/lib/avr/lib/
+#)
+
+#find_path(AVRLIBC_INCLUDE_DIR
+    #stdlib.h
+    #PATHS
+        #/usr/lib/avr/include
+#)
+
+#include_directories(SYSTEM ${AVRLIBC_INCLUDE_DIR})
+
 add_avr_library(avril
     serial.cc
     adc.cc
@@ -33,3 +47,5 @@ add_avr_library(avril
     third_party/ff/ff.c
     third_party/ff/mmc.c
 )
+
+#target_link_libraries(avril-${AVR_MCU} ${AVRLIBC_LIBRARY} )

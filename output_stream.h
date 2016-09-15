@@ -22,7 +22,7 @@
 #ifndef AVRIL_OUTPUT_STREAM_H_
 #define AVRIL_OUTPUT_STREAM_H_
 
-#include "string.h"
+#include "stringutil.h"
 
 using avril::Itoa;
 using avril::TypeInfo;
