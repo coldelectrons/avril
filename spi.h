@@ -23,7 +23,7 @@
 #ifndef AVRIL_SPI_H_
 #define AVRIL_SPI_H_
 
-#include "avrlib.h"
+#include "avril.h"
 #include "gpio.h"
 #include "serial.h"
 

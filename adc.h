@@ -22,9 +22,9 @@
 
 #include <avr/io.h>
 
-#include "avrlib.h"
+#include "avril.h"
 
-namespace avrlib {
+namespace avril {
 
 enum AdcReference {
   ADC_EXTERNAL = 0,

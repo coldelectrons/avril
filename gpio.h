@@ -32,7 +32,7 @@
 
 #include <avr/io.h>
 
-#include "avrlib.h"
+#include "avril.h"
 #include "timer.h"
 
 namespace avril {

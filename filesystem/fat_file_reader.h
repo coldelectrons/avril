@@ -32,7 +32,7 @@
 
 #include <string.h>
 
-#include "../avrlib.h"
+#include "../avril.h"
 #include "../time.h"
 
 namespace avril {

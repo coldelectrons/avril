@@ -21,7 +21,7 @@
 #define AVRIL_BOOT_H_
 
 #include "adc.h"
-#include "avrlib.h"
+#include "avril.h"
 #include "time.h"
 #include "timer.h"
 

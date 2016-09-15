@@ -22,7 +22,7 @@
 
 #include <string.h>
 
-#include "../avrlib.h"
+#include "../avril.h"
 
 #include "../third_party/ff/ff.h"
 #include "../third_party/ff/mmc.h"

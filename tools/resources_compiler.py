@@ -212,7 +212,7 @@ class ResourceLibrary(object):
     f.write('#define %s\n\n' % header_guard)
     f.write(root.includes + '\n\n')
     if root.create_specialized_manager:
-      f.write('#include "avrlib/resources_manager.h"\n')
+      f.write('#include "avril/resources_manager.h"\n')
     self._OpenNamespace(f)
     f.write('typedef %s ResourceId;\n\n' % \
         root.types[self.max_num_entries > 255])
@@ -220,9 +220,9 @@ class ResourceLibrary(object):
     self._DeclareEntries(f)
     self._DeclareAliases(f)
     if root.create_specialized_manager:
-      f.write('typedef avrlib::ResourcesManager<\n')
+      f.write('typedef avril::ResourcesManager<\n')
       f.write('    ResourceId,\n')
-      f.write('    avrlib::ResourcesTables<\n')
+      f.write('    avril::ResourcesTables<\n')
       f.write('        %s_table,\n' % root.resources[0][1])
       f.write('        %s_table> > ResourcesManager; \n' % root.resources[1][1])
     self._CloseNamespace(f)

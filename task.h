@@ -50,7 +50,7 @@ case __LINE__:; \
 
 #define TASK_END } return;
 
-namespace avrlib {
+namespace avril {
 
 typedef struct {
   void (*code)();

@@ -26,7 +26,7 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
-#include "avrlib.h"
+#include "avril.h"
 
 namespace avril {
 

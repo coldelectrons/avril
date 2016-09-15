@@ -22,7 +22,7 @@
 #define AVRIL_RING_BUFFER_H_
 
 #include "base.h"
-#include "avrlib.h"
+#include "avril.h"
 
 namespace avril {
 

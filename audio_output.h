@@ -22,7 +22,7 @@
 #define AVRIL_AUDIO_OUTPUT_H_
 
 #include "base.h"
-#include "avrlib.h"
+#include "avril.h"
 #include "ring_buffer.h"
 
 namespace avril {
