@@ -18,18 +18,20 @@ add_definitions(-DSERIAL_RX_0)
 add_definitions(-mcall-prologues)
 add_definitions(-fno-exceptions)
 
+set()
+
 add_avr_library(avril
-    devices/wii_nunchuk.cc
-    i2c/i2c.cc
     serial.cc
     adc.cc
     time.cc
     string.cc
-    filesystem/directory.cc
-    filesystem/file.cc
-    filesystem/filesystem.cc
     random.cc
-    ff/rtc.c
-    ff/ff.c
-    ff/mmc.c
+    ${CMAKE_CURRENT_LIST_DIR}/i2c/i2c.cc
+    ${CMAKE_CURRENT_LIST_DIR}/devices/wii_nunchuk.cc
+    ${CMAKE_CURRENT_LIST_DIR}/filesystem/directory.cc
+    ${CMAKE_CURRENT_LIST_DIR}/filesystem/file.cc
+    ${CMAKE_CURRENT_LIST_DIR}/filesystem/filesystem.cc
+    ${CMAKE_CURRENT_LIST_DIR}/ff/rtc.c
+    ${CMAKE_CURRENT_LIST_DIR}/ff/ff.c
+    ${CMAKE_CURRENT_LIST_DIR}/ff/mmc.c
 )
