@@ -18,8 +18,6 @@ add_definitions(-DSERIAL_RX_0)
 add_definitions(-mcall-prologues)
 add_definitions(-fno-exceptions)
 
-set()
-
 add_avr_library(avril
     serial.cc
     adc.cc
