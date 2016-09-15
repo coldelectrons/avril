@@ -24,12 +24,12 @@ add_avr_library(avril
     time.cc
     string.cc
     random.cc
-    ${CMAKE_CURRENT_LIST_DIR}/i2c/i2c.cc
-    ${CMAKE_CURRENT_LIST_DIR}/devices/wii_nunchuk.cc
-    ${CMAKE_CURRENT_LIST_DIR}/filesystem/directory.cc
-    ${CMAKE_CURRENT_LIST_DIR}/filesystem/file.cc
-    ${CMAKE_CURRENT_LIST_DIR}/filesystem/filesystem.cc
-    ${CMAKE_CURRENT_LIST_DIR}/ff/rtc.c
-    ${CMAKE_CURRENT_LIST_DIR}/ff/ff.c
-    ${CMAKE_CURRENT_LIST_DIR}/ff/mmc.c
+    i2c/i2c.cc
+    devices/wii_nunchuk.cc
+    filesystem/directory.cc
+    filesystem/file.cc
+    filesystem/filesystem.cc
+    third_party/ff/rtc.c
+    third_party/ff/ff.c
+    third_party/ff/mmc.c
 )
