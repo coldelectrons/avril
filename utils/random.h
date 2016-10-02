@@ -20,42 +20,42 @@
 #ifndef AVRIL_RANDOM_H_
 #define AVRIL_RANDOM_H_
 
-#include "base.h"
+#include "../avril.h"
 
 namespace avril {
 
 class Random {
- public:
-  static void Update() {
-    // Galois LFSR with feedback polynomial = x^16 + x^14 + x^13 + x^11.
-    // Period: 65535.
-    rng_state_ = (rng_state_ >> 1) ^ (-(rng_state_ & 1) & 0xb400);
-  }
+   public:
+    static void Update()
+    {
+        // Galois LFSR with feedback polynomial = x^16 + x^14 + x^13 + x^11.
+        // Period: 65535.
+        rng_state_ = ( rng_state_ >> 1 ) ^ ( -( rng_state_ & 1 ) & 0xb400 );
+    }
 
-  static inline uint16_t state() { return rng_state_; }
+    static inline uint16_t state() { return rng_state_; }
+    static inline void Seed( uint16_t seed ) { rng_state_ = seed; }
+    static inline uint8_t state_msb()
+    {
+        return static_cast<uint8_t>( rng_state_ >> 8 );
+    }
 
-  static inline void Seed(uint16_t seed) {
-    rng_state_ = seed;
-  }
+    static inline uint8_t GetByte()
+    {
+        Update();
+        return state_msb();
+    }
 
-  static inline uint8_t state_msb() {
-    return static_cast<uint8_t>(rng_state_ >> 8);
-  }
+    static inline uint16_t GetWord()
+    {
+        Update();
+        return state();
+    }
 
-  static inline uint8_t GetByte() {
-    Update();
-    return state_msb();
-  }
-  
-  static inline uint16_t GetWord() {
-    Update();
-    return state();
-  }
+   private:
+    static uint16_t rng_state_;
 
- private:
-  static uint16_t rng_state_;
-
-  DISALLOW_COPY_AND_ASSIGN(Random);
+    DISALLOW_COPY_AND_ASSIGN( Random );
 };
 
 }  // namespace avril

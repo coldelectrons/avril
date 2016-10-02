@@ -15,28 +15,30 @@
 //
 // -----------------------------------------------------------------------------
 //
-// Template class for converting an integer template argument to the
-// corresponding size type.
+// Real time clock.
 
-#ifndef AVRIL_SIZE_TO_TYPE_H_
-#define AVRIL_SIZE_TO_TYPE_H_
+#ifndef AVRIL_WATCHDOG_TIMER_H_
+#define AVRIL_WATCHDOG_TIMER_H_
+
+#include <avr/wdt.h>
+
+#include "../avril.h"
 
 namespace avril {
 
-template<uint8_t size>
-struct DataTypeForSize {
-  typedef uint16_t Type;
-};
+// Note: this requires the bootloader to clear the Watchdog timer flags just
+// after start-up.
+inline void SystemReset(uint8_t interval) {
+  wdt_enable(interval);
+}
 
-template<> struct DataTypeForSize<1> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<2> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<3> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<4> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<5> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<6> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<7> { typedef uint8_t Type; };
-template<> struct DataTypeForSize<8> { typedef uint8_t Type; };
+inline void ResetWatchdog() {
+  uint8_t watchdog_status = MCUSR;
+  MCUSR = 0;
+  WDTCSR |= _BV(WDCE) | _BV(WDE);
+  WDTCSR = 0;
+}
 
 }  // namespace avril
 
-#endif   // AVRIL_SIZE_TO_TYPE_H_
+#endif  // AVRIL_WATCHDOG_TIMER_H_
