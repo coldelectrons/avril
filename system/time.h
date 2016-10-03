@@ -20,7 +20,7 @@
 #ifndef AVRIL_TIME_H_
 #define AVRIL_TIME_H_
 
-#include <avr/delay.h>
+#include <util/delay.h>
 
 #include "../avril.h"
 
