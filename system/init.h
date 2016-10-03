@@ -20,8 +20,8 @@
 #ifndef AVRIL_BOOT_H_
 #define AVRIL_BOOT_H_
 
-#include "adc.h"
-#include "avril.h"
+#include "../io/adc.h"
+#include "../avril.h"
 #include "time.h"
 #include "timer.h"
 
