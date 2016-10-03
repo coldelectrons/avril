@@ -22,7 +22,7 @@
 
 #include <avr/io.h>
 
-#include "avril.h"
+#include "../avril.h"
 
 namespace avril {
 

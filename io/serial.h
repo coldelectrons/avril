@@ -46,7 +46,7 @@
 #ifndef AVRIL_SERIAL_H_
 #define AVRIL_SERIAL_H_
 
-#include "avril.h"
+#include "../avril.h"
 #include "gpio.h"
 #include "ring_buffer.h"
 
