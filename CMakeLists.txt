@@ -39,13 +39,13 @@ add_avr_library(avril
     system/time.cc
     utils/stringutil.cc
     utils/random.cc
-    devices/wii_nunchuk.cc
-    filesystem/directory.cc
-    filesystem/file.cc
-    filesystem/filesystem.cc
-    third_party/ff/rtc.c
-    third_party/ff/ff.c
-    third_party/ff/mmc.c
+    #devices/wii_nunchuk.cc
+    #filesystem/directory.cc
+    #filesystem/file.cc
+    #filesystem/filesystem.cc
+    #third_party/ff/rtc.c
+    #third_party/ff/ff.c
+    #third_party/ff/mmc.c
 )
 
 target_link_libraries(avril-${AVR_MCU} ${AVRLIBC_LIBRARY} )
