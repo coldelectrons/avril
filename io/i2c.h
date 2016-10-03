@@ -25,9 +25,9 @@
 
 #include <util/twi.h>
 
-#include "../gpio.h"
+#include "gpio.h"
 #include "../avril.h"
-#include "../ring_buffer.h"
+#include "ring_buffer.h"
 
 namespace avril {
 
