@@ -18,26 +18,26 @@ add_definitions(-DSERIAL_RX_0)
 add_definitions(-mcall-prologues)
 add_definitions(-fno-exceptions)
 
-find_library(AVRLIBC_LIBRARY
-    libc
-    PATHS
-        /usr/lib/avr/lib/
-)
+#find_library(AVRLIBC_LIBRARY
+    #libc
+    #PATHS
+        #/usr/lib/avr/lib/
+#)
 
-find_path(AVRLIBC_INCLUDE_DIR
-    stdlib.h
-    PATHS
-        /usr/lib/avr/include
-)
+#find_path(AVRLIBC_INCLUDE_DIR
+    #stdlib.h
+    #PATHS
+        #/usr/lib/avr/include
+#)
 
-include_directories(SYSTEM ${AVRLIBC_INCLUDE_DIR})
+#include_directories(SYSTEM ${AVRLIBC_INCLUDE_DIR})
 
 add_avr_library(avril
     io/serial.cc
     io/adc.cc
     io/i2c.cc
     system/time.cc
-    utils/string.cc
+    utils/stringutil.cc
     utils/random.cc
     devices/wii_nunchuk.cc
     filesystem/directory.cc
