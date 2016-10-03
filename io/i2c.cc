@@ -21,8 +21,6 @@
 
 #include <avr/interrupt.h>
 
-#include "../gpio.h"
-
 using namespace avril;
 
 /* static, extern */
