@@ -21,8 +21,7 @@
 #ifndef AVRIL_RING_BUFFER_H_
 #define AVRIL_RING_BUFFER_H_
 
-#include "base.h"
-#include "avril.h"
+#include "../avril.h"
 
 namespace avril {
 
