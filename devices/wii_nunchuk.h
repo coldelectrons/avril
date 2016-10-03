@@ -20,7 +20,7 @@
 #ifndef AVRIL_DEVICES_WII_NUNCHUK_H_
 #define AVRIL_DEVICES_WII_NUNCHUK_H_
 
-#include "../i2c/i2c.h"
+#include "../io/i2c.h"
 
 namespace avril {
 
