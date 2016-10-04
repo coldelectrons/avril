@@ -61,6 +61,16 @@ struct OutputStream {
     Itoa(value, TypeInfo<uint32_t>::max_size + 1, buffer);
     Print(buffer);
   }
+  static void Print(uint64_t value) {
+    char buffer[TypeInfo<uint64_t>::max_size + 1];
+    Itoa(value, TypeInfo<uint64_t>::max_size + 1, buffer);
+    Print(buffer);
+  }
+  static void Print(int64_t value) {
+    char buffer[TypeInfo<int64_t>::max_size + 1];
+    Itoa(value, TypeInfo<int64_t>::max_size + 1, buffer);
+    Print(buffer);
+  }
   static void Print(EndOfLine e) {
     Print('\r');
     Print('\n');

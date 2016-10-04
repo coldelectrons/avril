@@ -30,32 +30,32 @@
 
 namespace avril {
 
-SpecialFunctionRegister(TCCR0A);
-SpecialFunctionRegister(TCCR0B);
-SpecialFunctionRegister(TCCR1A);
-SpecialFunctionRegister(TCCR1B);
-SpecialFunctionRegister(TCCR2A);
-SpecialFunctionRegister(TCCR2B);
-SpecialFunctionRegister(TIMSK0);
-SpecialFunctionRegister(TIMSK1);
-SpecialFunctionRegister(TIMSK2);
-SpecialFunctionRegister(TCNT0);
-SpecialFunctionRegister16(TCNT1);
-SpecialFunctionRegister(TCNT2);
-SpecialFunctionRegister(OCR0A);
-SpecialFunctionRegister(OCR0B);
-SpecialFunctionRegister(OCR1A);
-SpecialFunctionRegister(OCR1B);
-SpecialFunctionRegister(OCR2A);
-SpecialFunctionRegister(OCR2B);
+SpecialFunctionRegister(TCCR0A)
+SpecialFunctionRegister(TCCR0B)
+SpecialFunctionRegister(TCCR1A)
+SpecialFunctionRegister(TCCR1B)
+SpecialFunctionRegister(TCCR2A)
+SpecialFunctionRegister(TCCR2B)
+SpecialFunctionRegister(TIMSK0)
+SpecialFunctionRegister(TIMSK1)
+SpecialFunctionRegister(TIMSK2)
+SpecialFunctionRegister(TCNT0)
+SpecialFunctionRegister16(TCNT1)
+SpecialFunctionRegister(TCNT2)
+SpecialFunctionRegister(OCR0A)
+SpecialFunctionRegister(OCR0B)
+SpecialFunctionRegister(OCR1A)
+SpecialFunctionRegister(OCR1B)
+SpecialFunctionRegister(OCR2A)
+SpecialFunctionRegister(OCR2B)
 
 #ifdef HAS_TIMER3
-SpecialFunctionRegister(TCCR3A);
-SpecialFunctionRegister(TCCR3B);
-SpecialFunctionRegister(TIMSK3);
-SpecialFunctionRegister(TCNT3);
-SpecialFunctionRegister(OCR3A);
-SpecialFunctionRegister(OCR3B);
+SpecialFunctionRegister(TCCR3A)
+SpecialFunctionRegister(TCCR3B)
+SpecialFunctionRegister(TIMSK3)
+SpecialFunctionRegister(TCNT3)
+SpecialFunctionRegister(OCR3A)
+SpecialFunctionRegister(OCR3B)
 #endif  // HAS_TIMER3
 
 enum TimerMode {
