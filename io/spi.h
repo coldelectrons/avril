@@ -29,7 +29,7 @@
 
 namespace avril {
 
-IORegister( SPSR );
+IORegister( SPSR )
 typedef BitInRegister<SPSRRegister, SPI2X> DoubleSpeed;
 typedef BitInRegister<SPSRRegister, SPIF> TransferComplete;
 
@@ -262,4 +262,4 @@ class UartSpiMaster {
 
 }  // namespace avril
 
-#endif AVRIL_SPI_H_
+#endif //AVRIL_SPI_H_

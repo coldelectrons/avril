@@ -40,17 +40,17 @@ namespace avril {
 enum PinMode { DIGITAL_INPUT = 0, DIGITAL_OUTPUT = 1, PWM_OUTPUT = 2 };
 
 // All the registers used in the following definitions are wrapped here.
-IORegister( DDRB );
-IORegister( DDRC );
-IORegister( DDRD );
+IORegister( DDRB )
+IORegister( DDRC )
+IORegister( DDRD )
 
-IORegister( PORTB );
-IORegister( PORTC );
-IORegister( PORTD );
+IORegister( PORTB )
+IORegister( PORTC )
+IORegister( PORTD )
 
-IORegister( PINB );
-IORegister( PINC );
-IORegister( PIND );
+IORegister( PINB )
+IORegister( PINC )
+IORegister( PIND )
 
 // Represents a i/o port, which has input, output and mode registers.
 template <typename InputRegister, typename OutputRegister,
@@ -237,28 +237,28 @@ struct NumberedGpioInternal {
 #if defined( ATMEGA48P ) || defined( ATMEGA88P ) || defined( ATMEGA168P ) || \
     defined( ATMEGA328P )
 
-SetupGpio( 0, PortD, NoPwmChannel, 0 );
-SetupGpio( 1, PortD, NoPwmChannel, 1 );
-SetupGpio( 2, PortD, NoPwmChannel, 2 );
-SetupGpio( 3, PortD, PwmChannel2B, 3 );
-SetupGpio( 4, PortD, NoPwmChannel, 4 );
-SetupGpio( 5, PortD, PwmChannel0B, 5 );
-SetupGpio( 6, PortD, PwmChannel0A, 6 );
-SetupGpio( 7, PortD, NoPwmChannel, 7 );
-SetupGpio( 8, PortB, NoPwmChannel, 0 );
-SetupGpio( 9, PortB, PwmChannel1A, 1 );
-SetupGpio( 10, PortB, PwmChannel1B, 2 );
-SetupGpio( 11, PortB, PwmChannel2A, 3 );
-SetupGpio( 12, PortB, NoPwmChannel, 4 );
-SetupGpio( 13, PortB, NoPwmChannel, 5 );
-SetupGpio( 14, PortC, NoPwmChannel, 0 );
-SetupGpio( 15, PortC, NoPwmChannel, 1 );
-SetupGpio( 16, PortC, NoPwmChannel, 2 );
-SetupGpio( 17, PortC, NoPwmChannel, 3 );
-SetupGpio( 18, PortC, NoPwmChannel, 4 );
-SetupGpio( 19, PortC, NoPwmChannel, 5 );
+SetupGpio( 0, PortD, NoPwmChannel, 0 )
+SetupGpio( 1, PortD, NoPwmChannel, 1 )
+SetupGpio( 2, PortD, NoPwmChannel, 2 )
+SetupGpio( 3, PortD, PwmChannel2B, 3 )
+SetupGpio( 4, PortD, NoPwmChannel, 4 )
+SetupGpio( 5, PortD, PwmChannel0B, 5 )
+SetupGpio( 6, PortD, PwmChannel0A, 6 )
+SetupGpio( 7, PortD, NoPwmChannel, 7 )
+SetupGpio( 8, PortB, NoPwmChannel, 0 )
+SetupGpio( 9, PortB, PwmChannel1A, 1 )
+SetupGpio( 10, PortB, PwmChannel1B, 2 )
+SetupGpio( 11, PortB, PwmChannel2A, 3 )
+SetupGpio( 12, PortB, NoPwmChannel, 4 )
+SetupGpio( 13, PortB, NoPwmChannel, 5 )
+SetupGpio( 14, PortC, NoPwmChannel, 0 )
+SetupGpio( 15, PortC, NoPwmChannel, 1 )
+SetupGpio( 16, PortC, NoPwmChannel, 2 )
+SetupGpio( 17, PortC, NoPwmChannel, 3 )
+SetupGpio( 18, PortC, NoPwmChannel, 4 )
+SetupGpio( 19, PortC, NoPwmChannel, 5 )
 
-SetupGpio( 255, PortB, NoPwmChannel, 0 );
+SetupGpio( 255, PortB, NoPwmChannel, 0 )
 
 typedef Gpio<PortB, 5> SpiSCK;
 typedef Gpio<PortB, 4> SpiMISO;
