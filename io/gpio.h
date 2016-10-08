@@ -456,6 +456,7 @@ struct NumberedGpio {
     typedef typename NumberedGpioInternal<n>::Impl Impl;
     static void High() { Impl::High(); }
     static void Low() { Impl::Low(); }
+    static void Toggle() { Impl::Toggle(); }
     static void set_mode( uint8_t mode ) { Impl::set_mode( mode ); }
     static void set_value( uint8_t value ) { Impl::set_value( value ); }
     static void set_pwm_value( uint8_t value ) { Impl::set_pwm_value( value ); }
