@@ -21,33 +21,20 @@
 
 #include <avr/interrupt.h>
 
-#include "gpio.h"
-
 using namespace avril;
 
 #ifndef DISABLE_DEFAULT_UART_RX_ISR
 
 #ifdef SERIAL_RX_0
 
-#if defined(HAS_USART0) && defined(HAS_USART1)
+#if defined( HAS_USART0 ) && defined( HAS_USART1 )
 
-ISR(USART0_RX_vect) {
-  SerialInput<SerialPort0>::Received();
-}
+ISR( USART0_RX_vect ) { SerialInput<SerialPort0>::Received(); }
+ISR( USART0_UDRE_vect ) { SerialOutput<SerialPort0>::Requested(); }
+#elif defined( HAS_USART0 )
 
-ISR(USART0_UDRE_vect) {
-    SerialOutput<SerialPort0>::Requested();
-}
-
-#elif defined(HAS_USART0)
-
-ISR(USART_RX_vect) {
-  SerialInput<SerialPort0>::Received();
-}
-
-ISR(USART_UDRE_vect) {
-    SerialOutput<SerialPort0>::Requested();
-}
+ISR( USART_RX_vect ) { SerialInput<SerialPort0>::Received(); }
+ISR( USART_UDRE_vect ) { SerialOutput<SerialPort0>::Requested(); }
 
 #endif  // HAS_USART
 
@@ -58,13 +45,8 @@ ISR(USART_UDRE_vect) {
 
 #ifdef HAS_USART1
 
-ISR(USART1_RX_vect) {
-  SerialInput<SerialPort1>::Received();
-}
-
-ISR(USART_UDRE_vect) {
-    SerialOutput<SerialPort1>::Requested();
-}
+ISR( USART1_RX_vect ) { SerialInput<SerialPort1>::Received(); }
+ISR( USART_UDRE_vect ) { SerialOutput<SerialPort1>::Requested(); }
 
 #endif  // HAS_USART1
 

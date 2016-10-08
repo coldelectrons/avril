@@ -31,7 +31,7 @@
 // write_has_succeeded = Serial::NonBlockingWrite(40)  // Will not block.
 //
 // Buffer manipulation (for buffered I/O):
-// Serial::available()  // Number of bytes ready to be read. For polled read too
+// Serial::readable()  // Number of bytes ready to be read. For polled read too
 // my_value = Serial::Read()  // Will wait until data arrives.
 // my_value = Serial::NonBlockingRead()  // Will return -1 if no data is there.
 // my_value = Serial::ImmediateRead()  // Assumes you are sure about what you
@@ -261,17 +261,21 @@ struct Serial {
 
 #ifdef HAS_USART0
 
-IORegister( UBRR0H ) IORegister( UBRR0L ) IORegister16( UBRR0 ) IORegister(
-    UCSR0A ) IORegister( UCSR0B ) IORegister( UCSR0C ) IORegister( UDR0 )
+IORegister( UBRR0H );
+IORegister( UBRR0L );
+IORegister16( UBRR0 );
+IORegister( UCSR0A );
+IORegister( UCSR0B );
+IORegister( UCSR0C );
+IORegister( UDR0 );
 
-    typedef SerialPort<BitInRegister<UCSR0BRegister, TXEN0>,
-                       BitInRegister<UCSR0ARegister, UDRE0>,
-                       BitInRegister<UCSR0BRegister, RXEN0>,
-                       BitInRegister<UCSR0ARegister, RXC0>,
-                       BitInRegister<UCSR0BRegister, RXCIE0>,
-                       BitInRegister<UCSR0ARegister, U2X0>, UBRR0HRegister,
-                       UBRR0LRegister, UDR0Register, kSerialOutputBufferSize,
-                       kSerialInputBufferSize> SerialPort0;
+typedef SerialPort<
+    BitInRegister<UCSR0BRegister, TXEN0>, BitInRegister<UCSR0ARegister, UDRE0>,
+    BitInRegister<UCSR0BRegister, RXEN0>, BitInRegister<UCSR0ARegister, RXC0>,
+    BitInRegister<UCSR0BRegister, RXCIE0>, BitInRegister<UCSR0ARegister, U2X0>,
+    UBRR0HRegister, UBRR0LRegister, UDR0Register, kSerialOutputBufferSize,
+    kSerialInputBufferSize>
+    SerialPort0;
 
 #endif  // #ifdef HAS_USART0
 
