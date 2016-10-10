@@ -30,11 +30,11 @@ using namespace avril;
 #if defined( HAS_USART0 ) && defined( HAS_USART1 )
 
 ISR( USART0_RX_vect ) { SerialInput<SerialPort0>::Received(); }
-ISR( USART0_UDRE_vect ) { SerialOutput<SerialPort0>::Requested(); }
+ISR( USART0_TX_vect ) { SerialOutput<SerialPort0>::Requested(); }
 #elif defined( HAS_USART0 )
 
 ISR( USART_RX_vect ) { SerialInput<SerialPort0>::Received(); }
-ISR( USART_UDRE_vect ) { SerialOutput<SerialPort0>::Requested(); }
+ISR( USART_TX_vect ) { SerialOutput<SerialPort0>::Requested(); }
 
 #endif  // HAS_USART
 
@@ -46,7 +46,7 @@ ISR( USART_UDRE_vect ) { SerialOutput<SerialPort0>::Requested(); }
 #ifdef HAS_USART1
 
 ISR( USART1_RX_vect ) { SerialInput<SerialPort1>::Received(); }
-ISR( USART_UDRE_vect ) { SerialOutput<SerialPort1>::Requested(); }
+ISR( USART1_TX_vect ) { SerialOutput<SerialPort1>::Requested(); }
 
 #endif  // HAS_USART1
 

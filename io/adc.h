@@ -37,7 +37,7 @@ enum AdcAlignment {
   ADC_LEFT_ALIGNED = 1
 };
 
-IORegister(ADCSRA)
+IORegister(ADCSRA);
 
 typedef BitInRegister<ADCSRARegister, ADSC> AdcConvert;
 typedef BitInRegister<ADCSRARegister, ADEN> AdcEnabled;
