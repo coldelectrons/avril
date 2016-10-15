@@ -15,6 +15,7 @@ add_definitions(-fno-move-loop-invariants)
 add_definitions(${EXTRA_DEFINES})
 add_definitions(${MMC_CONFIG})
 add_definitions(-DSERIAL_RX_0)
+add_definitions(-DHAS_USART0 )
 add_definitions(-mcall-prologues)
 add_definitions(-fno-exceptions)
 

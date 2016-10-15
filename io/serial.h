@@ -1,6 +1,6 @@
-// Copyright 2009 Olivier Gillet.
+// Copyright 2016 Thomas Fritz.
 //
-// Author: Olivier Gillet (ol.gillet@gmail.com)
+// Author: Thomas Fritz (frithomas@gmail.com)
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,6 +21,12 @@
 // interruptions if there is an even higher priority task than the serial I/O).
 //
 // Usage:
+//
+// In your code, define symbols USARTn_ENABLED.  Then, include serial.h:
+// #define USART0_ENABLED
+// #include "avril/io/serial.h"
+//
+// Each USARTn_ENABLED will then create a Serialn class, and the ISRs needed.
 //
 // Set-up:
 // typedef Serial<SerialPort0, 31250, BUFFERED, POLLED> Serial;
@@ -46,9 +52,13 @@
 #ifndef AVRIL_SERIAL_H_
 #define AVRIL_SERIAL_H_
 
+#include <avr/interrupt.h>
+
 #include "../avril.h"
 #include "gpio.h"
 #include "ring_buffer.h"
+#include "serial_config.h"
+
 
 namespace avril {
 
@@ -94,8 +104,8 @@ struct SerialInput : public Input {
     // Blocking!
     static inline Value Read()
     {
-        while ( !readable() )
-            ;
+        while ( !readable() ) {
+        }
         return ImmediateRead();
     }
 
@@ -125,8 +135,8 @@ struct SerialOutput : public Output {
     // Blocking!
     static inline void Write( Value v )
     {
-        while ( !writable() )
-            ;
+        while ( !writable() ) {
+        }
         Overwrite( v );
     }
 
@@ -233,6 +243,9 @@ struct Serial {
         if ( input == BUFFERED ) {
             SerialPort::RxInterrupt::set();
         }
+        // if ( output == BUFFERED ) {
+        // SerialPort::TxInterrupt::set();
+        //}
     }
 
     static inline void Disable()
@@ -240,6 +253,7 @@ struct Serial {
         SerialPort::Tx::clear();
         SerialPort::Rx::clear();
         SerialPort::RxInterrupt::clear();
+        // SerialPort::TxInterrupt::clear();
     }
 
     static inline void Write( Value v ) { Impl::IO::Write( v ); }
@@ -259,7 +273,7 @@ struct Serial {
 };
 
 
-#ifdef HAS_USART0
+#if defined( ATMEGA_USART ) || defined( ATMEGA_USART0 )
 
 IORegister( UBRR0H );
 IORegister( UBRR0L );
@@ -277,10 +291,10 @@ typedef SerialPort<
     kSerialInputBufferSize>
     SerialPort0;
 
-#endif  // #ifdef HAS_USART0
+#endif  // #ifdef ATMEGA_USART0
 
 
-#ifdef HAS_USART1
+#ifdef ATMEGA_USART1
 
 IORegister( UBRR1H );
 IORegister( UBRR1L );
@@ -298,10 +312,10 @@ typedef SerialPort<
     kSerialInputBufferSize>
     SerialPort1;
 
-#endif  // #ifdef HAS_USART1
+#endif  // #ifdef ATMEGA_USART1
 
 
-#ifdef HAS_USART2
+#ifdef ATMEGA_USART2
 
 IORegister( UBRR2H );
 IORegister( UBRR2L );
@@ -319,9 +333,9 @@ typedef SerialPort<
     kSerialInputBufferSize>
     SerialPort2;
 
-#endif  // #ifdef HAS_USART2
+#endif  // #ifdef ATMEGA_USART2
 
-#ifdef HAS_USART3
+#ifdef ATMEGA_USART3
 
 IORegister( UBRR3H );
 IORegister( UBRR3L );
@@ -339,7 +353,56 @@ typedef SerialPort<
     kSerialInputBufferSize>
     SerialPort3;
 
-#endif  // #ifdef HAS_USART3
+#endif  // #ifdef ATMEGA_USART3
+
+
+// Macros to define or instantiate ISRs
+#ifndef DISABLE_DEFAULT_UART_RX_ISR
+
+#if defined( ATMEGA_USART0 ) || defined( ATMEGA_USART )
+#define CREATE_USART0_ISRS()                                                 \
+    ISR( UART0_RECEIVE_INTERRUPT ) { SerialInput<SerialPort0>::Received(); } \
+    ISR( UART0_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort0>::Requested(); }
+#endif  // ATMEGA_USART0
+
+#if defined( ATMEGA_USART1 )
+#define CREATE_USART1_ISRS()                                                 \
+    ISR( UART1_RECEIVE_INTERRUPT ) { SerialInput<SerialPort1>::Received(); } \
+    ISR( UART1_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort1>::Requested(); }
+#endif  // ATMEGA_USART1
+
+#if defined( ATMEGA_USART2 )
+#define CREATE_USART2_ISRS()                                                 \
+    ISR( UART2_RECEIVE_INTERRUPT ) { SerialInput<SerialPort2>::Received(); } \
+    ISR( UART2_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort2>::Requested(); }
+#endif  // ATMEGA_USART2
+
+#if defined( ATMEGA_USART3 )
+#define CREATE_USART3_ISRS()                                                 \
+    ISR( UART3_RECEIVE_INTERRUPT ) { SerialInput<SerialPort3>::Received(); } \
+    ISR( UART3_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort3>::Requested(); }
+#endif  // ATMEGA_USART3
+
+#else  // DISABLE_DEFAULT_UART_RX_ISR
+
+#if defined( ATMEGA_USART0 ) || defined( ATMEGA_USART )
+#define CREATE_USART0_ISRS()
+#endif  // ATMEGA_USART0
+
+#if defined( ATMEGA_USART1 )
+#define CREATE_USART1_ISRS()
+#endif  // ATMEGA_USART1
+
+#if defined( ATMEGA_USART2 )
+#define CREATE_USART2_ISRS()
+#endif  // ATMEGA_USART2
+
+#if defined( ATMEGA_USART3 )
+#define CREATE_USART3_ISRS()
+#endif  // ATMEGA_USART3
+
+#endif  // DISABLE_DEFAULT_UART_RX_ISR
+
 
 }  // namespace avril
 
