@@ -31,6 +31,7 @@ uint32_t Delay( uint32_t delay );
 
 #define ConstantDelay( x ) _delay_ms( ( x ) )
 
+/// InitClock:  setup Timer0 at correct rate for correct milliseconds();
 void InitClock();
 
 const uint32_t microseconds_per_timer0_overflow =

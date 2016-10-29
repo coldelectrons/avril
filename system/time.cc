@@ -24,27 +24,31 @@
 
 namespace avril {
 
-volatile LongWord timer0_milliseconds = { 0 };
+volatile LongWord timer0_milliseconds = {0};
 uint8_t timer0_fractional = 0;
 
-uint32_t Delay(uint32_t delay) {
-  uint32_t t = milliseconds() + delay;
-  while (milliseconds() < t);
+uint32_t Delay( uint32_t delay )
+{
+    uint32_t t = milliseconds() + delay;
+    while ( milliseconds() < t )
+        ;
 }
 
-uint32_t milliseconds() {
-  uint32_t m;
-  uint8_t oldSREG = SREG;
-  cli();
-  m = timer0_milliseconds.value;
-  SREG = oldSREG;
-  return m;
+uint32_t milliseconds()
+{
+    uint32_t m;
+    uint8_t oldSREG = SREG;
+    cli();
+    m = timer0_milliseconds.value;
+    SREG = oldSREG;
+    return m;
 }
 
-void InitClock() {
-  Timer<0>::set_prescaler(3);
-  Timer<0>::set_mode(TIMER_FAST_PWM);
-  Timer<0>::Start();
+void InitClock()
+{
+    Timer<0>::set_prescaler(3);
+    Timer<0>::set_mode( TIMER_FAST_PWM );
+    Timer<0>::Start();
 }
 
 }  // namespace avril
