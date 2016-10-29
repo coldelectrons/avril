@@ -29,9 +29,9 @@
 
 namespace avril {
 
-IORegister( SPSR )
-typedef BitInRegister<SPSRRegister, SPI2X> DoubleSpeed;
-typedef BitInRegister<SPSRRegister, SPIF> TransferComplete;
+IORegister( SPSR );
+using DoubleSpeed = BitInRegister<SPSRRegister, SPI2X>;
+using TransferComplete = BitInRegister<SPSRRegister, SPIF>;
 
 template <typename SlaveSelect, DataOrder order = MSB_FIRST, uint8_t speed = 4>
 class SpiMaster {
