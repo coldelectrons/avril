@@ -37,7 +37,7 @@
 // write_has_succeeded = Serial::NonBlockingWrite(40)  // Will not block.
 //
 // Buffer manipulation (for buffered I/O):
-// Serial::readable()  // Number of bytes ready to be read. For polled read too
+// Serial::Readable()  // Number of bytes ready to be read. For polled read too
 // my_value = Serial::Read()  // Will wait until data arrives.
 // my_value = Serial::NonBlockingRead()  // Will return -1 if no data is there.
 // my_value = Serial::ImmediateRead()  // Assumes you are sure about what you
@@ -104,21 +104,21 @@ struct SerialInput : public Input {
     // Blocking!
     static inline Value Read()
     {
-        while ( !readable() ) {
+        while ( !Readable() ) {
         }
         return ImmediateRead();
     }
 
     // Number of bytes available for read.
-    static inline uint8_t readable() { return SerialPort::rx_ready(); }
+    static inline uint8_t Readable() { return SerialPort::rx_ready(); }
     // A byte, or -1 if reading failed.
-    static inline int16_t NonBlockingRead() { return readable() ? Read() : -1; }
+    static inline int16_t NonBlockingRead() { return Readable() ? Read() : -1; }
     // No check for ready state.
     static inline Value ImmediateRead() { return SerialPort::data(); }
     // Called in data reception interrupt.
     static inline void Received()
     {
-        if ( !readable() ) {
+        if ( !Readable() ) {
             return;
         }
         // This will discard data if the buffer is full.
@@ -135,17 +135,17 @@ struct SerialOutput : public Output {
     // Blocking!
     static inline void Write( Value v )
     {
-        while ( !writable() ) {
+        while ( !Writable() ) {
         }
         Overwrite( v );
     }
 
     // Number of bytes that can be fed.
-    static inline uint8_t writable() { return SerialPort::tx_ready(); }
+    static inline uint8_t Writable() { return SerialPort::tx_ready(); }
     // 1 if success.
     static inline uint8_t NonBlockingWrite( Value v )
     {
-        if ( !writable() ) {
+        if ( !Writable() ) {
             return 0;
         }
         Overwrite( v );
@@ -257,14 +257,14 @@ struct Serial {
     }
 
     static inline void Write( Value v ) { Impl::IO::Write( v ); }
-    static inline uint8_t writable() { return Impl::IO::writable(); }
+    static inline uint8_t Writable() { return Impl::IO::Writable(); }
     static inline uint8_t NonBlockingWrite( Value v )
     {
         return Impl::IO::NonBlockingWrite( v );
     }
     static inline void Overwrite( Value v ) { Impl::IO::Overwrite( v ); }
     static inline Value Read() { return Impl::IO::Read(); }
-    static inline uint8_t readable() { return Impl::IO::readable(); }
+    static inline uint8_t Readable() { return Impl::IO::Readable(); }
     static inline int16_t NonBlockingRead()
     {
         return Impl::IO::NonBlockingRead();
