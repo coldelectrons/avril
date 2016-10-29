@@ -123,7 +123,7 @@ class Hd44780Lcd {
             transmitting_ = 0;
         }
         else {
-            if ( OutputBuffer::readable() ) {
+            if ( OutputBuffer::Readable() ) {
                 transmitting_ = 1;
                 StartWrite( OutputBuffer::ImmediateRead() );
             }
@@ -132,7 +132,7 @@ class Hd44780Lcd {
 
     static uint8_t WriteData( uint8_t c )
     {
-        if ( OutputBuffer::writable() < 2 ) {
+        if ( OutputBuffer::Writable() < 2 ) {
             return 0;
         }
         OutputBuffer::Overwrite2( LCD_DATA | ( c >> 4 ),
@@ -141,7 +141,7 @@ class Hd44780Lcd {
 
     static uint8_t WriteCommand( uint8_t c )
     {
-        if ( OutputBuffer::writable() < 2 ) {
+        if ( OutputBuffer::Writable() < 2 ) {
             return 0;
         }
         OutputBuffer::Overwrite2( LCD_COMMAND | ( c >> 4 ),
@@ -185,16 +185,16 @@ class Hd44780Lcd {
 
     static inline void Flush()
     {
-        while ( OutputBuffer::readable() || busy() ) {
+        while ( OutputBuffer::Readable() || Busy() ) {
             Tick();
             ConstantDelay( 1 );
         }
     }
 
-    static inline uint8_t writable() { return OutputBuffer::writable(); }
-    static inline uint8_t readable() { return OutputBuffer::readable(); }
-    static inline uint8_t busy() { return transmitting_; }
-    static inline uint8_t status_counter() { return status_counter_; }
+    static inline uint8_t Writable() { return OutputBuffer::Writable(); }
+    static inline uint8_t Readable() { return OutputBuffer::Readable(); }
+    static inline uint8_t Busy() { return transmitting_; }
+    static inline uint8_t StatusCounter() { return status_counter_; }
     static inline void ResetStatusCounter() { status_counter_ = 0; }
    private:
     static inline void StartWrite( uint8_t nibble )

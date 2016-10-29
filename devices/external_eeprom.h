@@ -25,8 +25,8 @@
 #ifndef AVRIL_DEVICES_EXTERNAL_EEPROM_H_
 #define AVRIL_DEVICES_EXTERNAL_EEPROM_H_
 
-#include "../i2c/i2c.h"
-#include "../time.h"
+#include "../io/i2c.h"
+#include "../system/time.h"
 
 namespace avril {
 
@@ -55,7 +55,7 @@ class ExternalEeprom {
     uint16_t read = 0;
     while (size != 0) {
       // Try to read as much as possible from the buffer from the previous op.
-      while (Bus::readable() && size) {
+      while (Bus::Readable() && size) {
         --size;
         ++read;
         *data++ = Bus::ImmediateRead();
@@ -169,7 +169,7 @@ class ExternalEeprom {
       return 0;  // Hopeless, it won't fit in one write.
     }
     // Wait until the buffer is flushed, and write to the buffer.
-    while (Bus::writable() < size) { }
+    while (Bus::Writable() < size) { }
     for (uint8_t i = 0; i < header_size; ++i) {
       Bus::Output::Overwrite(header[i]);
     }

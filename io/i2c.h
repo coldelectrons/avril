@@ -126,7 +126,7 @@ class I2cMaster {
     static uint8_t Send( uint8_t address )
     {
         // The output buffer is empty, no need to do anything.
-        if ( !Output::readable() ) {
+        if ( !Output::Readable() ) {
             return 0;
         }
 
@@ -139,7 +139,7 @@ class I2cMaster {
         state_ = I2C_STATE_RECEIVING;
         slarw_ = ( address << 1 ) | TW_WRITE;
 
-        uint8_t size = Output::readable();
+        uint8_t size = Output::Readable();
         I2cStart::Set();
 
         return size;
@@ -148,8 +148,8 @@ class I2cMaster {
     static uint8_t Request( uint8_t address, uint8_t requested )
     {
         // Make sure that we don't request more than the buffer can hold.
-        if ( requested >= Input::writable() ) {
-            requested = Input::writable() - 1;
+        if ( requested >= Input::Writable() ) {
+            requested = Input::Writable() - 1;
         }
         // Sorry, data can be requested only when the line is not busy.
         if ( state_ != I2C_STATE_READY ) {
@@ -169,14 +169,14 @@ class I2cMaster {
     // All the read/write operations are done on the buffer, so they do not
     // block.
     static inline void Write( Value v ) { Output::Write( v ); }
-    static inline uint8_t writable() { return Output::writable(); }
+    static inline uint8_t Writable() { return Output::Writable(); }
     static inline uint8_t NonBlockingWrite( Value v )
     {
         return Output::NonBlockingWrite( v );
     }
     static inline void Overwrite( Value v ) { Output::Overwrite( v ); }
     static inline Value Read() { return Input::Read(); }
-    static inline uint8_t readable() { return Input::readable(); }
+    static inline uint8_t Readable() { return Input::Readable(); }
     static inline int16_t NonBlockingRead() { return Input::NonBlockingRead(); }
     static inline Value ImmediateRead() { return Input::ImmediateRead(); }
     static inline void FlushInputBuffer() { Input::Flush(); }
@@ -217,7 +217,7 @@ class I2cMaster {
 
             case TW_MT_DATA_ACK:
             case TW_MT_SLA_ACK:
-                if ( Output::readable() ) {
+                if ( Output::Readable() ) {
                     TWDR = Output::ImmediateRead();
                     Continue( 1 );
                 }

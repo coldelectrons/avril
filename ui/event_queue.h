@@ -60,14 +60,14 @@ class EventQueue {
         events_.Overwrite( v.value );
     }
 
-    static uint8_t available() { return events_.readable(); }
-    static uint16_t idle_time()
+    static uint8_t Available() { return events_.Readable(); }
+    static uint16_t IdleTime()
     {
         uint32_t now = milliseconds();
         return static_cast<uint16_t>( now - last_event_time_ ) >> 8;
     }
 
-    static uint16_t idle_time_ms()
+    static uint16_t IdleTimeMs()
     {
         uint32_t now = milliseconds();
         return static_cast<uint16_t>( now - last_event_time_ );

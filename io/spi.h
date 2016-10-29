@@ -155,11 +155,11 @@ class SpiSlave {
     }
 
     static inline void Reply( uint8_t value ) { SPDR = value; }
-    static inline uint8_t readable() { return TransferComplete::Value(); }
+    static inline uint8_t Readable() { return TransferComplete::Value(); }
     static inline uint8_t ImmediateRead() { return SPDR; }
     static inline uint8_t Read()
     {
-        while ( !readable() )
+        while ( !Readable() )
             ;
         return ImmediateRead();
     }
@@ -170,8 +170,8 @@ template <typename XckPort, typename TxPort, typename RxPort,
           typename ControlRegisterC, uint8_t CFlags, typename TxReadyBit,
           typename DataRegister>
 struct UartSpiPort {
-    static inline uint8_t tx_ready() { return TxReadyBit::Value(); }
-    static inline uint8_t data() { return *DataRegister::ptr(); }
+    static inline uint8_t TxReady() { return TxReadyBit::Value(); }
+    static inline uint8_t Data() { return *DataRegister::ptr(); }
     static inline void SetData( uint8_t value )
     {
         *DataRegister::ptr() = value;

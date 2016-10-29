@@ -39,16 +39,16 @@ class RingBuffer : public Input, Output {
   
   RingBuffer() { }
   
-  static inline uint8_t capacity() { return size; }
+  static inline uint8_t Capacity() { return size; }
   static inline void Write(Value v) {
-    while (!writable());
+    while (!Writable());
     Overwrite(v);
   }
-  static inline uint8_t writable() {
+  static inline uint8_t Writable() {
     return (read_ptr_ - write_ptr_ - 1) & (size - 1);
   }
   static inline uint8_t NonBlockingWrite(Value v) {
-    if (writable()) {
+    if (Writable()) {
       Overwrite(v);
       return 1;
     } else {
@@ -69,14 +69,14 @@ class RingBuffer : public Input, Output {
   
   static inline uint8_t Requested() { return 0; }
   static inline Value Read() {
-    while (!readable());
+    while (!Readable());
     return ImmediateRead();
   }
-  static inline uint8_t readable() {
+  static inline uint8_t Readable() {
     return (write_ptr_ - read_ptr_) & (size - 1);
   }
   static inline int16_t NonBlockingRead() {
-    if (readable()) {
+    if (Readable()) {
       return ImmediateRead();
     } else {
       return -1;

@@ -182,15 +182,15 @@ struct Input {
     // Blocking!
     static inline Value Read()
     {
-        while ( !readable() )
+        while ( !Readable() )
             ;
         return ImmediateRead();
     }
 
     // Number of bytes available for read.
-    static inline uint8_t readable() { return 1; }
+    static inline uint8_t Readable() { return 1; }
     // A byte, or -1 if reading failed.
-    static inline int16_t NonBlockingRead() { return readable() ? Read() : -1; }
+    static inline int16_t NonBlockingRead() { return Readable() ? Read() : -1; }
     // No check for ready state.
     static inline Value ImmediateRead() { return 0; }
     // Called in data reception interrupt.
@@ -247,7 +247,7 @@ struct InputOutput {
     static inline void Overwrite( typename O::Value v ) { O::Overwrite( v ); }
     static inline typename O::Value Requested() { return O::Requested(); }
     static inline typename I::Value Read() { return I::Read(); }
-    static inline uint8_t readable() { return I::readable(); }
+    static inline uint8_t Readable() { return I::Readable(); }
     static inline int16_t NonBlockingRead() { return I::NonBlockingRead(); }
     static inline typename I::Value ImmediateRead()
     {
