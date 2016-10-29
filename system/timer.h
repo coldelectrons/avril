@@ -72,7 +72,7 @@ struct TimerImpl {
     typedef ControlRegisterA A;
     typedef ControlRegisterB B;
 
-    static inline uint8_t Value() const { return *ValueRegister::ptr(); }
+    static inline uint8_t Value() { return *ValueRegister::ptr(); }
     static inline void Start() { *InterruptRegister::ptr() |= _BV( 0 ); }
     static inline void Stop() { *InterruptRegister::ptr() &= ~( _BV( 0 ) ); }
     static inline void StartInputCapture()
@@ -204,7 +204,7 @@ struct NumberedTimer<3> {
 template <int n>
 struct Timer {
     typedef typename NumberedTimer<n>::Impl Impl;
-    static inline uint8_t Value() const { return Impl::Value(); }
+    static inline uint8_t Value() { return Impl::Value(); }
     static inline void Start() { Impl::Start(); }
     static inline void Stop() { Impl::Stop(); }
     static inline void StartInputCapture() { Impl::StartInputCapture(); }
