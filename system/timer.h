@@ -222,7 +222,7 @@ struct Timer {
     }
     static inline uint32_t SetTickRate( uint32_t hertz )
     {
-        Impl::SetTickRate( hertz );
+        return Impl::SetTickRate( hertz );
     }
 };
 
