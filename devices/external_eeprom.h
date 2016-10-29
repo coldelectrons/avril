@@ -47,7 +47,7 @@ class ExternalEeprom {
     Bus::Done();
   }
 
-  static void set_bank(uint8_t bank) {
+  static void SetBank(uint8_t bank) {
     bank_ = bank;
   }
 

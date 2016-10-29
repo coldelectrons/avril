@@ -47,26 +47,26 @@ class Adc {
   Adc() { }
   
   static inline void Init() {
-    set_prescaler(7);  // 128 -> 156kHz ADC clock.
+    SetPrescaler(7);  // 128 -> 156kHz ADC clock.
     Enable();
   }
-  static inline void set_prescaler(uint8_t factor) {
+  static inline void SetPrescaler(uint8_t factor) {
     ADCSRA = (ADCSRA & ~0x07) | (factor & 0x07);
   }
-  static inline void set_reference(AdcReference reference) {
+  static inline void SetReference(AdcReference reference) {
     admux_value_ = (admux_value_ & 0x3f) | (reference << 6);
   }
-  static inline void set_alignment(AdcAlignment alignment) {
+  static inline void SetAlignment(AdcAlignment alignment) {
     admux_value_ &= 0xc0;
     if (alignment == ADC_LEFT_ALIGNED) {
       admux_value_ |= 0x20;
     }
   }
   static inline void Enable() {
-    AdcEnabled::set();
+    AdcEnabled::Set();
   }
   static inline void Disable() {
-    AdcEnabled::clear();
+    AdcEnabled::Clear();
   }
   static inline int16_t Read(uint8_t pin) {
     StartConversion(pin);
@@ -76,13 +76,13 @@ class Adc {
   
   static inline void StartConversion(uint8_t pin) {
     ADMUX = admux_value_ | (pin & 0x07);
-    AdcConvert::set();
+    AdcConvert::Set();
   }
   static inline void Wait() {
-    while (AdcConvert::value());
+    while (AdcConvert::Value());
   }
   static bool ready() {
-    return !AdcConvert::value();
+    return !AdcConvert::Value();
   }
   static inline int16_t ReadOut() {
     uint8_t low = ADCL;
@@ -118,7 +118,7 @@ class AdcInputScanner {
     Adc::StartConversion(0);
   }
   
-  static inline void set_num_inputs(uint8_t num_inputs) {
+  static inline void SetNumInputs(uint8_t num_inputs) {
     num_inputs_ = num_inputs;
   }
   
@@ -130,7 +130,7 @@ class AdcInputScanner {
     return static_cast<uint16_t>(state_[pin]) >> 8;
   }
 
-  static uint8_t current_pin() {
+  static uint8_t CurrentPin() {
     return current_pin_;
   }
   
@@ -182,7 +182,7 @@ class MuxedAnalogInput {
   static int16_t Read() {
     return Adc::Read(current_pin_);
   }
-  static void set_pin(uint8_t current_pin) {
+  static void SetPin(uint8_t current_pin) {
     current_pin_ = current_pin;
   }
 

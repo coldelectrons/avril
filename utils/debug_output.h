@@ -34,8 +34,8 @@
 //   DebugOutput<DbgOutput> dbg;
 //
 //   void InitTimer2() {
-//     Timer<2>::set_prescaler(3);
-//     Timer<2>::set_mode(TIMER_CTC);
+//     Timer<2>::SetPrescaler(3);
+//     Timer<2>::SetMode(TIMER_CTC);
 //     TIMSK2|= (1 << OCIE2A);
 //     OCR2A = 19;  // for prescaler 32 @ 20MHz
 //     Timer<2>::Start();

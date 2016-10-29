@@ -230,8 +230,8 @@ template <typename Timer, uint8_t enabled_flag, typename PwmRegister>
 struct PwmChannel {
     typedef BitInRegister<typename Timer::Impl::A, enabled_flag> EnabledBit;
     enum { has_pwm = 1 };
-    static inline void Start() { EnabledBit::set(); }
-    static inline void Stop() { EnabledBit::clear(); }
+    static inline void Start() { EnabledBit::Set(); }
+    static inline void Stop() { EnabledBit::Clear(); }
     static inline void Write( uint8_t value ) { *PwmRegister::ptr() = value; }
     static inline void SetFrequency( uint16_t f )
     {

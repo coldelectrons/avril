@@ -44,11 +44,11 @@ class LedArray {
     Clear();
   }
 
-  static inline void set_pixel(uint8_t index) {
+  static inline void SetPixel(uint8_t index) {
     pixels_[index] = max_intensity;
   }
 
-  static inline void set_pixel(uint8_t index, uint8_t intensity) {
+  static inline void SetPixel(uint8_t index, uint8_t intensity) {
     pixels_[index] = intensity;
   }
 

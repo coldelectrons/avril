@@ -82,15 +82,15 @@ struct SerialPort {
         input_buffer_size = input_buffer_size_,
         output_buffer_size = output_buffer_size_
     };
-    static inline void set_prescaler( uint16_t value )
+    static inline void SetPrescaler( uint16_t value )
     {
         *PrescalerRegisterH::ptr() = value >> 8;
         *PrescalerRegisterL::ptr() = value;
     }
-    static inline uint8_t tx_ready() { return TxReadyBit::value(); }
-    static inline uint8_t rx_ready() { return RxReadyBit::value(); }
+    static inline uint8_t tx_ready() { return TxReadyBit::Value(); }
+    static inline uint8_t rx_ready() { return RxReadyBit::Value(); }
     static inline uint8_t data() { return *DataRegister::ptr(); }
-    static inline void set_data( uint8_t value )
+    static inline void SetData( uint8_t value )
     {
         *DataRegister::ptr() = value;
     }
@@ -153,7 +153,7 @@ struct SerialOutput : public Output {
     }
 
     // No check for ready state.
-    static inline void Overwrite( Value v ) { SerialPort::set_data( v ); }
+    static inline void Overwrite( Value v ) { SerialPort::SetData( v ); }
     // Called in data emission interrupt.
     static inline Value Requested()
     {
@@ -225,35 +225,35 @@ struct Serial {
     static inline void Init()
     {
         if ( turbo ) {
-            SerialPort::Turbo::set();
+            SerialPort::Turbo::Set();
             uint16_t prescaler = F_CPU / ( 8L * baud_rate ) - 1;
-            SerialPort::set_prescaler( prescaler );
+            SerialPort::SetPrescaler( prescaler );
         }
         else {
-            SerialPort::Turbo::clear();
+            SerialPort::Turbo::Clear();
             uint16_t prescaler = F_CPU / ( 16 * baud_rate ) - 1;
-            SerialPort::set_prescaler( prescaler );
+            SerialPort::SetPrescaler( prescaler );
         }
         if ( output != DISABLED ) {
-            SerialPort::Tx::set();
+            SerialPort::Tx::Set();
         }
         if ( input != DISABLED ) {
-            SerialPort::Rx::set();
+            SerialPort::Rx::Set();
         }
         if ( input == BUFFERED ) {
-            SerialPort::RxInterrupt::set();
+            SerialPort::RxInterrupt::Set();
         }
         // if ( output == BUFFERED ) {
-        // SerialPort::TxInterrupt::set();
+        // SerialPort::TxInterrupt::Set();
         //}
     }
 
     static inline void Disable()
     {
-        SerialPort::Tx::clear();
-        SerialPort::Rx::clear();
-        SerialPort::RxInterrupt::clear();
-        // SerialPort::TxInterrupt::clear();
+        SerialPort::Tx::Clear();
+        SerialPort::Rx::Clear();
+        SerialPort::RxInterrupt::Clear();
+        // SerialPort::TxInterrupt::Clear();
     }
 
     static inline void Write( Value v ) { Impl::IO::Write( v ); }

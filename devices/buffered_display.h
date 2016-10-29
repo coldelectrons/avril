@@ -80,18 +80,18 @@ class BufferedDisplay {
 
     static void Clear() { memset( local_, ' ', lcd_buffer_size ); }
     // Use kLcdNoCursor (255) or any other value outside of the screen to hide.
-    static inline void set_cursor_position( uint8_t cursor )
+    static inline void SetCursorPosition( uint8_t cursor )
     {
         cursor_position_ = cursor;
     }
 
-    static inline void set_cursor_character( uint8_t character )
+    static inline void SetCursorCharacter( uint8_t character )
     {
         cursor_character_ = character;
     }
 
     static inline uint8_t cursor_position() { return cursor_position_; }
-    static inline void set_status( uint8_t status )
+    static inline void SetStatus( uint8_t status )
     {
         status_ = status + 1;
         Lcd::ResetStatusCounter();

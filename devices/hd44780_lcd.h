@@ -83,9 +83,9 @@ class Hd44780Lcd {
     Hd44780Lcd() {}
     static inline void Init()
     {
-        RsPin::set_mode( DIGITAL_OUTPUT );
-        EnablePin::set_mode( DIGITAL_OUTPUT );
-        ParallelPort::set_mode( DIGITAL_OUTPUT );
+        RsPin::SetMode( DIGITAL_OUTPUT );
+        EnablePin::SetMode( DIGITAL_OUTPUT );
+        ParallelPort::SetMode( DIGITAL_OUTPUT );
 
         RsPin::Low();
         EnablePin::Low();

@@ -30,9 +30,9 @@ template<typename Latch, typename Clock, typename Data>
 struct BaseShiftRegisterOutput {
   BaseShiftRegisterOutput() { }
   static void Init() {
-    Clock::set_mode(DIGITAL_OUTPUT);
-    Latch::set_mode(DIGITAL_OUTPUT);
-    Data::set_mode(DIGITAL_OUTPUT);
+    Clock::SetMode(DIGITAL_OUTPUT);
+    Latch::SetMode(DIGITAL_OUTPUT);
+    Data::SetMode(DIGITAL_OUTPUT);
     Latch::High();
   }
 };
@@ -51,7 +51,7 @@ struct ShiftRegisterOutput<Latch, Clock, Data, size, LSB_FIRST>
     Data::Low();
     for (uint8_t i = size; i > 0; --i) {
       Clock::Low();
-      Data::set_value(data & 1);
+      Data::SetValue(data & 1);
       data >>= 1;
       Clock::High();
     }
@@ -107,9 +107,9 @@ template<typename Load, typename Clock, typename Data>
 struct BaseShiftRegisterInput {
   BaseShiftRegisterInput() { }
   static void Init() {
-    Clock::set_mode(DIGITAL_OUTPUT);
-    Load::set_mode(DIGITAL_OUTPUT);
-    Data::set_mode(DIGITAL_INPUT);
+    Clock::SetMode(DIGITAL_OUTPUT);
+    Load::SetMode(DIGITAL_OUTPUT);
+    Data::SetMode(DIGITAL_INPUT);
     Load::High();
     Clock::Low();
   }
@@ -133,7 +133,7 @@ struct ShiftRegisterInput<Load, Clock, Data, size, LSB_FIRST>
     Load::High();
     for (uint8_t i = size; i > 0; --i) {
       data <<= 1;
-      data |= Data::value();
+      data |= Data::Value();
       Clock::High();
       Clock::Low();
     }
@@ -153,7 +153,7 @@ struct ShiftRegisterInput<Load, Clock, Data, size, MSB_FIRST>
     Load::Low();
     Load::High();
     for (uint8_t i = size; i > 0; --i) {
-      if (Data::value()) {
+      if (Data::Value()) {
         data |= mask;
       }
       Clock::High();

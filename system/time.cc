@@ -46,8 +46,8 @@ uint32_t milliseconds()
 
 void InitClock()
 {
-    Timer<0>::set_prescaler(3);
-    Timer<0>::set_mode( TIMER_FAST_PWM );
+    Timer<0>::SetPrescaler(3);
+    Timer<0>::SetMode( TIMER_FAST_PWM );
     Timer<0>::Start();
 }
 

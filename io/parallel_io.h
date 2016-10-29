@@ -124,7 +124,7 @@ struct ParallelPort {
   typedef ShiftMasks<parallel_mode> Masks;
 
   // Mode change.
-  static inline void set_mode(uint8_t mode) {
+  static inline void SetMode(uint8_t mode) {
     uint8_t preserve = (*Port::Mode::ptr() & ~Masks::mask);
     if (mode == DIGITAL_INPUT) {
       *Port::Mode::ptr() = preserve;

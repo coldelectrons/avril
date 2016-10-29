@@ -35,7 +35,7 @@ class DebouncedSwitch {
   DebouncedSwitch() { }
     
   static inline void Init() {
-    Input::set_mode(DIGITAL_INPUT);
+    Input::SetMode(DIGITAL_INPUT);
     if (enable_pull_up) {
       Input::High();
     }
@@ -44,7 +44,7 @@ class DebouncedSwitch {
 
   // To be called at a rate < 1000 Hz.
   static inline uint8_t Read() {
-    state_ = (state_ << 1) | Input::value();
+    state_ = (state_ << 1) | Input::Value();
     return state_;
   }
 
@@ -53,7 +53,7 @@ class DebouncedSwitch {
   static inline uint8_t high() { return state_ == 0xff; }
   static inline uint8_t low() { return state_ == 0x00; }
   static inline uint8_t state() { return state_; }
-  static inline uint8_t immediate_value() { return Input::value(); }
+  static inline uint8_t immediate_value() { return Input::Value(); }
 
  private:
   static uint8_t state_;

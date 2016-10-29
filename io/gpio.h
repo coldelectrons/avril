@@ -19,13 +19,13 @@
 //
 // Examples of use:
 //
-// NumberedGpio<3>::set_mode(DIGITAL_INPUT)
-// NumberedGpio<4>::set_mode(DIGITAL_OUTPUT)
-// NumberedGpio<3>::value()
+// NumberedGpio<3>::SetMode(DIGITAL_INPUT)
+// NumberedGpio<4>::SetMode(DIGITAL_OUTPUT)
+// NumberedGpio<3>::Value()
 // NumberedGpio<4>::High()
 // NumberedGpio<4>::Low()
-// NumberedGpio<4>::set_value(1)
-// NumberedGpio<4>::set_value(0)
+// NumberedGpio<4>::SetValue(1)
+// NumberedGpio<4>::SetValue(0)
 
 #ifndef AVRIL_GPIO_H_
 #define AVRIL_GPIO_H_
@@ -122,13 +122,13 @@ struct GpioImpl {
     typedef BitInRegister<typename Port::Input, bit> InputBit;
     typedef PwmChannel Pwm;
 
-    static inline void set_mode( uint8_t mode )
+    static inline void SetMode( uint8_t mode )
     {
         if ( mode == DIGITAL_INPUT ) {
-            ModeBit::clear();
+            ModeBit::Clear();
         }
         else if ( mode == DIGITAL_OUTPUT || mode == PWM_OUTPUT ) {
-            ModeBit::set();
+            ModeBit::Set();
         }
         if ( mode == PWM_OUTPUT ) {
             PwmChannel::Start();
@@ -138,10 +138,10 @@ struct GpioImpl {
         }
     }
 
-    static inline void High() { OutputBit::set(); }
-    static inline void Low() { OutputBit::clear(); }
-    static inline void Toggle() { OutputBit::toggle(); }
-    static inline void set_value( uint8_t value )
+    static inline void High() { OutputBit::Set(); }
+    static inline void Low() { OutputBit::Clear(); }
+    static inline void Toggle() { OutputBit::Toggle(); }
+    static inline void SetValue( uint8_t value )
     {
         if ( value == 0 ) {
             Low();
@@ -151,19 +151,19 @@ struct GpioImpl {
         }
     }
 
-    static inline void set_pwm_value( uint8_t value )
+    static inline void SetPwmValue( uint8_t value )
     {
         if ( PwmChannel::has_pwm ) {
             PwmChannel::Write( value );
         }
         else {
-            set_value( value );
+            SetValue( value );
         }
     }
 
-    static inline uint8_t value() { return InputBit::value(); }
-    static inline uint8_t is_high() { return InputBit::value(); }
-    static inline uint8_t is_low() { return InputBit::value() == 0; }
+    static inline uint8_t Value() { return InputBit::Value(); }
+    static inline uint8_t IsHigh() { return InputBit::Value(); }
+    static inline uint8_t IsLow() { return InputBit::Value() == 0; }
 };
 
 
@@ -173,38 +173,38 @@ struct Gpio {
     static void High() { Impl::High(); }
     static void Low() { Impl::Low(); }
     static void Toggle() { Impl::Toggle(); }
-    static void set_mode( uint8_t mode ) { Impl::set_mode( mode ); }
-    static void set_value( uint8_t value ) { Impl::set_value( value ); }
-    static void set_pwm_value( uint8_t value ) { Impl::set_pwm_value( value ); }
-    static uint8_t value() { return Impl::value(); }
-    static uint8_t is_low() { return Impl::is_low(); }
-    static uint8_t is_high() { return Impl::is_high(); }
+    static void SetMode( uint8_t mode ) { Impl::SetMode( mode ); }
+    static void SetValue( uint8_t value ) { Impl::SetValue( value ); }
+    static void SetPwmValue( uint8_t value ) { Impl::SetPwmValue( value ); }
+    static uint8_t Value() { return Impl::Value(); }
+    static uint8_t IsLow() { return Impl::IsLow(); }
+    static uint8_t IsHigh() { return Impl::IsHigh(); }
 };
 
 struct DummyGpio {
     static void High() {}
     static void Low() {}
-    static void set_mode( uint8_t mode ) {}
-    static void set_value( uint8_t value ) {}
-    static void set_pwm_value( uint8_t value ) {}
-    static uint8_t value() { return 0; }
-    static uint8_t is_low() { return 0; }
-    static uint8_t is_high() { return 0; }
+    static void SetMode( uint8_t mode ) {}
+    static void SetValue( uint8_t value ) {}
+    static void SetPwmValue( uint8_t value ) {}
+    static uint8_t Value() { return 0; }
+    static uint8_t IsLow() { return 0; }
+    static uint8_t IsHigh() { return 0; }
 };
 
 template <typename Gpio>
 struct Inverter {
     static void High() { Gpio::Low(); }
     static void Low() { Gpio::High(); }
-    static void set_mode( uint8_t mode ) { Gpio::set_mode( mode ); }
-    static void set_value( uint8_t value ) { Gpio::set_value( !value ); }
-    static void set_pwm_value( uint8_t value )
+    static void SetMode( uint8_t mode ) { Gpio::SetMode( mode ); }
+    static void SetValue( uint8_t value ) { Gpio::SetValue( !value ); }
+    static void SetPwmValue( uint8_t value )
     {
-        Gpio::set_pwm_value( ~value );
+        Gpio::SetPwmValue( ~value );
     }
-    static uint8_t value() { return !Gpio::value(); }
-    static uint8_t is_low() { return !Gpio::is_low(); }
-    static uint8_t is_high() { return !Gpio::is_high(); }
+    static uint8_t Value() { return !Gpio::Value(); }
+    static uint8_t IsLow() { return !Gpio::IsLow(); }
+    static uint8_t IsHigh() { return !Gpio::IsHigh(); }
 };
 
 template <typename gpio>
@@ -213,10 +213,10 @@ struct DigitalInput {
         buffer_size = 0,
         data_size = 1,
     };
-    static void Init() { gpio::set_mode( DIGITAL_INPUT ); }
+    static void Init() { gpio::SetMode( DIGITAL_INPUT ); }
     static void EnablePullUpResistor() { gpio::High(); }
     static void DisablePullUpResistor() { gpio::Low(); }
-    static uint8_t Read() { return gpio::value(); }
+    static uint8_t Read() { return gpio::Value(); }
 };
 
 // A template that will be specialized for each pin, allowing the pin number to
@@ -480,10 +480,10 @@ struct NumberedGpio {
     static void High() { Impl::High(); }
     static void Low() { Impl::Low(); }
     static void Toggle() { Impl::Toggle(); }
-    static void set_mode( uint8_t mode ) { Impl::set_mode( mode ); }
-    static void set_value( uint8_t value ) { Impl::set_value( value ); }
-    static void set_pwm_value( uint8_t value ) { Impl::set_pwm_value( value ); }
-    static uint8_t value() { return Impl::value(); }
+    static void SetMode( uint8_t mode ) { Impl::SetMode( mode ); }
+    static void SetValue( uint8_t value ) { Impl::SetValue( value ); }
+    static void SetPwmValue( uint8_t value ) { Impl::SetPwmValue( value ); }
+    static uint8_t Value() { return Impl::Value(); }
 };
 
 template <int n>
@@ -492,10 +492,10 @@ struct PwmOutput {
         buffer_size = 0,
         data_size = 8,
     };
-    static void Init() { NumberedGpio<n>::set_mode( PWM_OUTPUT ); }
+    static void Init() { NumberedGpio<n>::SetMode( PWM_OUTPUT ); }
     static void Write( uint8_t value )
     {
-        return NumberedGpio<n>::set_pwm_value( value );
+        return NumberedGpio<n>::SetPwmValue( value );
     }
     static void Stop() { NumberedGpio<n>::Impl::Pwm::Stop(); }
     static void Start() { NumberedGpio<n>::Impl::Pwm::Start(); }

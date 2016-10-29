@@ -31,11 +31,11 @@ inline void Boot(bool init_timers) {
   sei();
 
   if (init_timers) {
-    Timer<1>::set_prescaler(3);
-    Timer<1>::set_mode(TIMER_PWM_PHASE_CORRECT);
+    Timer<1>::SetPrescaler(3);
+    Timer<1>::SetMode(TIMER_PWM_PHASE_CORRECT);
 
-    Timer<2>::set_prescaler(3);
-    Timer<2>::set_mode(TIMER_PWM_PHASE_CORRECT);
+    Timer<2>::SetPrescaler(3);
+    Timer<2>::SetMode(TIMER_PWM_PHASE_CORRECT);
     InitClock();
   }
 

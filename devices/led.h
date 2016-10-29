@@ -38,7 +38,7 @@ class Led {
  public:
 
   static void Init() {
-    LedPort::set_mode(DIGITAL_OUTPUT);
+    LedPort::SetMode(DIGITAL_OUTPUT);
     Off();
   }
 

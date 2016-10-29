@@ -42,11 +42,11 @@ class RotaryEncoderArray {
   ~RotaryEncoderArray() { }
 
   static void Init() {
-    Clock::set_mode(DIGITAL_OUTPUT);
-    Load::set_mode(DIGITAL_OUTPUT);
-    A::set_mode(DIGITAL_INPUT);
-    B::set_mode(DIGITAL_INPUT);
-    C::set_mode(DIGITAL_INPUT);
+    Clock::SetMode(DIGITAL_OUTPUT);
+    Load::SetMode(DIGITAL_OUTPUT);
+    A::SetMode(DIGITAL_INPUT);
+    B::SetMode(DIGITAL_INPUT);
+    C::SetMode(DIGITAL_INPUT);
     Load::High();
     Clock::Low();
 
@@ -62,9 +62,9 @@ class RotaryEncoderArray {
     Load::High();
 
     for (uint8_t i = size; i--; ) {
-      stateA_[i] = (stateA_[i] << 1) | A::value();
-      stateB_[i] = (stateB_[i] << 1) | B::value();
-      stateC_[i] = (stateC_[i] << 1) | C::value();
+      stateA_[i] = (stateA_[i] << 1) | A::Value();
+      stateB_[i] = (stateB_[i] << 1) | B::Value();
+      stateC_[i] = (stateC_[i] << 1) | C::Value();
       Clock::High();
       Clock::Low();
     }

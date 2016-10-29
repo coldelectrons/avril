@@ -164,10 +164,10 @@ enum DigitalValue { LOW = 0, HIGH = 1 };
 // Represents a bit in an i/o port register.
 template <typename Register, uint8_t bit>
 struct BitInRegister {
-    static void clear() { *Register::ptr() &= ~_BV( bit ); }
-    static void set() { *Register::ptr() |= _BV( bit ); }
-    static void toggle() { *Register::ptr() ^= _BV( bit ); }
-    static uint8_t value() { return *Register::ptr() & _BV( bit ) ? 1 : 0; }
+    static void Clear() { *Register::ptr() &= ~_BV( bit ); }
+    static void Set() { *Register::ptr() |= _BV( bit ); }
+    static void Toggle() { *Register::ptr() ^= _BV( bit ); }
+    static uint8_t Value() { return *Register::ptr() & _BV( bit ) ? 1 : 0; }
 };
 
 // These classes implement/define the basic input/output interface. The default

@@ -71,11 +71,11 @@ class BicolorLedArray {
   
   // Intensity is in AAAABBBB format, where AAAA is the intensity for the
   // color 1, and BBBB is the intensity for the color 2.
-  static inline void set_pixel(uint8_t index, uint8_t intensity) {
+  static inline void SetPixel(uint8_t index, uint8_t intensity) {
     buffered_pixels_[index] = intensity;
   }
 
-  static inline void set_direct_pixel(uint8_t index, uint8_t intensity) {
+  static inline void SetDirectPixel(uint8_t index, uint8_t intensity) {
     pixels_[index] = intensity;
   }
   

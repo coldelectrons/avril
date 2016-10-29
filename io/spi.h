@@ -40,12 +40,12 @@ class SpiMaster {
 
     static void Init()
     {
-        SpiSCK::set_mode( DIGITAL_OUTPUT );
-        SpiMOSI::set_mode( DIGITAL_OUTPUT );
-        SpiMISO::set_mode( DIGITAL_INPUT );
-        SpiSS::set_mode( DIGITAL_OUTPUT );  // I'm a master!
+        SpiSCK::SetMode( DIGITAL_OUTPUT );
+        SpiMOSI::SetMode( DIGITAL_OUTPUT );
+        SpiMISO::SetMode( DIGITAL_INPUT );
+        SpiSS::SetMode( DIGITAL_OUTPUT );  // I'm a master!
         SpiSS::High();
-        SlaveSelect::set_mode( DIGITAL_OUTPUT );
+        SlaveSelect::SetMode( DIGITAL_OUTPUT );
         SlaveSelect::High();
 
         // SPI enabled, configured as master.
@@ -53,19 +53,19 @@ class SpiMaster {
         if ( order == LSB_FIRST ) {
             configuration |= _BV( DORD );
         }
-        DoubleSpeed::clear();
+        DoubleSpeed::Clear();
         switch ( speed ) {
             case 2:
-                DoubleSpeed::set();
+                DoubleSpeed::Set();
             case 4:
                 break;
             case 8:
-                DoubleSpeed::set();
+                DoubleSpeed::Set();
             case 16:
                 configuration |= _BV( SPR0 );
                 break;
             case 32:
-                DoubleSpeed::set();
+                DoubleSpeed::Set();
             case 64:
                 configuration |= _BV( SPR1 );
                 break;
@@ -116,7 +116,7 @@ class SpiMaster {
     static inline uint8_t ImmediateRead() { return SPDR; }
     static inline void Wait()
     {
-        while ( !TransferComplete::value() )
+        while ( !TransferComplete::Value() )
             ;
     }
 
@@ -138,10 +138,10 @@ class SpiSlave {
 
     static void Init()
     {
-        SpiSCK::set_mode( DIGITAL_INPUT );
-        SpiMOSI::set_mode( DIGITAL_INPUT );
-        SpiMISO::set_mode( DIGITAL_OUTPUT );
-        SpiSS::set_mode( DIGITAL_INPUT );  // Ohhh mistress, ohhhh!
+        SpiSCK::SetMode( DIGITAL_INPUT );
+        SpiMOSI::SetMode( DIGITAL_INPUT );
+        SpiMISO::SetMode( DIGITAL_OUTPUT );
+        SpiSS::SetMode( DIGITAL_INPUT );  // Ohhh mistress, ohhhh!
 
         // SPI enabled, configured as master.
         uint8_t configuration = _BV( SPE );
@@ -155,7 +155,7 @@ class SpiSlave {
     }
 
     static inline void Reply( uint8_t value ) { SPDR = value; }
-    static inline uint8_t readable() { return TransferComplete::value(); }
+    static inline uint8_t readable() { return TransferComplete::Value(); }
     static inline uint8_t ImmediateRead() { return SPDR; }
     static inline uint8_t Read()
     {
@@ -170,18 +170,18 @@ template <typename XckPort, typename TxPort, typename RxPort,
           typename ControlRegisterC, uint8_t CFlags, typename TxReadyBit,
           typename DataRegister>
 struct UartSpiPort {
-    static inline uint8_t tx_ready() { return TxReadyBit::value(); }
+    static inline uint8_t tx_ready() { return TxReadyBit::Value(); }
     static inline uint8_t data() { return *DataRegister::ptr(); }
-    static inline void set_data( uint8_t value )
+    static inline void SetData( uint8_t value )
     {
         *DataRegister::ptr() = value;
     }
     static inline void Setup( uint16_t rate )
     {
         *PrescalerRegister::ptr() = 0;
-        XckPort::set_mode( DIGITAL_OUTPUT );
-        TxPort::set_mode( DIGITAL_OUTPUT );
-        RxPort::set_mode( DIGITAL_INPUT );
+        XckPort::SetMode( DIGITAL_OUTPUT );
+        TxPort::SetMode( DIGITAL_OUTPUT );
+        RxPort::SetMode( DIGITAL_INPUT );
         *ControlRegisterC::ptr() = CFlags;
         *ControlRegisterB::ptr() = BFlags;
         *PrescalerRegister::ptr() = rate;
@@ -215,7 +215,7 @@ class UartSpiMaster {
 
     static void Init()
     {
-        SlaveSelect::set_mode( DIGITAL_OUTPUT );
+        SlaveSelect::SetMode( DIGITAL_OUTPUT );
         SlaveSelect::High();
         Port::Setup( ( speed / 2 ) - 1 );
     }
@@ -248,7 +248,7 @@ class UartSpiMaster {
     }
 
     static inline void OptimisticWait() {}
-    static inline void Overwrite( uint8_t v ) { Port::set_data( v ); }
+    static inline void Overwrite( uint8_t v ) { Port::SetData( v ); }
     static inline void WriteWord( uint8_t a, uint8_t b )
     {
         Begin();

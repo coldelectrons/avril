@@ -39,7 +39,7 @@ class PotScanner {
 
   static inline void Init() {
     Adc::Init();
-    Adc::set_alignment(ADC_LEFT_ALIGNED);
+    Adc::SetAlignment(ADC_LEFT_ALIGNED);
     scan_cycle_ = 0;
     Adc::StartConversion(scan_cycle_ + first_input_index);
     history_ptr_ = 0;
@@ -67,7 +67,7 @@ class PotScanner {
   }
   
   static inline uint16_t value(uint8_t index) {
-    uint16_t shift = (Log2<oversampling>::value + 8 - resolution);
+    uint16_t shift = (Log2<oversampling>::Value + 8 - resolution);
     return value_[index] >> shift;
   }
   
@@ -98,7 +98,7 @@ uint8_t PotScanner<a, b, c, d>::history_ptr_;
 
 /* static */
 template<uint8_t num_inputs, uint8_t b, uint8_t c, uint8_t d>
-uint16_t PotScanner<num_inputs, b, c, d>::value_[num_inputs];
+uint16_t PotScanner<num_inputs, b, c, d>::Value_[num_inputs];
 
 /* static */
 template<uint8_t num_inputs, uint8_t b, uint8_t oversampling, uint8_t d>
@@ -175,7 +175,7 @@ uint8_t HysteresisPotScanner<a, b, c, d>::scan_cycle_;
 
 /* static */
 template<uint8_t num_inputs, uint8_t b, uint8_t c, uint8_t d>
-uint16_t HysteresisPotScanner<num_inputs, b, c, d>::value_[num_inputs];
+uint16_t HysteresisPotScanner<num_inputs, b, c, d>::Value_[num_inputs];
 
 /* static */
 template<uint8_t num_inputs, uint8_t b, uint8_t c, uint8_t d>
