@@ -34,7 +34,6 @@ add_definitions(-fno-exceptions)
 #include_directories(SYSTEM ${AVRLIBC_INCLUDE_DIR})
 
 add_avr_library(avril
-    io/serial.cc
     io/adc.cc
     io/i2c.cc
     system/time.cc
