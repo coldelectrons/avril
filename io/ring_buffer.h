@@ -47,12 +47,12 @@ class RingBuffer : public Input, Output {
   static inline uint8_t Writable() {
     return (read_ptr_ - write_ptr_ - 1) & (size - 1);
   }
-  static inline uint8_t NonBlockingWrite(Value v) {
+  static inline bool NonBlockingWrite(Value v) {
     if (Writable()) {
       Overwrite(v);
-      return 1;
+      return true;
     } else {
-      return 0;
+      return false;
     }
   }
   static inline void Overwrite(Value v) {
