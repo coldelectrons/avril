@@ -46,9 +46,13 @@
 // Flushing a buffer:
 // Serial::InputBuffer::Flush()
 //
-// TODO(pichenettes): Buffered writes not supported for now (should look up
-// the right interrupt handler).
-
+// TODO(fritz): Buffered writes not supported for now - I know the ISR to use,
+// but currently the Requested() method isn't getting declared in the built
+// template class.
+//
+// Also, there is the matter of whether or not buffered output is more
+// USEFUL than polled output.
+//
 #ifndef AVRIL_SERIAL_H_
 #define AVRIL_SERIAL_H_
 
@@ -68,16 +72,17 @@ const uint8_t kSerialInputBufferSize = 32;
 // Low-level interface to the low-level UART registers. Several specializations
 // may be declared for each serial port. This class could theoretically be used
 // for non-blocking write or polling reads.
-template <typename TxEnableBit, typename TxReadyBit, typename RxEnableBit,
-          typename RxReadyBit, typename RxInterruptBit, typename TurboBit,
-          typename PrescalerRegisterH, typename PrescalerRegisterL,
-          typename DataRegister, uint8_t input_buffer_size_,
-          uint8_t output_buffer_size_>
+template <typename TxEnableBit, typename TxReadyBit, typename TxInterruptBit,
+          typename RxEnableBit, typename RxReadyBit, typename RxInterruptBit,
+          typename TurboBit, typename PrescalerRegisterH,
+          typename PrescalerRegisterL, typename DataRegister,
+          uint8_t input_buffer_size_, uint8_t output_buffer_size_>
 struct SerialPort {
-    typedef TxEnableBit Tx;
-    typedef RxEnableBit Rx;
-    typedef RxInterruptBit RxInterrupt;
-    typedef TurboBit Turbo;
+    using Tx = TxEnableBit;
+    using Rx = RxEnableBit;
+    using TxInterrupt = TxInterruptBit;
+    using RxInterrupt = RxInterruptBit;
+    using Turbo = TurboBit;
     enum {
         input_buffer_size = input_buffer_size_,
         output_buffer_size = output_buffer_size_
@@ -87,9 +92,9 @@ struct SerialPort {
         *PrescalerRegisterH::ptr() = value >> 8;
         *PrescalerRegisterL::ptr() = value;
     }
-    static inline uint8_t tx_ready() { return TxReadyBit::Value(); }
-    static inline uint8_t rx_ready() { return RxReadyBit::Value(); }
-    static inline uint8_t data() { return *DataRegister::ptr(); }
+    static inline uint8_t TxReady() { return TxReadyBit::Value(); }
+    static inline uint8_t RxReady() { return RxReadyBit::Value(); }
+    static inline uint8_t Data() { return *DataRegister::ptr(); }
     static inline void SetData( uint8_t value )
     {
         *DataRegister::ptr() = value;
@@ -110,11 +115,11 @@ struct SerialInput : public Input {
     }
 
     // Number of bytes available for read.
-    static inline uint8_t Readable() { return SerialPort::rx_ready(); }
+    static inline uint8_t Readable() { return SerialPort::RxReady(); }
     // A byte, or -1 if reading failed.
     static inline int16_t NonBlockingRead() { return Readable() ? Read() : -1; }
     // No check for ready state.
-    static inline Value ImmediateRead() { return SerialPort::data(); }
+    static inline Value ImmediateRead() { return SerialPort::Data(); }
     // Called in data reception interrupt.
     static inline void Received()
     {
@@ -126,6 +131,7 @@ struct SerialInput : public Input {
             ImmediateRead() );
     }
 };
+
 
 template <typename SerialPort>
 struct SerialOutput : public Output {
@@ -141,15 +147,15 @@ struct SerialOutput : public Output {
     }
 
     // Number of bytes that can be fed.
-    static inline uint8_t Writable() { return SerialPort::tx_ready(); }
+    static inline uint8_t Writable() { return SerialPort::TxReady(); }
     // 1 if success.
-    static inline uint8_t NonBlockingWrite( Value v )
+    static inline bool NonBlockingWrite( Value v )
     {
         if ( !Writable() ) {
-            return 0;
+            return false;
         }
         Overwrite( v );
-        return 1;
+        return true;
     }
 
     // No check for ready state.
@@ -157,13 +163,15 @@ struct SerialOutput : public Output {
     // Called in data emission interrupt.
     static inline Value Requested()
     {
-        Value v = RingBuffer<SerialOutput<SerialPort>>::NonBlockingRead();
-        if ( v >= 0 ) {
+        auto v = RingBuffer<SerialOutput<SerialPort>>::NonBlockingRead();
+        if ( v != -1 ) {
             Overwrite( v );
         }
         return v;
     }
 };
+
+
 
 template <typename SerialPort, PortMode input = POLLED,
           PortMode output = POLLED>
@@ -216,10 +224,10 @@ struct SerialImplementation<SerialPort, BUFFERED, BUFFERED> {
 template <typename SerialPort, uint32_t baud_rate, PortMode input = POLLED,
           PortMode output = POLLED, bool turbo = false>
 struct Serial {
-    typedef SerialImplementation<SerialPort, input, output> Impl;
-    typedef uint8_t Value;
-    typedef typename Impl::IO::Input Input;
-    typedef typename Impl::IO::Output Output;
+    using Impl = SerialImplementation<SerialPort, input, output>;
+    using Value = uint8_t;
+    using Input = typename Impl::IO::Input;
+    using Output = typename Impl::IO::Output;
     static inline void Init() { Init<baud_rate>(); }
     template <uint32_t new_baud_rate>
     static inline void Init()
@@ -243,9 +251,9 @@ struct Serial {
         if ( input == BUFFERED ) {
             SerialPort::RxInterrupt::Set();
         }
-        // if ( output == BUFFERED ) {
-        // SerialPort::TxInterrupt::Set();
-        //}
+        if ( output == BUFFERED ) {
+            SerialPort::TxInterrupt::Set();
+        }
     }
 
     static inline void Disable()
@@ -253,12 +261,12 @@ struct Serial {
         SerialPort::Tx::Clear();
         SerialPort::Rx::Clear();
         SerialPort::RxInterrupt::Clear();
-        // SerialPort::TxInterrupt::Clear();
+        SerialPort::TxInterrupt::Clear();
     }
 
     static inline void Write( Value v ) { Impl::IO::Write( v ); }
     static inline uint8_t Writable() { return Impl::IO::Writable(); }
-    static inline uint8_t NonBlockingWrite( Value v )
+    static inline bool NonBlockingWrite( Value v )
     {
         return Impl::IO::NonBlockingWrite( v );
     }
@@ -285,10 +293,10 @@ IORegister( UDR0 );
 
 typedef SerialPort<
     BitInRegister<UCSR0BRegister, TXEN0>, BitInRegister<UCSR0ARegister, UDRE0>,
-    BitInRegister<UCSR0BRegister, RXEN0>, BitInRegister<UCSR0ARegister, RXC0>,
-    BitInRegister<UCSR0BRegister, RXCIE0>, BitInRegister<UCSR0ARegister, U2X0>,
-    UBRR0HRegister, UBRR0LRegister, UDR0Register, kSerialOutputBufferSize,
-    kSerialInputBufferSize>
+    BitInRegister<UCSR0BRegister, UDRIE0>, BitInRegister<UCSR0BRegister, RXEN0>,
+    BitInRegister<UCSR0ARegister, RXC0>, BitInRegister<UCSR0BRegister, RXCIE0>,
+    BitInRegister<UCSR0ARegister, U2X0>, UBRR0HRegister, UBRR0LRegister,
+    UDR0Register, kSerialOutputBufferSize, kSerialInputBufferSize>
     SerialPort0;
 
 #endif  // #ifdef ATMEGA_USART0
@@ -306,10 +314,10 @@ IORegister( UDR1 );
 
 typedef SerialPort<
     BitInRegister<UCSR1BRegister, TXEN1>, BitInRegister<UCSR1ARegister, UDRE1>,
-    BitInRegister<UCSR1BRegister, RXEN1>, BitInRegister<UCSR1ARegister, RXC1>,
-    BitInRegister<UCSR1BRegister, RXCIE1>, BitInRegister<UCSR1ARegister, U2X1>,
-    UBRR1HRegister, UBRR1LRegister, UDR1Register, kSerialOutputBufferSize,
-    kSerialInputBufferSize>
+    BitInRegister<UCSR0BRegister, UDRIE1>, BitInRegister<UCSR1BRegister, RXEN1>,
+    BitInRegister<UCSR1ARegister, RXC1>, BitInRegister<UCSR1BRegister, RXCIE1>,
+    BitInRegister<UCSR1ARegister, U2X1>, UBRR1HRegister, UBRR1LRegister,
+    UDR1Register, kSerialOutputBufferSize, kSerialInputBufferSize>
     SerialPort1;
 
 #endif  // #ifdef ATMEGA_USART1
@@ -327,10 +335,10 @@ IORegister( UDR2 );
 
 typedef SerialPort<
     BitInRegister<UCSR2BRegister, TXEN2>, BitInRegister<UCSR2ARegister, UDRE2>,
-    BitInRegister<UCSR2BRegister, RXEN2>, BitInRegister<UCSR2ARegister, RXC2>,
-    BitInRegister<UCSR2BRegister, RXCIE2>, BitInRegister<UCSR2ARegister, U2X2>,
-    UBRR2HRegister, UBRR2LRegister, UDR2Register, kSerialOutputBufferSize,
-    kSerialInputBufferSize>
+    BitInRegister<UCSR0BRegister, UDRIE2>, BitInRegister<UCSR2BRegister, RXEN2>,
+    BitInRegister<UCSR2ARegister, RXC2>, BitInRegister<UCSR2BRegister, RXCIE2>,
+    BitInRegister<UCSR2ARegister, U2X2>, UBRR2HRegister, UBRR2LRegister,
+    UDR2Register, kSerialOutputBufferSize, kSerialInputBufferSize>
     SerialPort2;
 
 #endif  // #ifdef ATMEGA_USART2
@@ -347,10 +355,10 @@ IORegister( UDR3 );
 
 typedef SerialPort<
     BitInRegister<UCSR3BRegister, TXEN3>, BitInRegister<UCSR3ARegister, UDRE3>,
-    BitInRegister<UCSR3BRegister, RXEN3>, BitInRegister<UCSR3ARegister, RXC3>,
-    BitInRegister<UCSR3BRegister, RXCIE3>, BitInRegister<UCSR3ARegister, U2X3>,
-    UBRR3HRegister, UBRR3LRegister, UDR3Register, kSerialOutputBufferSize,
-    kSerialInputBufferSize>
+    BitInRegister<UCSR0BRegister, UDRIE3>, BitInRegister<UCSR3BRegister, RXEN3>,
+    BitInRegister<UCSR3ARegister, RXC3>, BitInRegister<UCSR3BRegister, RXCIE3>,
+    BitInRegister<UCSR3ARegister, U2X3>, UBRR3HRegister, UBRR3LRegister,
+    UDR3Register, kSerialOutputBufferSize, kSerialInputBufferSize>
     SerialPort3;
 
 #endif  // #ifdef ATMEGA_USART3
@@ -360,27 +368,51 @@ typedef SerialPort<
 #ifndef DISABLE_DEFAULT_UART_RX_ISR
 
 #if defined( ATMEGA_USART0 ) || defined( ATMEGA_USART )
-#define CREATE_USART0_ISRS()                                                 \
-    ISR( UART0_RECEIVE_INTERRUPT ) { SerialInput<SerialPort0>::Received(); } \
-    ISR( UART0_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort0>::Requested(); }
+#define CREATE_USART0_ISRS()                                      \
+    ISR( UART0_RECEIVE_INTERRUPT )                                \
+    {                                                             \
+        ::avril::SerialInput<::avril::SerialPort0>::Received();   \
+    }                                                             \
+    ISR( UART0_TRANSMIT_INTERRUPT )                               \
+    {                                                             \
+        ::avril::SerialOutput<::avril::SerialPort0>::Requested(); \
+    }
 #endif  // ATMEGA_USART0
 
 #if defined( ATMEGA_USART1 )
-#define CREATE_USART1_ISRS()                                                 \
-    ISR( UART1_RECEIVE_INTERRUPT ) { SerialInput<SerialPort1>::Received(); } \
-    ISR( UART1_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort1>::Requested(); }
+#define CREATE_USART1_ISRS()                                      \
+    ISR( UART1_RECEIVE_INTERRUPT )                                \
+    {                                                             \
+        ::avril::SerialInput<::avril::SerialPort1>::Received();   \
+    }                                                             \
+    ISR( UART1_TRANSMIT_INTERRUPT )                               \
+    {                                                             \
+        ::avril::SerialOutput<::avril::SerialPort1>::Requested(); \
+    }
 #endif  // ATMEGA_USART1
 
 #if defined( ATMEGA_USART2 )
-#define CREATE_USART2_ISRS()                                                 \
-    ISR( UART2_RECEIVE_INTERRUPT ) { SerialInput<SerialPort2>::Received(); } \
-    ISR( UART2_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort2>::Requested(); }
+#define CREATE_USART2_ISRS()                                      \
+    ISR( UART2_RECEIVE_INTERRUPT )                                \
+    {                                                             \
+        ::avril::SerialInput<::avril::SerialPort2>::Received();   \
+    }                                                             \
+    ISR( UART2_TRANSMIT_INTERRUPT )                               \
+    {                                                             \
+        ::avril::SerialOutput<::avril::SerialPort2>::Requested(); \
+    }
 #endif  // ATMEGA_USART2
 
 #if defined( ATMEGA_USART3 )
-#define CREATE_USART3_ISRS()                                                 \
-    ISR( UART3_RECEIVE_INTERRUPT ) { SerialInput<SerialPort3>::Received(); } \
-    ISR( UART3_TRANSMIT_INTERRUPT ) { SerialOutput<SerialPort3>::Requested(); }
+#define CREATE_USART3_ISRS()                                      \
+    ISR( UART3_RECEIVE_INTERRUPT )                                \
+    {                                                             \
+        ::avril::SerialInput<::avril::SerialPort3>::Received();   \
+    }                                                             \
+    ISR( UART3_TRANSMIT_INTERRUPT )                               \
+    {                                                             \
+        ::avril::SerialOutput<::avril::SerialPort3>::Requested(); \
+    }
 #endif  // ATMEGA_USART3
 
 #else  // DISABLE_DEFAULT_UART_RX_ISR
