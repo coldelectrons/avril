@@ -228,7 +228,7 @@ struct Timer {
 
 template <typename Timer, uint8_t enabled_flag, typename PwmRegister>
 struct PwmChannel {
-    typedef BitInRegister<typename Timer::Impl::A, enabled_flag> EnabledBit;
+    using EnabledBit = BitInRegister<typename Timer::Impl::A, enabled_flag>;
     enum { has_pwm = 1 };
     static inline void Start() { EnabledBit::Set(); }
     static inline void Stop() { EnabledBit::Clear(); }
@@ -237,6 +237,7 @@ struct PwmChannel {
     {
         // TODO verify what this is actually doing.
         // XXX it doesn't follow anything I read in "Secrets of AVR PWM"
+        // XXX These seem to be hardcoded to Timer1???
         OCR1A = f;
         OCR1B = f >> 1;
     }
@@ -256,6 +257,8 @@ struct NoPwmChannel {
     static inline void Write( uint8_t value ) {}
 };
 
+// TODO create config header like for serial to create proper number of 
+// pwm channels
 typedef PwmChannel<Timer<0>, COM0A1, OCR0ARegister> PwmChannel0A;
 typedef PwmChannel<Timer<0>, COM0B1, OCR0BRegister> PwmChannel0B;
 typedef PwmChannel<Timer<1>, COM1A1, OCR1ARegister> PwmChannel1A;
