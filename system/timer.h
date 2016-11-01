@@ -32,20 +32,22 @@ namespace avril {
 
 SpecialFunctionRegister( TCCR0A );
 SpecialFunctionRegister( TCCR0B );
-SpecialFunctionRegister( TCCR1A );
-SpecialFunctionRegister( TCCR1B );
-SpecialFunctionRegister( TCCR2A );
-SpecialFunctionRegister( TCCR2B );
 SpecialFunctionRegister( TIMSK0 );
-SpecialFunctionRegister( TIMSK1 );
-SpecialFunctionRegister( TIMSK2 );
 SpecialFunctionRegister( TCNT0 );
-SpecialFunctionRegister16( TCNT1 );
-SpecialFunctionRegister( TCNT2 );
 SpecialFunctionRegister( OCR0A );
 SpecialFunctionRegister( OCR0B );
-SpecialFunctionRegister( OCR1A );
-SpecialFunctionRegister( OCR1B );
+
+SpecialFunctionRegister( TCCR1A );
+SpecialFunctionRegister( TCCR1B );
+SpecialFunctionRegister( TIMSK1 );
+SpecialFunctionRegister16( TCNT1 );
+SpecialFunctionRegister16( OCR1A );
+SpecialFunctionRegister16( OCR1B );
+
+SpecialFunctionRegister( TCCR2A );
+SpecialFunctionRegister( TCCR2B );
+SpecialFunctionRegister( TIMSK2 );
+SpecialFunctionRegister( TCNT2 );
 SpecialFunctionRegister( OCR2A );
 SpecialFunctionRegister( OCR2B );
 
@@ -53,10 +55,28 @@ SpecialFunctionRegister( OCR2B );
 SpecialFunctionRegister( TCCR3A );
 SpecialFunctionRegister( TCCR3B );
 SpecialFunctionRegister( TIMSK3 );
-SpecialFunctionRegister( TCNT3 );
-SpecialFunctionRegister( OCR3A );
-SpecialFunctionRegister( OCR3B );
+SpecialFunctionRegister16( TCNT3 );
+SpecialFunctionRegister16( OCR3A );
+SpecialFunctionRegister16( OCR3B );
 #endif  // HAS_TIMER3
+
+#ifdef HAS_TIMER4
+SpecialFunctionRegister( TCCR4A );
+SpecialFunctionRegister( TCCR4B );
+SpecialFunctionRegister( TIMSK4 );
+SpecialFunctionRegister( TCNT4 );
+SpecialFunctionRegister( OCR4A );
+SpecialFunctionRegister( OCR4B );
+#endif  // HAS_TIMER4
+
+#ifdef HAS_TIMER5
+SpecialFunctionRegister( TCCR5A );
+SpecialFunctionRegister( TCCR5B );
+SpecialFunctionRegister( TIMSK5 );
+SpecialFunctionRegister( TCNT5 );
+SpecialFunctionRegister( OCR5A );
+SpecialFunctionRegister( OCR5B );
+#endif  // HAS_TIMER5
 
 enum TimerMode {
     TIMER_NORMAL = 0,
@@ -66,13 +86,32 @@ enum TimerMode {
     TIMER_FAST_PWM_TOP = 7,
 };
 
+
+struct AtomicGuard {
+    uint8_t sreg;
+
+    AtomicGuard()
+    {
+        sreg = SREG;
+        cli();
+    }
+    ~AtomicGuard() { SREG = sreg; }
+};
+
+
+
 template <typename ControlRegisterA, typename ControlRegisterB,
           typename InterruptRegister, typename ValueRegister>
 struct TimerImpl {
-    typedef ControlRegisterA A;
-    typedef ControlRegisterB B;
+    using A = ControlRegisterA;
+    using B = ControlRegisterB;
+    using ValueType = typename ValueRegister::type;
 
-    static inline uint8_t Value() { return *ValueRegister::ptr(); }
+    static inline uint8_t Value()
+    {
+        AtomicGuard ag;
+        return *ValueRegister::ptr();
+    }
     static inline void Start() { *InterruptRegister::ptr() |= _BV( 0 ); }
     static inline void Stop() { *InterruptRegister::ptr() &= ~( _BV( 0 ) ); }
     static inline void StartInputCapture()
@@ -103,69 +142,47 @@ struct TimerImpl {
         *ControlRegisterB::ptr() = wg_mode_2 | prescaler;
     }
 
-    static inline void SetValue( uint16_t value )
+    static inline void SetValue( uint8_t value )
     {
+        AtomicGuard ag;
         *ValueRegister::ptr() = value;
     }
 
-    /// set tick rate in hertz
-    /// returns actual rate achieved
-    static inline uint32_t SetTickRate( uint32_t hertz )
-    {
-        uint32_t result = 0;
-        cli();
-        // Need to set prescaler and count for correct Hz operation ot ticks
-        // compare match register = [ F_CPU / (prescaler * desired interrupt
-        // frequency) ] - 1
-        const uint32_t psclr[5] = {1, 8, 64, 256, 1024};
-        const uint32_t cmr[5] = {
-            ( F_CPU / 1 * hertz ) - 1, ( F_CPU / 8 * hertz ) - 1,
-            ( F_CPU / 64 * hertz ) - 1, ( F_CPU / 256 * hertz ) - 1,
-            ( F_CPU / 1024 * hertz ) - 1};
-        for ( uint8_t i = 0; i < 5; ++i ) {
-            if ( cmr[i] < 255 ) {
-                SetMode( TIMER_FAST_PWM_TOP );
-                SetPrescaler( i );
-                //SetMode(_BV(), _BV(), i);
-                SetValue( cmr[i] );
-                result = ( F_CPU / psclr[i] ) / ( cmr[i] + 1 );
-                break;
-            }
-        }
-        sei();
-
-        return result;
-    }
-
-    // These are the values for MCUs clocked at 20 MHz
-    // 64 prescaler
-    //
-    // Timer speed
-    // value | fast        | accurate
-    // --------------------------------------
-    // 1     | 78.125 kHz  | 39.215 kHz
-    // 2     | 9.765 kHz   | 4.901 kHz
-    // 3     | 1220.7 Hz   | 612.7 Hz
-    // 4     | 305.2 Hz    | 153.2 Hz
-    // 5     | 76.3 Hz     | 38.3 Hz
-    //
-    // These are the values for MCUs clocked at 16 MHz
-    // 64 prescaler
-    //
-    // Timer speed
-    // value | fast        | accurate
-    // --------------------------------------
-    // 1     | 62.500 kHz  | 32.250 kHz
-    // 2     |             |
-    // 3     |             |
-    // 4     |             |
-    // 5     |             |
     static inline void SetPrescaler( uint8_t prescaler )
     {
         *ControlRegisterB::ptr() =
             ( *ControlRegisterB::ptr() & 0xf8 ) | prescaler;
     }
+    /// set tick rate of OVF interrupt in hertz
+    /// returns actual rate achieved
+    /// assumes FAST_PWM mode
+    static inline uint32_t SetTickRate( uint32_t hertz )
+    {
+        uint32_t result = 0;
+        // Need to set prescaler and count for correct Hz operation ot ticks
+        // compare match register = [ F_CPU / (prescaler * desired interrupt
+        // frequency) ] - 1
+        const uint32_t psclr[5] = {1, 8, 64, 256, 1024};
+        // const uint32_t psclr[7] = {1, 8, 32, 64, 128, 256, 1024};
+        const uint32_t cmr[5] = {
+            ( F_CPU / 1 * hertz ) - 1, ( F_CPU / 8 * hertz ) - 1,
+            ( F_CPU / 64 * hertz ) - 1, ( F_CPU / 256 * hertz ) - 1,
+            ( F_CPU / 1024 * hertz ) - 1};
+        for ( uint8_t i = 0; i < 5; ++i ) {
+            if ( cmr[i] < 256 ) {
+                SetMode( TIMER_FAST_PWM_TOP );
+                SetPrescaler( i );
+                SetValue( cmr[i] );
+                result = ( F_CPU / psclr[i] ) / ( cmr[i] + 1 );
+                break;
+            }
+        }
+
+        return result;
+    }
 };
+
+
 
 template <int n>
 struct NumberedTimer {
@@ -181,7 +198,7 @@ struct NumberedTimer<0> {
 template <>
 struct NumberedTimer<1> {
     typedef TimerImpl<TCCR1ARegister, TCCR1BRegister, TIMSK1Register,
-                      TCNT1Register>
+                        TCNT1Register>
         Impl;
 };
 
@@ -196,15 +213,58 @@ struct NumberedTimer<2> {
 template <>
 struct NumberedTimer<3> {
     typedef TimerImpl<TCCR3ARegister, TCCR3BRegister, TIMSK3Register,
-                      TCNT3Register>
+                        TCNT3Register>
         Impl;
 };
 #endif  // HAS_TIMER3
+
+#ifdef HAS_TIMER4
+template <>
+struct NumberedTimer<4> {
+    typedef TimerImpl<TCCR4ARegister, TCCR4BRegister, TIMSK4Register,
+                        TCNT4Register>
+        Impl;
+};
+#endif  // HAS_TIMER4
+
+#ifdef HAS_TIMER5
+template <>
+struct NumberedTimer<5> {
+    typedef TimerImpl<TCCR5ARegister, TCCR5BRegister, TIMSK5Register,
+                        TCNT5Register>
+        Impl;
+};
+#endif  // HAS_TIMER5
 
 template <int n>
 struct Timer {
     typedef typename NumberedTimer<n>::Impl Impl;
     static inline uint8_t Value() { return Impl::Value(); }
+    static inline void Start() { Impl::Start(); }
+    static inline void Stop() { Impl::Stop(); }
+    static inline void StartInputCapture() { Impl::StartInputCapture(); }
+    static inline void StopInputCapture() { Impl::StopInputCapture(); }
+    static inline void StartCompare() { Impl::StartCompare(); }
+    static inline void StopCompare() { Impl::StopCompare(); }
+    static inline void SetMode( TimerMode mode ) { Impl::SetMode( mode ); }
+    static inline void SetMode( uint8_t a, uint8_t b, uint8_t c )
+    {
+        Impl::SetMode( a, b, c );
+    }
+    static inline void SetPrescaler( uint8_t prescaler )
+    {
+        Impl::SetPrescaler( prescaler );
+    }
+    static inline uint32_t SetTickRate( uint32_t hertz )
+    {
+        return Impl::SetTickRate( hertz );
+    }
+};
+
+template <int n>
+struct Timer16 {
+    typedef typename NumberedTimer<n>::Impl Impl;
+    static inline uint16_t Value() { return Impl::Value(); }
     static inline void Start() { Impl::Start(); }
     static inline void Stop() { Impl::Stop(); }
     static inline void StartInputCapture() { Impl::StartInputCapture(); }
@@ -257,14 +317,36 @@ struct NoPwmChannel {
     static inline void Write( uint8_t value ) {}
 };
 
-// TODO create config header like for serial to create proper number of 
+// TODO create config header like for serial to create proper number of
 // pwm channels
+
+// These are 8-bit pwm channels
 typedef PwmChannel<Timer<0>, COM0A1, OCR0ARegister> PwmChannel0A;
 typedef PwmChannel<Timer<0>, COM0B1, OCR0BRegister> PwmChannel0B;
-typedef PwmChannel<Timer<1>, COM1A1, OCR1ARegister> PwmChannel1A;
-typedef PwmChannel<Timer<1>, COM1B1, OCR1BRegister> PwmChannel1B;
 typedef PwmChannel<Timer<2>, COM2A1, OCR2ARegister> PwmChannel2A;
 typedef PwmChannel<Timer<2>, COM2B1, OCR2BRegister> PwmChannel2B;
+
+// These are 16-bit pwm channels
+// TODO Need to specialize these channels to handle 16-bit registers
+typedef PwmChannel<Timer16<1>, COM1A1, OCR1ARegister> PwmChannel1A;
+typedef PwmChannel<Timer16<1>, COM1B1, OCR1BRegister> PwmChannel1B;
+
+#ifdef HAS_TIMER3
+typedef PwmChannel<Timer16<3>, COM3A1, OCR3ARegister> PwmChannel3A;
+typedef PwmChannel<Timer16<3>, COM3B1, OCR3BRegister> PwmChannel3B;
+typedef PwmChannel<Timer16<3>, COM3C1, OCR3CRegister> PwmChannel3C;
+#endif  // HAS_TIMER3
+#ifdef HAS_TIMER4
+typedef PwmChannel<Timer16<4>, COM4A1, OCR4ARegister> PwmChannel4A;
+typedef PwmChannel<Timer16<4>, COM4B1, OCR4BRegister> PwmChannel4B;
+typedef PwmChannel<Timer16<4>, COM4C1, OCR4CRegister> PwmChannel4C;
+#endif  // HAS_TIMER4
+#ifdef HAS_TIMER5
+typedef PwmChannel<Timer16<5>, COM5A1, OCR5ARegister> PwmChannel5A;
+typedef PwmChannel<Timer16<5>, COM5B1, OCR5BRegister> PwmChannel5B;
+typedef PwmChannel<Timer16<5>, COM5C1, OCR5CRegister> PwmChannel5C;
+#endif  // HAS_TIMER5
+
 
 // Readable aliases for timer interrupts.
 #define TIMER_0_TICK ISR( TIMER0_OVF_vect )
@@ -273,6 +355,8 @@ typedef PwmChannel<Timer<2>, COM2B1, OCR2BRegister> PwmChannel2B;
 
 #ifdef HAS_TIMER3
 #define TIMER_3_TICK ISR( TIMER3_OVF_vect )
+#define TIMER_4_TICK ISR( TIMER4_OVF_vect )
+#define TIMER_5_TICK ISR( TIMER5_OVF_vect )
 #endif  // HAS_TIMER3
 
 }  // namespace avril
