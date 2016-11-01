@@ -20,8 +20,8 @@
 #ifndef AVRIL_BASE_H_
 #define AVRIL_BASE_H_
 
-#include <inttypes.h>
 #include <avr/io.h>
+#include <inttypes.h>
 
 #ifndef NULL
 #define NULL 0
@@ -132,32 +132,52 @@ enum DigitalValue { LOW = 0, HIGH = 1 };
 // arguments because they are of the form: (*(volatile uint8_t *)(0x80))
 // The following define wraps this reference into a class to make it easier to
 // pass it as a template argument.
-#define IORegister( reg )                                                    \
-    struct reg##Register {                                                   \
-        static volatile uint8_t* ptr() { return &reg; }                      \
-        reg##Register& operator=( const uint8_t& value ) { *ptr() = value; return *this;} \
-        uint8_t operator()( const uint8_t& value ) { return *ptr(); }        \
+#define IORegister( reg )                                             \
+    struct reg##Register {                                            \
+        static volatile uint8_t* ptr() { return &reg; }               \
+        reg##Register& operator=( const uint8_t& value )              \
+        {                                                             \
+            *ptr() = value;                                           \
+            return *this;                                             \
+        }                                                             \
+        uint8_t operator()( const uint8_t& ) { return *ptr(); } \
+        using type = uint8_t;                                         \
     }
 
-#define IORegister16( reg )                                                   \
-    struct reg##Register {                                                    \
-        static volatile uint16_t* ptr() { return &reg; }                      \
-        reg##Register& operator=( const uint16_t& value ) { *ptr() = value; return *this;} \
-        uint16_t operator()( const uint16_t& value ) { return *ptr(); }       \
+#define IORegister16( reg )                                             \
+    struct reg##Register {                                              \
+        static volatile uint16_t* ptr() { return &reg; }                \
+        reg##Register& operator=( const uint16_t& value )               \
+        {                                                               \
+            *ptr() = value;                                             \
+            return *this;                                               \
+        }                                                               \
+        uint16_t operator()( const uint16_t& ) { return *ptr(); } \
+        using type = uint16_t;                                          \
     }
 
-#define SpecialFunctionRegister( reg )                                       \
-    struct reg##Register {                                                   \
-        static volatile uint8_t* ptr() { return &_SFR_BYTE( reg ); }         \
-        reg##Register& operator=( const uint8_t& value ) { *ptr() = value; return *this;} \
-        uint8_t operator()( const uint8_t& value ) { return *ptr(); }        \
+#define SpecialFunctionRegister( reg )                                \
+    struct reg##Register {                                            \
+        static volatile uint8_t* ptr() { return &_SFR_BYTE( reg ); }  \
+        reg##Register& operator=( const uint8_t& value )              \
+        {                                                             \
+            *ptr() = value;                                           \
+            return *this;                                             \
+        }                                                             \
+        uint8_t operator()( const uint8_t& ) { return *ptr(); } \
+        using type = uint8_t;                                         \
     }
 
-#define SpecialFunctionRegister16( reg )                                      \
-    struct reg##Register {                                                    \
-        static volatile uint16_t* ptr() { return &_SFR_WORD( reg ); }         \
-        reg##Register& operator=( const uint16_t& value ) { *ptr() = value; return *this;} \
-        uint16_t operator()( const uint16_t& value ) { return *ptr(); }       \
+#define SpecialFunctionRegister16( reg )                                \
+    struct reg##Register {                                              \
+        static volatile uint16_t* ptr() { return &_SFR_WORD( reg ); }   \
+        reg##Register& operator=( const uint16_t& value )               \
+        {                                                               \
+            *ptr() = value;                                             \
+            return *this;                                               \
+        }                                                               \
+        uint16_t operator()( const uint16_t& ) { return *ptr(); } \
+        using type = uint16_t;                                          \
     }
 
 
@@ -275,6 +295,20 @@ class scoped_resource {
     scoped_resource() { T::Begin(); }
     ~scoped_resource() { T::End(); }
 };
+
+
+
+template <typename T>
+struct remove_pointer {
+    typedef T type;
+};
+
+template <typename T>
+struct remove_pointer<T*> {
+    typedef typename remove_pointer<T>::type type;
+};
+
+
 
 }  // namespace avril
 
