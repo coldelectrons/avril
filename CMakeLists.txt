@@ -34,11 +34,11 @@ add_definitions(-fno-exceptions)
 #include_directories(SYSTEM ${AVRLIBC_INCLUDE_DIR})
 
 add_avr_library(avril
-    io/adc.cc
-    io/i2c.cc
+    #io/adc.cc
+    #io/i2c.cc
     system/time.cc
-    utils/stringutil.cc
-    utils/random.cc
+    #utils/stringutil.cc
+    #utils/random.cc
     #devices/wii_nunchuk.cc
     #filesystem/directory.cc
     #filesystem/file.cc
