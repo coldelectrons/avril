@@ -22,15 +22,24 @@
 //
 // Usage:
 //
-// In your code, define symbols USARTn_ENABLED.  Then, include serial.h:
-// #define USART0_ENABLED
+// In your code, include serial.h:
 // #include "avril/io/serial.h"
 //
-// Each USARTn_ENABLED will then create a Serialn class, and the ISRs needed.
+// Classes will be created according to the capabilities of the -mmcu= parameter
+// given to the compiler.
+//
+// If any serial device is used in a buffered mode, you will need to invoke
+// the convenience macros in your main.cpp to create the needed ISRs:
+//
+// CREATE_USARTn_ISRS()
 //
 // Set-up:
-// typedef Serial<SerialPort0, 31250, BUFFERED, POLLED> Serial;
-// then, in the setup() hook: Serial::Init()
+//
+// create a typedef or alias for the device class:
+// using Serial = avril::Serial<avril::SerialPort0, 31250, avril::BUFFERED,
+// avril::POLLED>;
+//
+// then, in your setup code, call Serial::Init()
 //
 // Write:
 // Serial::Write(40)  // Will block until data is written.
@@ -46,12 +55,6 @@
 // Flushing a buffer:
 // Serial::InputBuffer::Flush()
 //
-// TODO(fritz): Buffered writes not supported for now - I know the ISR to use,
-// but currently the Requested() method isn't getting declared in the built
-// template class.
-//
-// Also, there is the matter of whether or not buffered output is more
-// USEFUL than polled output.
 //
 #ifndef AVRIL_SERIAL_H_
 #define AVRIL_SERIAL_H_
@@ -61,7 +64,6 @@
 #include "../avril.h"
 #include "gpio.h"
 #include "ring_buffer.h"
-#include "serial_config.h"
 
 
 namespace avril {
@@ -280,160 +282,208 @@ struct Serial {
     static inline Value ImmediateRead() { return Impl::IO::ImmediateRead(); }
 };
 
+#if defined( UCSRA )
+namespace Register {
+IORegister8( UBRRH );
+IORegister8( UBRRL );
+IORegister16( UBRR );
+IORegister8( UCSRA );
+IORegister8( UCSRB );
+IORegister8( UCSRC );
+IORegister8( UDR );
+} // namespace Register
 
-#if defined( ATMEGA_USART ) || defined( ATMEGA_USART0 )
-
-IORegister( UBRR0H );
-IORegister( UBRR0L );
+using SerialPort0 = SerialPort<BitInRegister<Register::_UCSRB, TXEN>,  /**/
+                               BitInRegister<Register::_UCSRA, UDRE>,  /**/
+                               BitInRegister<Register::_UCSRB, UDRIE>, /**/
+                               BitInRegister<Register::_UCSRB, RXEN>,  /**/
+                               BitInRegister<Register::_UCSRA, RXC>,   /**/
+                               BitInRegister<Register::_UCSRB, RXCIE>, /**/
+                               BitInRegister<Register::_UCSRA, U2X>,   /**/
+                               Register::_UBRRH,                        /**/
+                               Register::_UBRRL,                        /**/
+                               Register::_UDR,                          /**/
+                               kSerialOutputBufferSize,                  /**/
+                               kSerialInputBufferSize>;                  /**/
+#elif defined( UCSR0A )
+namespace Register {
+IORegister8( UBRR0H );
+IORegister8( UBRR0L );
 IORegister16( UBRR0 );
-IORegister( UCSR0A );
-IORegister( UCSR0B );
-IORegister( UCSR0C );
-IORegister( UDR0 );
-
-typedef SerialPort<
-    BitInRegister<UCSR0BRegister, TXEN0>, BitInRegister<UCSR0ARegister, UDRE0>,
-    BitInRegister<UCSR0BRegister, UDRIE0>, BitInRegister<UCSR0BRegister, RXEN0>,
-    BitInRegister<UCSR0ARegister, RXC0>, BitInRegister<UCSR0BRegister, RXCIE0>,
-    BitInRegister<UCSR0ARegister, U2X0>, UBRR0HRegister, UBRR0LRegister,
-    UDR0Register, kSerialOutputBufferSize, kSerialInputBufferSize>
-    SerialPort0;
-
-#endif  // #ifdef ATMEGA_USART0
+IORegister8( UCSR0A );
+IORegister8( UCSR0B );
+IORegister8( UCSR0C );
+IORegister8( UDR0 );
+} // namespace Register
 
 
-#ifdef ATMEGA_USART1
+using SerialPort0 = SerialPort<BitInRegister<Register::_UCSR0B, TXEN0>,  /**/
+                               BitInRegister<Register::_UCSR0A, UDRE0>,  /**/
+                               BitInRegister<Register::_UCSR0B, UDRIE0>, /**/
+                               BitInRegister<Register::_UCSR0B, RXEN0>,  /**/
+                               BitInRegister<Register::_UCSR0A, RXC0>,   /**/
+                               BitInRegister<Register::_UCSR0B, RXCIE0>, /**/
+                               BitInRegister<Register::_UCSR0A, U2X0>,   /**/
+                               Register::_UBRR0H,                        /**/
+                               Register::_UBRR0L,                        /**/
+                               Register::_UDR0,                          /**/
+                               kSerialOutputBufferSize,                  /**/
+                               kSerialInputBufferSize>;                  /**/
+#else
+#error "target MCU has no USART"
+#endif
 
-IORegister( UBRR1H );
-IORegister( UBRR1L );
+#if defined( UCSR1A )
+namespace Register {
+IORegister8( UBRR0H );
+IORegister8( UBRR1H );
+IORegister8( UBRR1L );
 IORegister16( UBRR1 );
-IORegister( UCSR1A );
-IORegister( UCSR1B );
-IORegister( UCSR1C );
-IORegister( UDR1 );
-
-typedef SerialPort<
-    BitInRegister<UCSR1BRegister, TXEN1>, BitInRegister<UCSR1ARegister, UDRE1>,
-    BitInRegister<UCSR0BRegister, UDRIE1>, BitInRegister<UCSR1BRegister, RXEN1>,
-    BitInRegister<UCSR1ARegister, RXC1>, BitInRegister<UCSR1BRegister, RXCIE1>,
-    BitInRegister<UCSR1ARegister, U2X1>, UBRR1HRegister, UBRR1LRegister,
-    UDR1Register, kSerialOutputBufferSize, kSerialInputBufferSize>
-    SerialPort1;
-
-#endif  // #ifdef ATMEGA_USART1
+IORegister8( UCSR1A );
+IORegister8( UCSR1B );
+IORegister8( UCSR1C );
+IORegister8( UDR1 );
+} // namespace Register
 
 
-#ifdef ATMEGA_USART2
+using SerialPort1 = SerialPort<BitInRegister<Register::_UCSR1B, TXEN1>,  /**/
+                               BitInRegister<Register::_UCSR1A, UDRE1>,  /**/
+                               BitInRegister<Register::_UCSR1B, UDRIE1>, /**/
+                               BitInRegister<Register::_UCSR1B, RXEN1>,  /**/
+                               BitInRegister<Register::_UCSR1A, RXC1>,   /**/
+                               BitInRegister<Register::_UCSR1B, RXCIE1>, /**/
+                               BitInRegister<Register::_UCSR1A, U2X1>,   /**/
+                               Register::_UBRR1H,                        /**/
+                               Register::_UBRR1L,                        /**/
+                               Register::_UDR1,                          /**/
+                               kSerialOutputBufferSize,                  /**/
+                               kSerialInputBufferSize>;                  /**/
+#endif
 
-IORegister( UBRR2H );
-IORegister( UBRR2L );
+#if defined( UCSR2A )
+namespace Register {
+IORegister8( UBRR0H );
+IORegister8( UBRR2H );
+IORegister8( UBRR2L );
 IORegister16( UBRR2 );
-IORegister( UCSR2A );
-IORegister( UCSR2B );
-IORegister( UCSR2C );
-IORegister( UDR2 );
+IORegister8( UCSR2A );
+IORegister8( UCSR2B );
+IORegister8( UCSR2C );
+IORegister8( UDR2 );
+} // namespace Register
 
-typedef SerialPort<
-    BitInRegister<UCSR2BRegister, TXEN2>, BitInRegister<UCSR2ARegister, UDRE2>,
-    BitInRegister<UCSR0BRegister, UDRIE2>, BitInRegister<UCSR2BRegister, RXEN2>,
-    BitInRegister<UCSR2ARegister, RXC2>, BitInRegister<UCSR2BRegister, RXCIE2>,
-    BitInRegister<UCSR2ARegister, U2X2>, UBRR2HRegister, UBRR2LRegister,
-    UDR2Register, kSerialOutputBufferSize, kSerialInputBufferSize>
-    SerialPort2;
 
-#endif  // #ifdef ATMEGA_USART2
+using SerialPort2 = SerialPort<BitInRegister<Register::_UCSR2B, TXEN2>,  /**/
+                               BitInRegister<Register::_UCSR2A, UDRE2>,  /**/
+                               BitInRegister<Register::_UCSR2B, UDRIE2>, /**/
+                               BitInRegister<Register::_UCSR2B, RXEN2>,  /**/
+                               BitInRegister<Register::_UCSR2A, RXC2>,   /**/
+                               BitInRegister<Register::_UCSR2B, RXCIE2>, /**/
+                               BitInRegister<Register::_UCSR2A, U2X2>,   /**/
+                               Register::_UBRR2H,                        /**/
+                               Register::_UBRR2L,                        /**/
+                               Register::_UDR2,                          /**/
+                               kSerialOutputBufferSize,                  /**/
+                               kSerialInputBufferSize>;                  /**/
+#endif
 
-#ifdef ATMEGA_USART3
 
-IORegister( UBRR3H );
-IORegister( UBRR3L );
+#if defined( UCSR3A )
+namespace Register {
+IORegister8( UBRR0H );
+IORegister8( UBRR3H );
+IORegister8( UBRR3L );
 IORegister16( UBRR3 );
-IORegister( UCSR3A );
-IORegister( UCSR3B );
-IORegister( UCSR3C );
-IORegister( UDR3 );
+IORegister8( UCSR3A );
+IORegister8( UCSR3B );
+IORegister8( UCSR3C );
+IORegister8( UDR3 );
+} // namespace Register
 
-typedef SerialPort<
-    BitInRegister<UCSR3BRegister, TXEN3>, BitInRegister<UCSR3ARegister, UDRE3>,
-    BitInRegister<UCSR0BRegister, UDRIE3>, BitInRegister<UCSR3BRegister, RXEN3>,
-    BitInRegister<UCSR3ARegister, RXC3>, BitInRegister<UCSR3BRegister, RXCIE3>,
-    BitInRegister<UCSR3ARegister, U2X3>, UBRR3HRegister, UBRR3LRegister,
-    UDR3Register, kSerialOutputBufferSize, kSerialInputBufferSize>
-    SerialPort3;
 
-#endif  // #ifdef ATMEGA_USART3
+using SerialPort3 = SerialPort<BitInRegister<Register::_UCSR3B, TXEN3>,  /**/
+                               BitInRegister<Register::_UCSR3A, UDRE3>,  /**/
+                               BitInRegister<Register::_UCSR3B, UDRIE3>, /**/
+                               BitInRegister<Register::_UCSR3B, RXEN3>,  /**/
+                               BitInRegister<Register::_UCSR3A, RXC3>,   /**/
+                               BitInRegister<Register::_UCSR3B, RXCIE3>, /**/
+                               BitInRegister<Register::_UCSR3A, U2X3>,   /**/
+                               Register::_UBRR3H,                        /**/
+                               Register::_UBRR3L,                        /**/
+                               Register::_UDR3,                          /**/
+                               kSerialOutputBufferSize,                  /**/
+                               kSerialInputBufferSize>;                  /**/
+#endif
 
 
 // Macros to define or instantiate ISRs
-#ifndef DISABLE_DEFAULT_UART_RX_ISR
 
-#if defined( ATMEGA_USART0 ) || defined( ATMEGA_USART )
+#if defined( USART_RX_vect )
 #define CREATE_USART0_ISRS()                                      \
-    ISR( UART0_RECEIVE_INTERRUPT )                                \
+    ISR( USART_RX_vect )                                \
     {                                                             \
         ::avril::SerialInput<::avril::SerialPort0>::Received();   \
     }                                                             \
-    ISR( UART0_TRANSMIT_INTERRUPT )                               \
+    ISR( USART_UDRE_vect )                               \
     {                                                             \
         ::avril::SerialOutput<::avril::SerialPort0>::Requested(); \
     }
-#endif  // ATMEGA_USART0
+#elif defined( USART0_RX_vect )
+#define CREATE_USART0_ISRS()                                      \
+    ISR( USART0_RX_vect )                                \
+    {                                                             \
+        ::avril::SerialInput<::avril::SerialPort0>::Received();   \
+    }                                                             \
+    ISR( USART0_UDRE_vect )                               \
+    {                                                             \
+        ::avril::SerialOutput<::avril::SerialPort0>::Requested(); \
+    }
+#else
+#define CREATE_USART0_ISRS()
+#endif
 
-#if defined( ATMEGA_USART1 )
+#if defined( USART1_RX_vect )
 #define CREATE_USART1_ISRS()                                      \
-    ISR( UART1_RECEIVE_INTERRUPT )                                \
+    ISR( USART1_RX_vect )                                \
     {                                                             \
         ::avril::SerialInput<::avril::SerialPort1>::Received();   \
     }                                                             \
-    ISR( UART1_TRANSMIT_INTERRUPT )                               \
+    ISR( USART1_UDRE_vect )                               \
     {                                                             \
         ::avril::SerialOutput<::avril::SerialPort1>::Requested(); \
     }
-#endif  // ATMEGA_USART1
+#else
+#define CREATE_USART1_ISRS()
+#endif
 
-#if defined( ATMEGA_USART2 )
+#if defined( USART2_RX_vect )
 #define CREATE_USART2_ISRS()                                      \
-    ISR( UART2_RECEIVE_INTERRUPT )                                \
+    ISR( USART2_RX_vect )                                \
     {                                                             \
         ::avril::SerialInput<::avril::SerialPort2>::Received();   \
     }                                                             \
-    ISR( UART2_TRANSMIT_INTERRUPT )                               \
+    ISR( USART2_UDRE_vect )                               \
     {                                                             \
         ::avril::SerialOutput<::avril::SerialPort2>::Requested(); \
     }
-#endif  // ATMEGA_USART2
+#else
+#define CREATE_USART2_ISRS()
+#endif
 
-#if defined( ATMEGA_USART3 )
+#if defined( USART3_RX_vect )
 #define CREATE_USART3_ISRS()                                      \
-    ISR( UART3_RECEIVE_INTERRUPT )                                \
+    ISR( USART3_RX_vect )                                \
     {                                                             \
         ::avril::SerialInput<::avril::SerialPort3>::Received();   \
     }                                                             \
-    ISR( UART3_TRANSMIT_INTERRUPT )                               \
+    ISR( USART3_UDRE_vect )                               \
     {                                                             \
         ::avril::SerialOutput<::avril::SerialPort3>::Requested(); \
     }
-#endif  // ATMEGA_USART3
-
-#else  // DISABLE_DEFAULT_UART_RX_ISR
-
-#if defined( ATMEGA_USART0 ) || defined( ATMEGA_USART )
-#define CREATE_USART0_ISRS()
-#endif  // ATMEGA_USART0
-
-#if defined( ATMEGA_USART1 )
-#define CREATE_USART1_ISRS()
-#endif  // ATMEGA_USART1
-
-#if defined( ATMEGA_USART2 )
-#define CREATE_USART2_ISRS()
-#endif  // ATMEGA_USART2
-
-#if defined( ATMEGA_USART3 )
+#else
 #define CREATE_USART3_ISRS()
-#endif  // ATMEGA_USART3
+#endif
 
-#endif  // DISABLE_DEFAULT_UART_RX_ISR
 
 
 }  // namespace avril

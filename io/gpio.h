@@ -39,88 +39,150 @@ namespace avril {
 
 enum PinMode { DIGITAL_INPUT = 0, DIGITAL_OUTPUT = 1, PWM_OUTPUT = 2 };
 
-// All the registers used in the following definitions are wrapped here.
-IORegister( DDRB );
-IORegister( DDRC );
-IORegister( DDRD );
-
-IORegister( PORTB );
-IORegister( PORTC );
-IORegister( PORTD );
-
-IORegister( PINB );
-IORegister( PINC );
-IORegister( PIND );
-
 // Represents a i/o port, which has input, output and mode registers.
 template <typename InputRegister, typename OutputRegister,
           typename ModeRegister>
 struct Port {
-    typedef InputRegister Input;
-    typedef OutputRegister Output;
-    typedef ModeRegister Mode;
+    using Input = InputRegister;
+    using Output = OutputRegister;
+    using Mode = ModeRegister;
 };
 
+// All the registers used in the following definitions are wrapped here.
 // Definition of I/O ports.
-typedef Port<PINBRegister, PORTBRegister, DDRBRegister> PortB;
-typedef Port<PINCRegister, PORTCRegister, DDRCRegister> PortC;
-typedef Port<PINDRegister, PORTDRegister, DDRDRegister> PortD;
 
-#if defined( ATMEGA164P ) || defined( ATMEGA324P ) || defined( ATMEGA644P ) || \
-    defined( ATMEGA1284P ) || defined( ATMEGA2560 )
-
-IORegister( DDRA );
-IORegister( PORTA );
-IORegister( PINA );
-typedef Port<PINARegister, PORTARegister, DDRARegister> PortA;
-
+#if defined( PORTA )
+namespace Register {
+IORegister8( PINA );
+IORegister8( PORTA );
+IORegister8( DDRA );
+}  // namespace Register
+using PortA = Port<Register::_PINA, Register::_PORTA, Register::_DDRA>;
+#endif
+#if defined( PORTB )
+namespace Register {
+IORegister8( PINB );
+IORegister8( PORTB );
+IORegister8( DDRB );
+}  // namespace Register
+using PortB = Port<Register::_PINB, Register::_PORTB, Register::_DDRB>;
+#endif
+#if defined( PORTC )
+namespace Register {
+IORegister8( PINC );
+IORegister8( PORTC );
+IORegister8( DDRC );
+}  // namespace Register
+using PortC = Port<Register::_PINC, Register::_PORTC, Register::_DDRC>;
+#endif
+#if defined( PORTD )
+namespace Register {
+IORegister8( PIND );
+IORegister8( PORTD );
+IORegister8( DDRD );
+}  // namespace Register
+using PortD = Port<Register::_PIND, Register::_PORTD, Register::_DDRD>;
+#endif
+#if defined( PORTE )
+namespace Register {
+IORegister8( PINE );
+IORegister8( PORTE );
+IORegister8( DDRE );
+}  // namespace Register
+using PortE = Port<Register::_PINE, Register::_PORTE, Register::_DDRE>;
+#endif
+#if defined( PORTF )
+namespace Register {
+IORegister8( PINF );
+IORegister8( PORTF );
+IORegister8( DDRF );
+}  // namespace Register
+using PortF = Port<Register::_PINF, Register::_PORTF, Register::_DDRF>;
+#endif
+#if defined( PORTG )
+namespace Register {
+IORegister8( PING );
+IORegister8( PORTG );
+IORegister8( DDRG );
+}  // namespace Register
+using PortG = Port<Register::_PING, Register::_PORTG, Register::_DDRG>;
+#endif
+#if defined( PORTH )
+namespace Register {
+IORegister8( PINH );
+IORegister8( PORTH );
+IORegister8( DDRH );
+}  // namespace Register
+using PortH = Port<Register::_PINH, Register::_PORTH, Register::_DDRH>;
+#endif
+#if defined( PORTJ )
+namespace Register {
+IORegister8( PINJ );
+IORegister8( PORTJ );
+IORegister8( DDRJ );
+}  // namespace Register
+using PortJ = Port<Register::_PINJ, Register::_PORTJ, Register::_DDRJ>;
+#endif
+#if defined( PORTK )
+namespace Register {
+IORegister8( PINK );
+IORegister8( PORTK );
+IORegister8( DDRK );
+}  // namespace Register
+using PortK = Port<Register::_PINK, Register::_PORTK, Register::_DDRK>;
+#endif
+#if defined( PORTL )
+namespace Register {
+IORegister8( PINL );
+IORegister8( PORTL );
+IORegister8( DDRL );
+}  // namespace Register
+using PortL = Port<Register::_PINL, Register::_PORTL, Register::_DDRL>;
 #endif
 
-#if defined( ATMEGA640 ) || defined( ATMEGA1280 ) || defined( ATMEGA2560 )
-IORegister( DDRE );
-IORegister( DDRF );
-IORegister( DDRG );
-IORegister( DDRH );
-IORegister( DDRJ );
-IORegister( DDRK );
-IORegister( DDRL );
-
-IORegister( PORTE );
-IORegister( PORTF );
-IORegister( PORTG );
-IORegister( PORTH );
-IORegister( PORTJ );
-IORegister( PORTK );
-IORegister( PORTL );
-
-IORegister( PINE );
-IORegister( PINF );
-IORegister( PING );
-IORegister( PINH );
-IORegister( PINJ );
-IORegister( PINK );
-IORegister( PINL );
-
-typedef Port<PINERegister, PORTERegister, DDRERegister> PortE;
-typedef Port<PINFRegister, PORTFRegister, DDRFRegister> PortF;
-typedef Port<PINGRegister, PORTGRegister, DDRGRegister> PortG;
-typedef Port<PINHRegister, PORTHRegister, DDRHRegister> PortH;
-typedef Port<PINJRegister, PORTJRegister, DDRJRegister> PortJ;
-typedef Port<PINKRegister, PORTKRegister, DDRKRegister> PortK;
-typedef Port<PINLRegister, PORTLRegister, DDRLRegister> PortL;
-
+#if defined( PORTA )
+using PortA = Port<Register::_PINA, Register::_PORTA, Register::_DDRA>;
 #endif
-
+#if defined( PORTB )
+using PortB = Port<Register::_PINB, Register::_PORTB, Register::_DDRB>;
+#endif
+#if defined( PORTC )
+using PortC = Port<Register::_PINC, Register::_PORTC, Register::_DDRC>;
+#endif
+#if defined( PORTD )
+using PortD = Port<Register::_PIND, Register::_PORTD, Register::_DDRD>;
+#endif
+#if defined( PORTE )
+using PortE = Port<Register::_PINE, Register::_PORTE, Register::_DDRE>;
+#endif
+#if defined( PORTF )
+using PortF = Port<Register::_PINF, Register::_PORTF, Register::_DDRF>;
+#endif
+#if defined( PORTG )
+using PortG = Port<Register::_PING, Register::_PORTG, Register::_DDRG>;
+#endif
+#if defined( PORTH )
+using PortH = Port<Register::_PINH, Register::_PORTH, Register::_DDRH>;
+#endif
+#if defined( PORTJ )
+using PortJ = Port<Register::_PINJ, Register::_PORTJ, Register::_DDRJ>;
+#endif
+#if defined( PORTK )
+using PortK = Port<Register::_PINK, Register::_PORTK, Register::_DDRK>;
+#endif
+#if defined( PORTL )
+using PortL = Port<Register::_PINL, Register::_PORTL, Register::_DDRL>;
+#endif
 
 // The actual implementation of a pin, not very convenient to use because it
 // requires the actual parameters of the pin to be passed as template
 // arguments.
 template <typename Port, typename PwmChannel, uint8_t bit>
 struct GpioImpl {
-    typedef BitInRegister<typename Port::Mode, bit> ModeBit;
-    typedef BitInRegister<typename Port::Output, bit> OutputBit;
-    typedef BitInRegister<typename Port::Input, bit> InputBit;
-    typedef PwmChannel Pwm;
+    using ModeBit = BitInRegister<typename Port::Mode, bit>;
+    using OutputBit = BitInRegister<typename Port::Output, bit>;
+    using InputBit = BitInRegister<typename Port::Input, bit>;
+    using Pwm = PwmChannel;
 
     static inline void SetMode( uint8_t mode )
     {
@@ -138,10 +200,24 @@ struct GpioImpl {
         }
     }
 
-    static inline void High() { OutputBit::Set(); }
-    static inline void Low() { OutputBit::Clear(); }
-    static inline void Toggle() { OutputBit::Toggle(); }
+    static inline void High() __attribute__( ( always_inline ) )
+    {
+        OutputBit::Set();
+    }
+    static inline void Low() __attribute__( ( always_inline ) )
+    {
+        OutputBit::Clear();
+    }
+    static inline void Toggle() __attribute__( ( always_inline ) )
+    {
+        OutputBit::Toggle();
+    }
+    static inline void FastToggle() __attribute__( ( always_inline ) )
+    {
+        InputBit::Set();
+    }
     static inline void SetValue( uint8_t value )
+        __attribute__( ( always_inline ) )
     {
         if ( value == 0 ) {
             Low();
@@ -161,50 +237,86 @@ struct GpioImpl {
         }
     }
 
-    static inline uint8_t Value() { return InputBit::Value(); }
-    static inline uint8_t IsHigh() { return InputBit::Value(); }
-    static inline uint8_t IsLow() { return InputBit::Value() == 0; }
+    static inline uint8_t Value() __attribute__( ( always_inline ) )
+    {
+        return InputBit::Value();
+    }
+    static inline uint8_t IsHigh() __attribute__( ( always_inline ) )
+    {
+        return InputBit::Value();
+    }
+    static inline uint8_t IsLow() __attribute__( ( always_inline ) )
+    {
+        return InputBit::Value() == 0;
+    }
 };
 
 
 template <typename port, uint8_t bit>
 struct Gpio {
-    typedef GpioImpl<port, NoPwmChannel, bit> Impl;
-    static void High() { Impl::High(); }
-    static void Low() { Impl::Low(); }
-    static void Toggle() { Impl::Toggle(); }
-    static void SetMode( uint8_t mode ) { Impl::SetMode( mode ); }
-    static void SetValue( uint8_t value ) { Impl::SetValue( value ); }
-    static void SetPwmValue( uint8_t value ) { Impl::SetPwmValue( value ); }
-    static uint8_t Value() { return Impl::Value(); }
-    static uint8_t IsLow() { return Impl::IsLow(); }
-    static uint8_t IsHigh() { return Impl::IsHigh(); }
+    using Impl = GpioImpl<port, NoPwmChannel, bit>;
+    static inline void High() __attribute__( ( always_inline ) )
+    {
+        Impl::High();
+    }
+    static inline void Low() __attribute__( ( always_inline ) ) { Impl::Low(); }
+    static inline void Toggle() __attribute__( ( always_inline ) )
+    {
+        Impl::Toggle();
+    }
+    static inline void FastToggle() __attribute__( ( always_inline ) )
+    {
+        Impl::FastToggle();
+    }
+    static inline void SetMode( uint8_t mode ) { Impl::SetMode( mode ); }
+    static inline void SetValue( uint8_t value )
+        __attribute__( ( always_inline ) )
+    {
+        Impl::SetValue( value );
+    }
+    static inline void SetPwmValue( uint8_t value )
+    {
+        Impl::SetPwmValue( value );
+    }
+    static inline uint8_t Value() __attribute__( ( always_inline ) )
+    {
+        return Impl::Value();
+    }
+    static inline uint8_t IsLow() __attribute__( ( always_inline ) )
+    {
+        return Impl::IsLow();
+    }
+    static inline uint8_t IsHigh() __attribute__( ( always_inline ) )
+    {
+        return Impl::IsHigh();
+    }
 };
 
 struct DummyGpio {
-    static void High() {}
-    static void Low() {}
-    static void SetMode( uint8_t mode ) {}
-    static void SetValue( uint8_t value ) {}
-    static void SetPwmValue( uint8_t value ) {}
-    static uint8_t Value() { return 0; }
-    static uint8_t IsLow() { return 0; }
-    static uint8_t IsHigh() { return 0; }
+    static inline void High() {}
+    static inline void Low() {}
+    static inline void Toggle() {}
+    static inline void FastToggle() {}
+    static inline void SetMode( uint8_t ) {}
+    static inline void SetValue( uint8_t ) {}
+    static inline void SetPwmValue( uint8_t ) {}
+    static inline uint8_t Value() { return 0; }
+    static inline uint8_t IsLow() { return 0; }
+    static inline uint8_t IsHigh() { return 0; }
 };
 
 template <typename Gpio>
 struct Inverter {
-    static void High() { Gpio::Low(); }
-    static void Low() { Gpio::High(); }
-    static void SetMode( uint8_t mode ) { Gpio::SetMode( mode ); }
-    static void SetValue( uint8_t value ) { Gpio::SetValue( !value ); }
-    static void SetPwmValue( uint8_t value )
-    {
-        Gpio::SetPwmValue( ~value );
-    }
-    static uint8_t Value() { return !Gpio::Value(); }
-    static uint8_t IsLow() { return !Gpio::IsLow(); }
-    static uint8_t IsHigh() { return !Gpio::IsHigh(); }
+    static inline void High() { Gpio::Low(); }
+    static inline void Low() { Gpio::High(); }
+    static inline void Toggle() { Gpio::Toggle(); }
+    static inline void FastToggle() { Gpio::FastToggle(); }
+    static inline void SetMode( uint8_t mode ) { Gpio::SetMode( mode ); }
+    static inline void SetValue( uint8_t value ) { Gpio::SetValue( !value ); }
+    static inline void SetPwmValue( uint8_t value ) { Gpio::SetPwmValue( ~value ); }
+    static inline uint8_t Value() { return !Gpio::Value(); }
+    static inline uint8_t IsLow() { return !Gpio::IsLow(); }
+    static inline uint8_t IsHigh() { return !Gpio::IsHigh(); }
 };
 
 template <typename gpio>
@@ -221,6 +333,13 @@ struct DigitalInput {
 
 // A template that will be specialized for each pin, allowing the pin number to
 // be specified as a template parameter.
+// XXX Fritz - how useful is this in practice?  The numbering is arbitrary,
+// and what we do here doesn't match Arduino numbering, and non-Arduino
+// MCUs there is no 'official' guide to follow.
+// Physical layout between packages is also a problem.
+// XXX Fritz - to reiterate:  How does numbering the GPIO help us?
+// If I go by datasheets, where PORTA is at 0x20, and things number upwards
+// following ABCD...
 template <int n>
 struct NumberedGpioInternal {
 };
@@ -229,73 +348,51 @@ struct NumberedGpioInternal {
 #define SetupGpio( n, port, timer, bit )         \
     template <>                                  \
     struct NumberedGpioInternal<n> {             \
-        typedef GpioImpl<port, timer, bit> Impl; \
-    };
+        using Impl = GpioImpl<port, timer, bit>; \
+    }
 
 // Pin definitions for ATmega lineup
 
-#if defined( ATMEGA48P ) || defined( ATMEGA88P ) || defined( ATMEGA168P ) || \
-    defined( ATMEGA328P )
+#if defined( __AVR_ATmega48P__ ) || defined( __AVR_ATmega88P__ ) || \
+    defined( __AVR_ATmega168P__ ) || defined( __AVR_ATmega328P__ )
+
+SetupGpio( 0, PortD, NoPwmChannel, 0 );
+SetupGpio( 1, PortD, NoPwmChannel, 1 );
+SetupGpio( 2, PortD, NoPwmChannel, 2 );
+SetupGpio( 3, PortD, PwmChannel2B, 3 );
+SetupGpio( 4, PortD, NoPwmChannel, 4 );
+SetupGpio( 5, PortD, PwmChannel0B, 5 );
+SetupGpio( 6, PortD, PwmChannel0A, 6 );
+SetupGpio( 7, PortD, NoPwmChannel, 7 );
+//
+SetupGpio( 8, PortB, NoPwmChannel, 0 );
+SetupGpio( 9, PortB, PwmChannel1A, 1 );
+SetupGpio( 10, PortB, PwmChannel1B, 2 );
+SetupGpio( 11, PortB, PwmChannel2A, 3 );
+SetupGpio( 12, PortB, NoPwmChannel, 4 );
+SetupGpio( 13, PortB, NoPwmChannel, 5 );
+//
+SetupGpio( 14, PortC, NoPwmChannel, 0 );
+SetupGpio( 15, PortC, NoPwmChannel, 1 );
+SetupGpio( 16, PortC, NoPwmChannel, 2 );
+SetupGpio( 17, PortC, NoPwmChannel, 3 );
+SetupGpio( 18, PortC, NoPwmChannel, 4 );
+SetupGpio( 19, PortC, NoPwmChannel, 5 );
+//
+SetupGpio( 255, PortB, NoPwmChannel, 0 );
 
 //
-SetupGpio( 0, PortD, NoPwmChannel, 0 )
-    //
-    SetupGpio( 1, PortD, NoPwmChannel, 1 )
-    //
-    SetupGpio( 2, PortD, NoPwmChannel, 2 )
-    //
-    SetupGpio( 3, PortD, PwmChannel2B, 3 )
-    //
-    SetupGpio( 4, PortD, NoPwmChannel, 4 )
-    //
-    SetupGpio( 5, PortD, PwmChannel0B, 5 )
-    //
-    SetupGpio( 6, PortD, PwmChannel0A, 6 )
-    //
-    SetupGpio( 7, PortD, NoPwmChannel, 7 )
-    //
-    SetupGpio( 8, PortB, NoPwmChannel, 0 )
-    //
-    SetupGpio( 9, PortB, PwmChannel1A, 1 )
-    //
-    SetupGpio( 10, PortB, PwmChannel1B, 2 )
-    //
-    SetupGpio( 11, PortB, PwmChannel2A, 3 )
-    //
-    SetupGpio( 12, PortB, NoPwmChannel, 4 )
-    //
-    SetupGpio( 13, PortB, NoPwmChannel, 5 )
-    //
-    SetupGpio( 14, PortC, NoPwmChannel, 0 )
-    //
-    SetupGpio( 15, PortC, NoPwmChannel, 1 )
-    //
-    SetupGpio( 16, PortC, NoPwmChannel, 2 )
-    //
-    SetupGpio( 17, PortC, NoPwmChannel, 3 )
-    //
-    SetupGpio( 18, PortC, NoPwmChannel, 4 )
-    //
-    SetupGpio( 19, PortC, NoPwmChannel, 5 )
-    //
-    SetupGpio( 255, PortB, NoPwmChannel, 0 )
-    //
+using SpiSCK = Gpio<PortB, 5>;
+using SpiMISO = Gpio<PortB, 4>;
+using SpiMOSI = Gpio<PortB, 3>;
+using SpiSS = Gpio<PortB, 2>;
 
+using UartSpi0XCK = Gpio<PortD, 4>;
+using UartSpi0TX = Gpio<PortD, 1>;
+using UartSpi0RX = Gpio<PortD, 0>;
 
-    //
-typedef Gpio<PortB, 5> SpiSCK;
-typedef Gpio<PortB, 4> SpiMISO;
-typedef Gpio<PortB, 3> SpiMOSI;
-typedef Gpio<PortB, 2> SpiSS;
-
-typedef Gpio<PortD, 4> UartSpi0XCK;
-typedef Gpio<PortD, 1> UartSpi0TX;
-typedef Gpio<PortD, 0> UartSpi0RX;
-
-#define HAS_USART0
-
-#elif defined( ATMEGA164P ) || defined( ATMEGA324P ) || \
-    defined( ATMEGA644P ) || defined( ATMEGA1284P )
+#elif defined( __AVR_ATmega164P__ ) || defined( __AVR_ATmega324P__ ) || \
+    defined( __AVR_ATmega644P__ ) || defined( __AVR_ATmega1284P__ )
 
 SetupGpio( 0, PortB, NoPwmChannel, 0 );
 SetupGpio( 1, PortB, NoPwmChannel, 1 );
@@ -324,30 +421,33 @@ SetupGpio( 21, PortC, NoPwmChannel, 5 );
 SetupGpio( 22, PortC, NoPwmChannel, 6 );
 SetupGpio( 23, PortC, NoPwmChannel, 7 );
 
+SetupGpio( 24, PortA, NoPwmChannel, 0 );
+SetupGpio( 25, PortA, NoPwmChannel, 1 );
+SetupGpio( 26, PortA, NoPwmChannel, 2 );
+SetupGpio( 27, PortA, NoPwmChannel, 3 );
+SetupGpio( 28, PortA, NoPwmChannel, 4 );
+SetupGpio( 29, PortA, NoPwmChannel, 5 );
+SetupGpio( 30, PortA, NoPwmChannel, 6 );
+SetupGpio( 31, PortA, NoPwmChannel, 7 );
+
+
 SetupGpio( 255, PortB, NoPwmChannel, 0 );
 
-typedef Gpio<PortB, 7> SpiSCK;
-typedef Gpio<PortB, 6> SpiMISO;
-typedef Gpio<PortB, 5> SpiMOSI;
-typedef Gpio<PortB, 4> SpiSS;
+using SpiSCK = Gpio<PortB, 7>;
+using SpiMISO = Gpio<PortB, 6>;
+using SpiMOSI = Gpio<PortB, 5>;
+using SpiSS = Gpio<PortB, 4>;
 
-typedef Gpio<PortB, 0> UartSpi0XCK;
-typedef Gpio<PortD, 1> UartSpi0TX;
-typedef Gpio<PortD, 0> UartSpi0RX;
+using UartSpi0XCK = Gpio<PortB, 0>;
+using UartSpi0TX = Gpio<PortD, 1>;
+using UartSpi0RX = Gpio<PortD, 0>;
 
-typedef Gpio<PortD, 4> UartSpi1XCK;
-typedef Gpio<PortD, 3> UartSpi1TX;
-typedef Gpio<PortD, 2> UartSpi1RX;
+using UartSpi1XCK = Gpio<PortD, 4>;
+using UartSpi1TX = Gpio<PortD, 3>;
+using UartSpi1RX = Gpio<PortD, 2>;
 
-#define HAS_USART0
-#define HAS_USART1
-
-#if defined( ATMEGA1284P ) || defined( ATMEGA640 ) || defined( ATMEGA1280 ) || \
-    defined( ATMEGA2560 )
-#define HAS_TIMER3
-#endif
-
-#elif defined( ATMEGA640 ) || defined( ATMEGA1280 ) || defined( ATMEGA2560 )
+#elif defined( __AVR_ATmega640__ ) || defined( __AVR_ATmega1280__ ) || \
+    defined( __AVR_ATmega2560__ )
 
 SetupGpio( 0, PortB, NoPwmChannel, 0 );
 SetupGpio( 1, PortB, NoPwmChannel, 1 );
@@ -439,31 +539,113 @@ SetupGpio( 77, PortL, NoPwmChannel, 5 );
 SetupGpio( 78, PortL, NoPwmChannel, 6 );
 SetupGpio( 79, PortL, NoPwmChannel, 7 );
 
-typedef Gpio<PortB, 0> SpiSS;
-typedef Gpio<PortB, 1> SpiSCK;
-typedef Gpio<PortB, 2> SpiMOSI;
-typedef Gpio<PortB, 3> SpiMISO;
+SetupGpio( 80, PortA, NoPwmChannel, 0 );
+SetupGpio( 81, PortA, NoPwmChannel, 1 );
+SetupGpio( 82, PortA, NoPwmChannel, 2 );
+SetupGpio( 83, PortA, NoPwmChannel, 3 );
+SetupGpio( 84, PortA, NoPwmChannel, 4 );
+SetupGpio( 85, PortA, NoPwmChannel, 5 );
+SetupGpio( 86, PortA, NoPwmChannel, 6 );
+SetupGpio( 87, PortA, NoPwmChannel, 7 );
 
-typedef Gpio<PortE, 2> UartSpi0XCK;
-typedef Gpio<PortE, 1> UartSpi0TX;
-typedef Gpio<PortE, 0> UartSpi0RX;
+using SpiSS = Gpio<PortB, 0>;
+using SpiSCK = Gpio<PortB, 1>;
+using SpiMOSI = Gpio<PortB, 2>;
+using SpiMISO = Gpio<PortB, 3>;
 
-typedef Gpio<PortD, 5> UartSpi1XCK;
-typedef Gpio<PortD, 3> UartSpi1TX;
-typedef Gpio<PortD, 2> UartSpi1RX;
+using UartSpi0XCK = Gpio<PortE, 2>;
+using UartSpi0TX = Gpio<PortE, 1>;
+using UartSpi0RX = Gpio<PortE, 0>;
 
-typedef Gpio<PortH, 2> UartSpi2XCK;
-typedef Gpio<PortH, 1> UartSpi2TX;
-typedef Gpio<PortH, 0> UartSpi2RX;
+using UartSpi1XCK = Gpio<PortD, 5>;
+using UartSpi1TX = Gpio<PortD, 3>;
+using UartSpi1RX = Gpio<PortD, 2>;
 
-typedef Gpio<PortJ, 2> UartSpi3XCK;
-typedef Gpio<PortJ, 1> UartSpi3TX;
-typedef Gpio<PortJ, 0> UartSpi3RX;
+using UartSpi2XCK = Gpio<PortH, 2>;
+using UartSpi2TX = Gpio<PortH, 1>;
+using UartSpi2RX = Gpio<PortH, 0>;
 
-#define HAS_USART0
-#define HAS_USART1
-#define HAS_USART2
-#define HAS_USART3
+using UartSpi3XCK = Gpio<PortJ, 2>;
+using UartSpi3TX = Gpio<PortJ, 1>;
+using UartSpi3RX = Gpio<PortJ, 0>;
+
+#elif defined( __AVR_ATmega1281__ ) || defined( __AVR_ATmega2561__ )
+
+SetupGpio( 0, PortB, NoPwmChannel, 0 );
+SetupGpio( 1, PortB, NoPwmChannel, 1 );
+SetupGpio( 2, PortB, NoPwmChannel, 2 );
+SetupGpio( 3, PortB, NoPwmChannel, 3 );
+SetupGpio( 4, PortB, PwmChannel2A, 4 );
+SetupGpio( 5, PortB, PwmChannel1A, 5 );
+SetupGpio( 6, PortB, PwmChannel1B, 6 );
+SetupGpio( 7, PortB, PwmChannel0A, 7 );
+
+SetupGpio( 8, PortD, NoPwmChannel, 0 );
+SetupGpio( 9, PortD, NoPwmChannel, 1 );
+SetupGpio( 10, PortD, NoPwmChannel, 2 );
+SetupGpio( 11, PortD, NoPwmChannel, 3 );
+SetupGpio( 12, PortD, NoPwmChannel, 4 );
+SetupGpio( 13, PortD, NoPwmChannel, 5 );
+SetupGpio( 14, PortD, NoPwmChannel, 6 );
+SetupGpio( 15, PortD, NoPwmChannel, 7 );
+
+SetupGpio( 16, PortC, NoPwmChannel, 0 );
+SetupGpio( 17, PortC, NoPwmChannel, 1 );
+SetupGpio( 18, PortC, NoPwmChannel, 2 );
+SetupGpio( 19, PortC, NoPwmChannel, 3 );
+SetupGpio( 20, PortC, NoPwmChannel, 4 );
+SetupGpio( 21, PortC, NoPwmChannel, 5 );
+SetupGpio( 22, PortC, NoPwmChannel, 6 );
+SetupGpio( 23, PortC, NoPwmChannel, 7 );
+
+SetupGpio( 24, PortE, NoPwmChannel, 0 );
+SetupGpio( 25, PortE, NoPwmChannel, 1 );
+SetupGpio( 26, PortE, NoPwmChannel, 2 );
+SetupGpio( 27, PortE, NoPwmChannel, 3 );
+SetupGpio( 28, PortE, NoPwmChannel, 4 );
+SetupGpio( 29, PortE, NoPwmChannel, 5 );
+SetupGpio( 30, PortE, NoPwmChannel, 6 );
+SetupGpio( 31, PortE, NoPwmChannel, 7 );
+
+SetupGpio( 32, PortF, NoPwmChannel, 0 );
+SetupGpio( 33, PortF, NoPwmChannel, 1 );
+SetupGpio( 34, PortF, NoPwmChannel, 2 );
+SetupGpio( 35, PortF, NoPwmChannel, 3 );
+SetupGpio( 36, PortF, NoPwmChannel, 4 );
+SetupGpio( 37, PortF, NoPwmChannel, 5 );
+SetupGpio( 38, PortF, NoPwmChannel, 6 );
+SetupGpio( 39, PortF, NoPwmChannel, 7 );
+
+SetupGpio( 40, PortG, NoPwmChannel, 0 );
+SetupGpio( 41, PortG, NoPwmChannel, 1 );
+SetupGpio( 42, PortG, NoPwmChannel, 2 );
+SetupGpio( 43, PortG, NoPwmChannel, 3 );
+SetupGpio( 44, PortG, NoPwmChannel, 4 );
+SetupGpio( 45, PortG, NoPwmChannel, 5 );
+SetupGpio( 46, PortG, NoPwmChannel, 6 );
+SetupGpio( 47, PortG, NoPwmChannel, 7 );
+
+SetupGpio( 48, PortA, NoPwmChannel, 0 );
+SetupGpio( 49, PortA, NoPwmChannel, 1 );
+SetupGpio( 50, PortA, NoPwmChannel, 2 );
+SetupGpio( 51, PortA, NoPwmChannel, 3 );
+SetupGpio( 52, PortA, NoPwmChannel, 4 );
+SetupGpio( 53, PortA, NoPwmChannel, 5 );
+SetupGpio( 54, PortA, NoPwmChannel, 6 );
+SetupGpio( 55, PortA, NoPwmChannel, 7 );
+
+using SpiSS = Gpio<PortB, 0>;
+using SpiSCK = Gpio<PortB, 1>;
+using SpiMOSI = Gpio<PortB, 2>;
+using SpiMISO = Gpio<PortB, 3>;
+
+using UartSpi0XCK = Gpio<PortE, 2>;
+using UartSpi0TX = Gpio<PortE, 1>;
+using UartSpi0RX = Gpio<PortE, 0>;
+
+using UartSpi1XCK = Gpio<PortD, 5>;
+using UartSpi1TX = Gpio<PortD, 3>;
+using UartSpi1RX = Gpio<PortD, 2>;
 
 #else
 
@@ -476,14 +658,35 @@ typedef Gpio<PortJ, 0> UartSpi3RX;
 // the other that does not (use with care!).
 template <int n>
 struct NumberedGpio {
-    typedef typename NumberedGpioInternal<n>::Impl Impl;
-    static void High() { Impl::High(); }
-    static void Low() { Impl::Low(); }
-    static void Toggle() { Impl::Toggle(); }
-    static void SetMode( uint8_t mode ) { Impl::SetMode( mode ); }
-    static void SetValue( uint8_t value ) { Impl::SetValue( value ); }
-    static void SetPwmValue( uint8_t value ) { Impl::SetPwmValue( value ); }
-    static uint8_t Value() { return Impl::Value(); }
+    using Impl = typename NumberedGpioInternal<n>::Impl;
+    static inline void High() __attribute__( ( always_inline ) )
+    {
+        Impl::High();
+    }
+    static inline void Low() __attribute__( ( always_inline ) ) { Impl::Low(); }
+    static inline void Toggle() __attribute__( ( always_inline ) )
+    {
+        Impl::Toggle();
+    }
+    static inline void SetMode( uint8_t mode )
+        __attribute__( ( always_inline ) )
+    {
+        Impl::SetMode( mode );
+    }
+    static inline void SetValue( uint8_t value )
+        __attribute__( ( always_inline ) )
+    {
+        Impl::SetValue( value );
+    }
+    static inline void SetPwmValue( uint8_t value )
+        __attribute__( ( always_inline ) )
+    {
+        Impl::SetPwmValue( value );
+    }
+    static inline uint8_t Value() __attribute__( ( always_inline ) )
+    {
+        return Impl::Value();
+    }
 };
 
 template <int n>

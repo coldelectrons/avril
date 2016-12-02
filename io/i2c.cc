@@ -24,10 +24,11 @@
 using namespace avril;
 
 /* static, extern */
-void (*avril::i2c_handler_)() = 0;
+void ( *avril::i2c_handler_ )() = 0;
 
-ISR(TWI_vect) {
-  if (i2c_handler_) {
-    (*i2c_handler_)();
-  }
+ISR( TWI_vect )
+{
+    if ( i2c_handler_ ) {
+        ( *i2c_handler_ )();
+    }
 }

@@ -29,9 +29,17 @@
 
 namespace avril {
 
+#if defined( SPSR )
 IORegister( SPSR );
-using DoubleSpeed = BitInRegister<SPSRRegister, SPI2X>;
-using TransferComplete = BitInRegister<SPSRRegister, SPIF>;
+using DoubleSpeed = BitInRegister<Register::_SPSR, SPI2X>;
+using TransferComplete = BitInRegister<Register::_SPSR, SPIF>;
+#else
+#error "target MCU has no hardware SPI"
+#endif
+
+#if defined(SPCR)
+IORegister( SPCR );
+#endif
 
 template <typename SlaveSelect, DataOrder order = MSB_FIRST, uint8_t speed = 4>
 class SpiMaster {
@@ -74,7 +82,7 @@ class SpiMaster {
                 configuration |= _BV( SPR1 );
                 break;
         }
-        SPCR = configuration;
+        Register::_SPCR = configuration;
     }
 
     static inline void PullUpMISO() { SpiMISO::High(); }
@@ -188,25 +196,47 @@ struct UartSpiPort {
     }
 };
 
-#ifdef HAS_USART0
+#if defined( UBRR0 )
+using UartSpiPort0 = UartSpiPort<UartSpi0XCK,                             /**/
+                                 UartSpi0TX,                              /**/
+                                 UartSpi0RX,                              /**/
+                                 Register::_UBRR0,                        /**/
+                                 Register::_UCSR0B,                       /**/
+                                 _BV( RXEN0 ) | _BV( TXEN0 ),             /**/
+                                 Register::_UCSR0C,                       /**/
+                                 _BV( UMSEL01 ) | _BV( UMSEL00 ),         /**/
+                                 BitInRegister<Register::_UCSR0A, UDRE0>, /**/
+                                 Register::_UDR0>;
+#else
+#error "target MCU has no SPI"
+#endif
 
-typedef UartSpiPort<UartSpi0XCK, UartSpi0TX, UartSpi0RX, UBRR0Register,
-                    UCSR0BRegister, _BV( RXEN0 ) | _BV( TXEN0 ), UCSR0CRegister,
-                    _BV( UMSEL01 ) | _BV( UMSEL00 ),
-                    BitInRegister<UCSR0ARegister, UDRE0>, UDR0Register>
-    UartSpiPort0;
+#if defined( UBRR1 )
+using UartSpiPort1 = UartSpiPort<UartSpi1XCK,                             /**/
+                                 UartSpi1TX,                              /**/
+                                 UartSpi1RX,                              /**/
+                                 Register::_UBRR1,                        /**/
+                                 Register::_UCSR1B,                       /**/
+                                 _BV( RXEN1 ) | _BV( TXEN1 ),             /**/
+                                 Register::_UCSR1C,                       /**/
+                                 _BV( UMSEL11 ) | _BV( UMSEL10 ),         /**/
+                                 BitInRegister<Register::_UCSR1A, UDRE1>, /**/
+                                 Register::_UDR1>;
+#endif
 
-#endif  // HAS_USART0
+#if defined( UBRR1 )
+using UartSpiPort1 = UartSpiPort<UartSpi1XCK,                             /**/
+                                 UartSpi1TX,                              /**/
+                                 UartSpi1RX,                              /**/
+                                 Register::_UBRR1,                        /**/
+                                 Register::_UCSR1B,                       /**/
+                                 _BV( RXEN1 ) | _BV( TXEN1 ),             /**/
+                                 Register::_UCSR1C,                       /**/
+                                 _BV( UMSEL11 ) | _BV( UMSEL10 ),         /**/
+                                 BitInRegister<Register::_UCSR1A, UDRE1>, /**/
+                                 Register::_UDR1>;
+#endif
 
-#ifdef HAS_USART1
-
-typedef UartSpiPort<UartSpi1XCK, UartSpi1TX, UartSpi1RX, UBRR1Register,
-                    UCSR1BRegister, _BV( RXEN1 ) | _BV( TXEN1 ), UCSR1CRegister,
-                    _BV( UMSEL11 ) | _BV( UMSEL10 ),
-                    BitInRegister<UCSR1ARegister, UDRE1>, UDR1Register>
-    UartSpiPort1;
-
-#endif  // HAS_USART1
 
 template <typename Port, typename SlaveSelect, uint8_t speed = 2>
 class UartSpiMaster {
@@ -262,4 +292,4 @@ class UartSpiMaster {
 
 }  // namespace avril
 
-#endif //AVRIL_SPI_H_
+#endif  // AVRIL_SPI_H_

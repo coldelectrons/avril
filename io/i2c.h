@@ -31,15 +31,18 @@
 
 namespace avril {
 
+namespace Register {
 IORegister( TWCR );
 IORegister( TWSR );
-typedef BitInRegister<TWSRRegister, TWPS0> Prescaler0;
-typedef BitInRegister<TWSRRegister, TWPS1> Prescaler1;
-typedef BitInRegister<TWCRRegister, TWEN> I2cEnable;
-typedef BitInRegister<TWCRRegister, TWIE> I2cInterrupt;
-typedef BitInRegister<TWCRRegister, TWEA> I2cAck;
-typedef BitInRegister<TWCRRegister, TWSTA> I2cStart;
-typedef BitInRegister<TWCRRegister, TWSTO> I2cStop;
+} // Register
+
+//using Prescaler0 = BitInRegister<Register::_TWSR, TWPS0>;
+//using Prescaler1 = BitInRegister<Register::_TWSR, TWPS1>;
+//using I2cEnable = BitInRegister<Register::_TWCR, TWEN>;
+//using I2cInterrupt = BitInRegister<Register::_TWCR, TWIE>;
+//using I2cAck = BitInRegister<Register::_TWCR, TWEA>;
+//using I2cStart = BitInRegister<Register::_TWCR, TWSTA>;
+//using I2cStop = BitInRegister<Register::_TWCR, TWSTO>;
 
 enum I2cState {
     I2C_STATE_READY,
@@ -61,7 +64,7 @@ class I2cOutput {
    public:
     I2cOutput() {}
     enum { buffer_size = output_buffer_size, data_size = 8 };
-    typedef typename DataTypeForSize<data_size>::Type Value;
+    using Value = typename DataTypeForSize<data_size>::Type;
 };
 
 template <uint8_t input_buffer_size = 4>
@@ -69,7 +72,7 @@ class I2cInput {
    public:
     I2cInput() {}
     enum { buffer_size = input_buffer_size, data_size = 8 };
-    typedef typename DataTypeForSize<data_size>::Type Value;
+    using Value = typename DataTypeForSize<data_size>::Type;
 };
 
 // I2C Handler.
@@ -80,7 +83,14 @@ template <uint8_t input_buffer_size = 16, uint8_t output_buffer_size = 16,
 class I2cMaster {
    public:
     I2cMaster() {}
-    typedef typename DataTypeForSize<I2cInput<0>::data_size>::Type Value;
+    using Prescaler0 = BitInRegister<avril::Register::_TWSR, TWPS0>;
+    using Prescaler1 = BitInRegister<avril::Register::_TWSR, TWPS1>;
+    using I2cEnable = BitInRegister<avril::Register::_TWCR, TWEN>;
+    using I2cInterrupt = BitInRegister<avril::Register::_TWCR, TWIE>;
+    using I2cAck = BitInRegister<avril::Register::_TWCR, TWEA>;
+    using I2cStart = BitInRegister<avril::Register::_TWCR, TWSTA>;
+    using I2cStop = BitInRegister<avril::Register::_TWCR, TWSTO>;
+    using Value = typename DataTypeForSize<I2cInput<0>::data_size>::Type;
 
     static void Init()
     {
@@ -195,7 +205,7 @@ class I2cMaster {
     static inline void Stop()
     {
         I2cStop::Set();
-        while ( I2cStop::Value() ) {
+        while (I2cStop::Value() ) {
         }
         state_ = I2C_STATE_READY;
     }
@@ -267,8 +277,8 @@ class I2cMaster {
     }
 
    public:
-    typedef RingBuffer<I2cInput<input_buffer_size>> Input;
-    typedef RingBuffer<I2cOutput<output_buffer_size>> Output;
+    using Input = RingBuffer<I2cInput<input_buffer_size>>;
+    using Output = RingBuffer<I2cOutput<output_buffer_size>>;
 
    private:
     static volatile uint8_t state_;
